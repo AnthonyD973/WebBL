@@ -24,15 +24,15 @@ describe(WglShaderGlobalScope.name, () => {
         expect(scope.outputs).toBeTruthy();
     });
 
-    it('should be able to create functions', () => {
+    xit('should be able to create functions', () => {
         // TODO
     });
 
-    it('should be able to create inputs', () => {
+    xit('should be able to create inputs', () => {
         // TODO
     });
 
-    it('should be able to create outputs', () => {
+    xit('should be able to create outputs', () => {
         // TODO
     });
 

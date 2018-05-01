@@ -26,7 +26,7 @@ describe(WglShaderLocalScope.name, () => {
 
     describe('parse', () => {
 
-        it('should parse the scope', () => {
+        xit('should parse the scope', () => {
             // TODO
         });
 
@@ -34,7 +34,7 @@ describe(WglShaderLocalScope.name, () => {
 
     describe('if', () => {
 
-        it('should create a sub-scope', () => {
+        xit('should create a sub-scope', () => {
             // TODO
         });
 
@@ -42,7 +42,7 @@ describe(WglShaderLocalScope.name, () => {
 
     describe('for', () => {
 
-        it('should create a sub-scope', () => {
+        xit('should create a sub-scope', () => {
             // TODO
         });
 
@@ -50,7 +50,7 @@ describe(WglShaderLocalScope.name, () => {
 
     describe('while', () => {
 
-        it('should create a sub-scope', () => {
+        xit('should create a sub-scope', () => {
             // TODO
         });
 
@@ -58,7 +58,7 @@ describe(WglShaderLocalScope.name, () => {
 
     describe('end', () => {
 
-        it('should create a sub-scope', () => {
+        xit('should create a sub-scope', () => {
             // TODO
         });
 
