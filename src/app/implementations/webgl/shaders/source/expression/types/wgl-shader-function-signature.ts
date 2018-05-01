@@ -1,6 +1,7 @@
 import { ShaderFunctionSignature } from '../../../../../../api/shaders/source/expression/types/shader-function-signature';
 import { ShaderExpressionType } from '../../../../../../api/shaders/source/expression/shader-expression-type';
 import { Visitor } from '../../../../../../util/visitor-dispatcher/visitor';
+import { WglShaderArgumentListParser } from '../../scope/util/wgl-shader-argument-list-parser';
 
 export class WglShaderFunctionSignature implements ShaderFunctionSignature {
 
@@ -17,18 +18,7 @@ export class WglShaderFunctionSignature implements ShaderFunctionSignature {
     }
 
     public parse(): string {
-        const parsedArgList = this.params.reduce((acc, param) => {
-            const isFirstParam = acc === '';
-
-            if (isFirstParam) {
-                return acc + param.parse();
-            }
-            else {
-                return acc + ',' + param.parse();
-            }
-        }, '');
-
-        return this.return.parse() + '(' + parsedArgList + ')';
+        return this.return.parse() + new WglShaderArgumentListParser().parseSignature(this.params);
     }
 
 }
