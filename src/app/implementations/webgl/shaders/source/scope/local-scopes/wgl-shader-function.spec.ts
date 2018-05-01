@@ -4,6 +4,8 @@ import { WglShaderFunctionSignature } from '../../expression/types/wgl-shader-fu
 import { WglShaderFloatType } from '../../expression/types/wgl-shader-float-type';
 import { WglShaderIntegerType } from '../../expression/types/wgl-shader-integer-type';
 import { WglShaderTestingUtil } from '../../../testing/wgl-shader-testing-util';
+import { WglShaderVariable } from '../../expression/lvalues/wgl-shader-variable';
+import { WglShaderArgumentListParser } from '../util/wgl-shader-argument-list-parser';
 
 describe(WglShaderFunction.name, () => {
     let func: WglShaderFunction;
@@ -42,12 +44,18 @@ describe(WglShaderFunction.name, () => {
     describe('parse', () => {
 
         it('should parse an empty function', () => {
-            const p0Regex = WglShaderTestingUtil.escapeRegexCharacters(signature.params[0].parse());
-            const p1Regex = WglShaderTestingUtil.escapeRegexCharacters(signature.params[1].parse());
-            expect(func.parse()).toMatch(new RegExp(
-                '^' + func.name + '\\s*\\(\\s*' + p0Regex + '\\s*,\\s*' +
-                p1Regex + '\\s*\\)\\s+\\{\\n+\\}$'
-            ));
+            const testCases: WglShaderVariable[][] = [
+                [],
+                [new WglShaderVariable('v10', new WglShaderIntegerType())],
+                [new WglShaderVariable('v20', new WglShaderIntegerType()), new WglShaderVariable('v21', new WglShaderIntegerType())]
+            ];
+            testCases.forEach((tc) => {
+                const parser = new WglShaderArgumentListParser();
+                const parsedArgList = WglShaderTestingUtil.escapeRegexCharacters(parser.parseDeclaration(tc));
+                expect(func.parse()).toMatch(new RegExp(
+                    '^' + func.signature.return.parse() + '\\s+' + func.name + '\\s*' + parsedArgList + '\\s+\\{\\n+\\}$'
+                ));
+            });
         });
 
     });
