@@ -9,7 +9,6 @@ import { WglShaderBooleanType } from '../../types/wgl-shader-boolean-type';
 describe(WglShaderAdd.name, () => {
 
     let s: WglShaderLiteralSamples;
-    let invalidCases: Object;
 
     beforeEach(() => {
         s = new WglShaderLiteralSamples();
