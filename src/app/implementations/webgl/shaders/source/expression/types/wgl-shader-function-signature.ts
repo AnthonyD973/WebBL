@@ -13,13 +13,22 @@ export class WglShaderFunctionSignature implements ShaderFunctionSignature {
     }
 
     public acceptVisitor(v: Visitor<number, ShaderExpressionType>): number {
-        // TODO
-        return null;
+        return this.return.acceptVisitor(v);
     }
 
     public parse(): string {
-        // TODO
-        return null;
+        const parsedArgList = this.params.reduce((acc, param) => {
+            const isFirstParam = acc === '';
+
+            if (isFirstParam) {
+                return acc + param.parse();
+            }
+            else {
+                return acc + ',' + param.parse();
+            }
+        }, '');
+
+        return this.return.parse() + '(' + parsedArgList + ')';
     }
 
 }
