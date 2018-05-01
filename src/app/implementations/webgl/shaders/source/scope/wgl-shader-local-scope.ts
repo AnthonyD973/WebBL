@@ -3,7 +3,7 @@ import { WglError } from '../../../util/wgl-error';
 
 export abstract class WglShaderLocalScope implements ShaderLocalScope {
 
-    public parent: WglShaderLocalScope;
+    public readonly parent: WglShaderLocalScope;
     private hasEnded = false;
 
     public abstract get scopeName(): string;
