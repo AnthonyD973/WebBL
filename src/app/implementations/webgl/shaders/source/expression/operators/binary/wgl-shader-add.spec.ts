@@ -23,6 +23,38 @@ describe(WglShaderAdd.name, () => {
         expect(operation.type).toEqual(new WglShaderBooleanType());
     });
 
+    it('should not be created with invalid types', () => {
+        const testCases = [
+            {lhs: s.bTrue, rhs: s.m23},
+            {lhs: s.bTrue, rhs: s.v2},
+
+            {lhs: s.fPi, rhs: s.m23},
+            {lhs: s.fPi, rhs: s.v2},
+
+            {lhs: s.iNeg, rhs: s.m23},
+            {lhs: s.iNeg, rhs: s.v2},
+
+            {lhs: s.m23,  rhs: s.m32},
+            {lhs: s.m23,  rhs: s.m3},
+            {lhs: s.m32,  rhs: s.m23},
+            {lhs: s.m32,  rhs: s.m3},
+            {lhs: s.m3,   rhs: s.m23},
+            {lhs: s.m3,   rhs: s.m32},
+            {lhs: s.m3,   rhs: s.v2},
+
+            {lhs: s.v2, rhs: s.v3},
+            {lhs: s.v2, rhs: s.m3},
+            {lhs: s.v3, rhs: s.v2},
+            {lhs: s.v2, rhs: s.m3},
+            {lhs: s.v4, rhs: s.v3},
+            {lhs: s.v2, rhs: s.m3},
+        ];
+
+        testCases.forEach((testCase, index) => {
+            expect(() => new WglShaderAdd(testCase.lhs, testCase.rhs)).toThrow();
+        });
+    });
+
     describe('parse', () => {
 
         it('should produce valid results with valid types', () => {
@@ -55,38 +87,6 @@ describe(WglShaderAdd.name, () => {
                     operation.parse()).toMatch(new RegExp('^' + lhsRegex + '\\s*\\+\\s*' + rhsRegex + '$'),
                     'Error at test case #' + index
                 );
-            });
-        });
-
-        it('should not execute with invalid types', () => {
-            const testCases = [
-                {lhs: s.bTrue, rhs: s.m23},
-                {lhs: s.bTrue, rhs: s.v2},
-    
-                {lhs: s.fPi, rhs: s.m23},
-                {lhs: s.fPi, rhs: s.v2},
-    
-                {lhs: s.iNeg, rhs: s.m23},
-                {lhs: s.iNeg, rhs: s.v2},
-    
-                {lhs: s.m23,  rhs: s.m32},
-                {lhs: s.m23,  rhs: s.m3},
-                {lhs: s.m32,  rhs: s.m23},
-                {lhs: s.m32,  rhs: s.m3},
-                {lhs: s.m3,   rhs: s.m23},
-                {lhs: s.m3,   rhs: s.m32},
-                {lhs: s.m3,   rhs: s.v2},
-    
-                {lhs: s.v2, rhs: s.v3},
-                {lhs: s.v2, rhs: s.m3},
-                {lhs: s.v3, rhs: s.v2},
-                {lhs: s.v2, rhs: s.m3},
-                {lhs: s.v4, rhs: s.v3},
-                {lhs: s.v2, rhs: s.m3},
-            ];
-
-            testCases.forEach((testCase, index) => {
-                expect(() => new WglShaderAdd(testCase.lhs, testCase.rhs)).toThrow();
             });
         });
 

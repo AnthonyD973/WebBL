@@ -29,6 +29,40 @@ describe(WglShaderAssignment.name, () => {
         expect(variable.type).toEqual(new WglShaderFloatType());
     });
 
+    it('should not be created with invalid types', () => {
+        const testCases: {typeVar: ShaderExpressionType, expr: ShaderExpression}[] = [
+            {typeVar: s.bTrue.type, expr: s.m23},
+            {typeVar: s.bTrue.type, expr: s.v2},
+
+            {typeVar: s.fPi.type,   expr: s.m23},
+            {typeVar: s.fPi.type,   expr: s.v2},
+
+            {typeVar: s.iNeg.type,  expr: s.m23},
+            {typeVar: s.iNeg.type,  expr: s.v2},
+
+            {typeVar: s.m23.type,   expr: s.bTrue},
+            {typeVar: s.m23.type,   expr: s.fPi},
+            {typeVar: s.m23.type,   expr: s.iNeg},
+            {typeVar: s.m23.type,   expr: s.m32},
+            {typeVar: s.m23.type,   expr: s.m3},
+            {typeVar: s.m32.type,   expr: s.m23},
+            {typeVar: s.m32.type,   expr: s.m3},
+            {typeVar: s.m3.type,    expr: s.m23},
+            {typeVar: s.m3.type,    expr: s.m32},
+            {typeVar: s.m3.type,    expr: s.v2},
+
+            {typeVar: s.v2.type,    expr: s.v3},
+            {typeVar: s.v2.type,    expr: s.m23},
+            {typeVar: s.v3.type,    expr: s.v2},
+            {typeVar: s.v3.type,    expr: s.m23}
+        ];
+
+        testCases.forEach((testCase, index) => {
+            const assignee = new WglShaderVariable('var', testCase.typeVar);
+            expect(() => new WglShaderAssignment(assignee, testCase.expr)).toThrow();
+        });
+    });
+
     describe('parse', () => {
 
         it('should produce valid results with valid types', () => {
@@ -61,40 +95,6 @@ describe(WglShaderAssignment.name, () => {
                     operation.parse()).toMatch(new RegExp(testCase.typeVar.parse() + '\\s+var\\s*=\\s*' + parseRegex),
                     'Error at test case #' + index
                 );
-            });
-        });
-
-        it('should not execute with invalid types', () => {
-            const testCases: {typeVar: ShaderExpressionType, expr: ShaderExpression}[] = [
-                {typeVar: s.bTrue.type, expr: s.m23},
-                {typeVar: s.bTrue.type, expr: s.v2},
-
-                {typeVar: s.fPi.type,   expr: s.m23},
-                {typeVar: s.fPi.type,   expr: s.v2},
-
-                {typeVar: s.iNeg.type,  expr: s.m23},
-                {typeVar: s.iNeg.type,  expr: s.v2},
-
-                {typeVar: s.m23.type,   expr: s.bTrue},
-                {typeVar: s.m23.type,   expr: s.fPi},
-                {typeVar: s.m23.type,   expr: s.iNeg},
-                {typeVar: s.m23.type,   expr: s.m32},
-                {typeVar: s.m23.type,   expr: s.m3},
-                {typeVar: s.m32.type,   expr: s.m23},
-                {typeVar: s.m32.type,   expr: s.m3},
-                {typeVar: s.m3.type,    expr: s.m23},
-                {typeVar: s.m3.type,    expr: s.m32},
-                {typeVar: s.m3.type,    expr: s.v2},
-
-                {typeVar: s.v2.type,    expr: s.v3},
-                {typeVar: s.v2.type,    expr: s.m23},
-                {typeVar: s.v3.type,    expr: s.v2},
-                {typeVar: s.v3.type,    expr: s.m23}
-            ];
-
-            testCases.forEach((testCase, index) => {
-                const assignee = new WglShaderVariable('var', testCase.typeVar);
-                expect(() => new WglShaderAssignment(assignee, testCase.expr)).toThrow();
             });
         });
 
