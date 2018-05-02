@@ -4,6 +4,6 @@ import { ShaderScope } from '../shader-scope';
 
 export interface ShaderWhile extends ShaderLocalScope {
 
-    condExpr: ShaderExpression;
+    condition: ShaderExpression;
 
 }
