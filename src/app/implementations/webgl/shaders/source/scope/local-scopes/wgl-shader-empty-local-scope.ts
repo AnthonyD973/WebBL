@@ -6,15 +6,21 @@ import { ShaderWhile } from '../../../../../../api/shaders/source/scope/local-sc
 
 export class WglShaderEmptyLocalScope implements ShaderLocalScope {
 
-    public readonly parent: ShaderLocalScope;
     public readonly child: ShaderLocalScope;
+
+    private hasParent = false;
+    private parentInternal: ShaderLocalScope;
+
+    public get parent(): ShaderLocalScope {
+        return this.parentInternal;
+    }
 
     public get scopeName(): string {
         return 'empty-scope';
     }
 
-    constructor(parent: ShaderLocalScope) {
-        this.parent = parent;
+    constructor() {
+        this.parentInternal = this;
         this.child = this;
     }
 
@@ -32,6 +38,19 @@ export class WglShaderEmptyLocalScope implements ShaderLocalScope {
 
     public while(): ShaderWhile {
         throw this.errorNoChildAllowed();
+    }
+
+    public makeParentOf(c: ShaderLocalScope): void {
+        throw this.errorNoChildAllowed();
+    }
+
+    public setParent(p: ShaderLocalScope): void {
+        if (!this.hasParent) {
+            this.parentInternal = p;
+        }
+        else {
+            throw new Error(`Cannot set parent of "${this.scopeName}": Already have a parent`);
+        }
     }
 
     public parse(): string {

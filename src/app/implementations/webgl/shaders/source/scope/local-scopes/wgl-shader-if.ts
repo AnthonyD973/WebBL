@@ -7,8 +7,8 @@ export abstract class WglShaderIf extends WglShaderLocalScope implements ShaderI
         return 'if';
     }
 
-    constructor(parent: WglShaderLocalScope) {
-        super(parent);
+    constructor() {
+        super();
     }
 
     public elseIf(): any {

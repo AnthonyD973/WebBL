@@ -7,8 +7,12 @@ export class WglShaderElseIf extends WglShaderIf {
         return 'else if';
     }
 
-    constructor(parent: WglShaderLocalScope) {
-        super(parent);
+    constructor() {
+        super();
+    }
+
+    public parse(): string {
+        return null;
     }
 
 }

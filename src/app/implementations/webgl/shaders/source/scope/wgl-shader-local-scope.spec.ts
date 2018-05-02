@@ -9,9 +9,11 @@ describe(WglShaderLocalScope.name, () => {
     let child: WglShaderLocalScope;
 
     beforeEach(() => {
-        parent = new WglShaderTestingLocalScope(null);
-        scope = new WglShaderTestingLocalScope(parent);
-        child = new WglShaderTestingLocalScope(scope);
+        parent = new WglShaderTestingLocalScope();
+        scope = new WglShaderTestingLocalScope();
+        child = new WglShaderTestingLocalScope();
+        parent.makeParentOf(scope);
+        scope.makeParentOf(child);
     });
 
     it('should be created', () => {

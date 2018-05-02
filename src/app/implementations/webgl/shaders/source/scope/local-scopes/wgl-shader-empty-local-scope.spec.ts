@@ -1,14 +1,16 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { WglShaderEmptyLocalScope } from './wgl-shader-empty-local-scope';
+import { WglShaderTestingLocalScope } from '../../../testing/scopes/wgl-shader-testing-local-scope';
 
 describe(WglShaderEmptyLocalScope.name, () => {
 
+    let parent: WglShaderTestingLocalScope;
     let scope: WglShaderEmptyLocalScope;
-    let parent: WglShaderEmptyLocalScope;
 
     beforeEach(() => {
-        parent = new WglShaderEmptyLocalScope(null);
-        scope = new WglShaderEmptyLocalScope(parent);
+        parent = new WglShaderTestingLocalScope();
+        scope = new WglShaderEmptyLocalScope();
+        parent.makeParentOf(scope);
     });
 
     it('should be created', () => {

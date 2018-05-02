@@ -6,8 +6,8 @@ export class WglShaderFor extends WglShaderLocalScope {
         return 'for';
     }
 
-    constructor(parent: WglShaderLocalScope) {
-        super(parent);
+    constructor() {
+        super();
     }
 
     public parse(): string {

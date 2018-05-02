@@ -4,23 +4,21 @@ import { WglShaderEmptyLocalScope } from './local-scopes/wgl-shader-empty-local-
 
 export abstract class WglShaderLocalScope implements ShaderLocalScope {
 
-    public get parent(): WglShaderLocalScope {
-        return this.parentInternal;
-    }
-
     private childInternal: ShaderLocalScope;
-    private parentInternal: WglShaderLocalScope;
+    private parentInternal: ShaderLocalScope;
+    private hasParent = false;
     private hasChild = false;
     private hasEnded = false;
+
+    public get parent(): ShaderLocalScope {
+        return this.parentInternal;
+    }
 
     public get child(): ShaderLocalScope {
         return this.childInternal;
     }
 
     public abstract get scopeName(): string;
-
-    constructor(parent: WglShaderLocalScope) {
-    }
 
     public abstract parse(): string;
 
@@ -44,23 +42,38 @@ export abstract class WglShaderLocalScope implements ShaderLocalScope {
 
     }
 
+    public makeParentOf(c: ShaderLocalScope): void {
+        if (!this.hasChild) {
+            try {
+                c.setParent(this);
+            }
+            catch (e) {
+                throw new Error(`Cannot set parent of "${this.scopeName}": Child "${c.scopeName}" did not accept the parent. Cause: ` +
+                    `"${e.message || e}"`
+                );
+            }
+            this.childInternal = c;
+            this.hasChild = true;
+        }
+        else {
+            throw new Error(`Cannot set child of "${this.scopeName}": Already have a child`);
+        }
+    }
+
+    public setParent(p: ShaderLocalScope) {
+        if (!this.hasParent) {
+            this.parentInternal = p;
+            this.hasParent = true;
+        }
+        else {
+            throw new Error(`Cannot set parent of "${this.scopeName}": Already have a parent`);
+        }
+    }
+
     protected checkIfEnded(): void {
         if (this.hasEnded) {
             throw new WglError(`Scope already ended`);
         }
-    }
-
-    public makeParentOf(c: WglShaderLocalScope): void {
-        if (!this.hasChild) {
-            this.childInternal = c;
-            this.hasChild = true;
-            c.parentInternal = this;
-        }
-        else {
-            throw new Error(`Cannot set parent of "${c.scopeName}": Parent "${this.scopeName}" already has a child`);
-        }
-
-        this.childInternal = new WglShaderEmptyLocalScope(this);
     }
 
 }

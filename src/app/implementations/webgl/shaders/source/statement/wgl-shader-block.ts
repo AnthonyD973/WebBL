@@ -10,8 +10,8 @@ export class WglShaderBlock extends WglShaderLocalScope implements ShaderBlock {
         return 'block';
     }
 
-    constructor(parent: WglShaderLocalScope, statements: ShaderAbstractStatement[]) {
-        super(parent);
+    constructor(statements: ShaderAbstractStatement[]) {
+        super();
         this.statements = statements;
     }
 

@@ -24,8 +24,9 @@ describe(WglShaderBlock.name, () => {
             )),
             new WglShaderStatement(new WglShaderMatrixLiteral(2, 2)),
         ];
-        parent = new WglShaderTestingLocalScope(null);
-        block = new WglShaderBlock(parent, statements);
+        parent = new WglShaderTestingLocalScope();
+        block = new WglShaderBlock(statements);
+        parent.makeParentOf(block);
     });
 
     it('should be created', () => {

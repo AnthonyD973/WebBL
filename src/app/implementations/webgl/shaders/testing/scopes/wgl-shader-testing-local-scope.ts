@@ -6,4 +6,8 @@ export class WglShaderTestingLocalScope extends WglShaderLocalScope {
         return 'test-scope';
     }
 
+    public parse(): string {
+        return null;
+    }
+
 }

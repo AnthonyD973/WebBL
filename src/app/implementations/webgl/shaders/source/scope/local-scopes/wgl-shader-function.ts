@@ -23,7 +23,7 @@ export class WglShaderFunction extends WglShaderLocalScope implements ShaderFunc
     }
 
     constructor(name: string, params: WglShaderVariable[], ret: ShaderExpressionType) {
-        super(null); // TODO Change parent to global scope?
+        super();
         if (!WglShaderConfig.IDENTIFIER_REGEX.test(name)) {
             throw new Error(`"${name}" is not a valid identifier`);
         }

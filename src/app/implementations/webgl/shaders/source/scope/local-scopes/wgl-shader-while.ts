@@ -6,8 +6,8 @@ export class WglShaderWhile extends WglShaderLocalScope {
         return 'while';
     }
 
-    constructor(parent: WglShaderLocalScope) {
-        super(parent);
+    constructor() {
+        super();
     }
 
     public parse(): string {

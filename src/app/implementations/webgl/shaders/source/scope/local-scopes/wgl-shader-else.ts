@@ -6,8 +6,8 @@ export class WglShaderElse extends WglShaderLocalScope {
         return 'else';
     }
 
-    constructor(parent: WglShaderLocalScope) {
-        super(parent);
+    constructor() {
+        super();
     }
 
     public parse(): any {
