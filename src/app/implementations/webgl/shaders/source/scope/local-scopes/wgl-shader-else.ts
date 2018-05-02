@@ -1,4 +1,7 @@
 import { WglShaderLocalScope } from '../wgl-shader-local-scope';
+import { WglShaderBlock } from '../../statement/wgl-shader-block';
+
+const TOKEN = 'else';
 
 export class WglShaderElse extends WglShaderLocalScope {
 
@@ -8,10 +11,13 @@ export class WglShaderElse extends WglShaderLocalScope {
 
     constructor() {
         super();
+        this.children.push(new WglShaderBlock());
     }
 
     public parse(): any {
-        return null;
+        let parsedStatement = TOKEN + ' ';
+        this.children.forEach(child => parsedStatement = parsedStatement + child.parse());
+        return parsedStatement;
     }
 
 }
