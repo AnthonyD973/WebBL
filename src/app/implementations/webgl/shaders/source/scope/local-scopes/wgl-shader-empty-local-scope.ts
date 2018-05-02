@@ -36,7 +36,7 @@ export class WglShaderEmptyLocalScope implements ShaderLocalScope {
         throw this.errorNoChildAllowed();
     }
 
-    public while(): ShaderWhile {
+    public while(condExpr: ShaderExpression): ShaderWhile {
         throw this.errorNoChildAllowed();
     }
 
