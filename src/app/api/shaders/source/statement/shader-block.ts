@@ -3,6 +3,6 @@ import { ShaderExpression } from '../expression/shader-expression';
 
 export interface ShaderBlock extends ShaderAbstractStatement {
 
-    readonly exressions: ShaderExpression[];
+    readonly expressions: ShaderExpression[];
 
 }
