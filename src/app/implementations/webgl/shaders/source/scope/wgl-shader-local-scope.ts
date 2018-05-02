@@ -26,9 +26,7 @@ export abstract class WglShaderLocalScope implements ShaderLocalScope {
         }
     }
 
-    public parse(): string {
-        return null;
-    }
+    public abstract parse(): string;
 
     public end(): void {
         this.checkIfEnded();
