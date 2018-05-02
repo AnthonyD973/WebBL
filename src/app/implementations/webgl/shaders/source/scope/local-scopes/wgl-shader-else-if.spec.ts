@@ -5,20 +5,22 @@ import { ShaderExpressionType } from '../../../../../../api/shaders/source/expre
 import { ShaderExpression } from '../../../../../../api/shaders/source/expression/shader-expression';
 import { WglShaderIntegerLiteral } from '../../expression/rvalues/wgl-shader-integer-literal';
 import { WglShaderTestingUtil } from '../../../testing/wgl-shader-testing-util';
+import { ShaderIf } from '../../../../../../api/shaders/source/scope/local-scopes/shader-if';
+import { WglShaderIf } from './wgl-shader-if';
 import { WglShaderTestingLocalScope } from '../../../testing/scopes/wgl-shader-testing-local-scope';
-import { ShaderLocalScope } from '../../../../../../api/shaders/source/scope/shader-local-scope';
 
 describe(WglShaderElseIf.name, () => {
 
     let condition: ShaderExpression;
     let statement: WglShaderElseIf;
-    let parent: ShaderLocalScope;
+    let parent: ShaderIf;
 
     beforeEach(() => {
+        const grandparent = new WglShaderTestingLocalScope();
+        parent = new WglShaderIf(condition);
+        grandparent.makeParentOf(parent);
         condition = new WglShaderIntegerLiteral(-3);
-        statement = new WglShaderElseIf(condition);
-        parent = new WglShaderTestingLocalScope();
-        parent.makeParentOf(statement);
+        statement = new WglShaderElseIf(parent, condition);
     });
 
     it('should be created', () => {

@@ -6,17 +6,19 @@ import { ShaderExpression } from '../../../../../../api/shaders/source/expressio
 import { WglShaderIntegerLiteral } from '../../expression/rvalues/wgl-shader-integer-literal';
 import { WglShaderTestingUtil } from '../../../testing/wgl-shader-testing-util';
 import { WglShaderTestingLocalScope } from '../../../testing/scopes/wgl-shader-testing-local-scope';
-import { ShaderLocalScope } from '../../../../../../api/shaders/source/scope/shader-local-scope';
+import { WglShaderIf } from './wgl-shader-if';
+import { ShaderIf } from '../../../../../../api/shaders/source/scope/local-scopes/shader-if';
 
 describe(WglShaderElse.name, () => {
 
     let statement: WglShaderElse;
-    let parent: ShaderLocalScope;
+    let parent: ShaderIf;
 
     beforeEach(() => {
-        parent = new WglShaderTestingLocalScope();
-        statement = new WglShaderElse();
-        parent.makeParentOf(statement);
+        const grandparent = new WglShaderTestingLocalScope();
+        parent = new WglShaderIf(new WglShaderIntegerLiteral(-1));
+        grandparent.makeParentOf(parent);
+        statement = new WglShaderElse(parent);
     });
 
     it('should be created', () => {

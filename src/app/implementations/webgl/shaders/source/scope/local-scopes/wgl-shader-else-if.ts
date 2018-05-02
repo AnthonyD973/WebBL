@@ -1,6 +1,7 @@
 import { WglShaderIf } from './wgl-shader-if';
 import { WglShaderLocalScope } from '../wgl-shader-local-scope';
 import { ShaderExpression } from '../../../../../../api/shaders/source/expression/shader-expression';
+import { ShaderIf } from '../../../../../../api/shaders/source/scope/local-scopes/shader-if';
 
 const TOKEN = 'else if';
 
@@ -10,8 +11,9 @@ export class WglShaderElseIf extends WglShaderIf {
         return 'else if';
     }
 
-    constructor(condition: ShaderExpression) {
+    constructor(parentIf: ShaderIf, condition: ShaderExpression) {
         super(condition);
+        parentIf.parent.makeParentOf(this);
     }
 
     public parse(): string {
