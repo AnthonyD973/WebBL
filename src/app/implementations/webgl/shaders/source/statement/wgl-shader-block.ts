@@ -4,7 +4,7 @@ import { WglShaderLocalScope } from '../scope/wgl-shader-local-scope';
 
 export class WglShaderBlock extends WglShaderLocalScope implements ShaderBlock {
 
-    public statements: ShaderAbstractStatement[];
+    public statements: ShaderAbstractStatement[] = [];
 
     public get scopeName(): string {
         return 'block';
@@ -12,7 +12,9 @@ export class WglShaderBlock extends WglShaderLocalScope implements ShaderBlock {
 
     constructor(statements: ShaderAbstractStatement[]) {
         super();
-        this.statements = statements;
+        statements.forEach(statement => {
+            this.statements.push(statement);
+        });
     }
 
     public parse(): string {
