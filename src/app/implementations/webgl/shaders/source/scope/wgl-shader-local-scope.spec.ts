@@ -6,15 +6,18 @@ describe(WglShaderLocalScope.name, () => {
 
     let scope: WglShaderLocalScope;
     let parent: WglShaderLocalScope;
+    let child: WglShaderLocalScope;
 
     beforeEach(() => {
         parent = new WglShaderTestingLocalScope(null);
         scope = new WglShaderTestingLocalScope(parent);
+        child = new WglShaderTestingLocalScope(scope);
     });
 
     it('should be created', () => {
         expect(scope).toBeTruthy();
         expect(scope.parent).toBe(parent);
+        expect(scope.child).toBe(child);
         expect(scope.scopeName).toBeTruthy();
     });
 
