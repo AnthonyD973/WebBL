@@ -10,7 +10,10 @@ export class WglShaderBlock implements ShaderBlock {
     }
 
     public parse(): string {
-        return null;
+        const parsedExpressions = this.expressions.reduce((acc, expr) => {
+            return acc + expr.parse() + ';\n';
+        }, '');
+        return '{\n' + parsedExpressions + '}';
     }
 
 }
