@@ -1,19 +1,19 @@
 import { ShaderBlock } from '../../../../../api/shaders/source/statement/shader-block';
-import { ShaderExpression } from '../../../../../api/shaders/source/expression/shader-expression';
+import { ShaderAbstractStatement } from '../../../../../api/shaders/source/statement/shader-abstract-statement';
 
 export class WglShaderBlock implements ShaderBlock {
 
-    public expressions: ShaderExpression[];
+    public statements: ShaderAbstractStatement[];
 
-    constructor(expressions: ShaderExpression[]) {
-        this.expressions = expressions;
+    constructor(expressions: ShaderAbstractStatement[]) {
+        this.statements = expressions;
     }
 
     public parse(): string {
-        const parsedExpressions = this.expressions.reduce((acc, expr) => {
-            return acc + expr.parse() + ';\n';
+        const parsedStatements = this.statements.reduce((acc, expr) => {
+            return acc + expr.parse() + '\n';
         }, '');
-        return '{\n' + parsedExpressions + '}';
+        return '{\n' + parsedStatements + '}';
     }
 
 }
