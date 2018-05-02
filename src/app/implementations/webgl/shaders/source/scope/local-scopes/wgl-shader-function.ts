@@ -35,8 +35,9 @@ export class WglShaderFunction extends WglShaderLocalScope implements ShaderFunc
     }
 
     public parse(): string {
-        return this.ret.parse() + ' ' + this.name + new WglShaderArgumentListParser().parseDeclaration(this.params) + ' '
-            + this.child.parse();
+        let parsedStatement = this.ret.parse() + ' ' + this.name + new WglShaderArgumentListParser().parseDeclaration(this.params) + ' ';
+        this.children.forEach(child => parsedStatement = parsedStatement + child.parse());
+        return parsedStatement;
     }
 
 }

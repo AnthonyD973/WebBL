@@ -44,7 +44,9 @@ export class WglShaderIf extends WglShaderLocalScope implements ShaderIf {
     }
 
     public parse(): string {
-        return TOKEN + ' (' + this.condition.parse() + ') ' + this.child.parse();
+        let parsedStatement = TOKEN + '(' + this.condition.parse() + ') ';
+        this.children.forEach(child => parsedStatement = parsedStatement + child.parse());
+        return parsedStatement;
     }
 
     protected assertHasNoAlternateCase(): void {

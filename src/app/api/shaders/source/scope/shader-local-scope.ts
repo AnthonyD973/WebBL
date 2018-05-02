@@ -6,7 +6,7 @@ import { ShaderExpression } from '../expression/shader-expression';
 export interface ShaderLocalScope extends ShaderScope {
 
     readonly parent: ShaderScope;
-    readonly child: ShaderLocalScope;
+    readonly children: ShaderLocalScope[];
     readonly scopeName: string;
 
     end(): void;

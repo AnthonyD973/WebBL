@@ -6,23 +6,23 @@ describe(WglShaderLocalScope.name, () => {
 
     let scope: WglShaderLocalScope;
     let parent: WglShaderLocalScope;
-    let child: WglShaderLocalScope;
+    let children: WglShaderLocalScope[];
 
     beforeEach(() => {
         parent = new WglShaderTestingLocalScope();
         scope = new WglShaderTestingLocalScope();
-        child = new WglShaderTestingLocalScope();
+        children = [new WglShaderTestingLocalScope()];
         parent.makeParentOf(scope);
-        scope.makeParentOf(child);
+        scope.makeParentOf(children[0]);
     });
 
     it('should be created', () => {
         expect(scope).toBeTruthy();
         expect(scope.parent).toBe(parent);
-        expect(scope.child).toBe(child);
+        expect(scope.children).toEqual(children);
         expect(scope.scopeName).toBeTruthy();
 
-        expect(new WglShaderTestingLocalScope().child).toBeTruthy();
+        expect(new WglShaderTestingLocalScope().children).toBeTruthy();
     });
 
     describe('parse', () => {
@@ -71,22 +71,8 @@ describe(WglShaderLocalScope.name, () => {
             const p = new WglShaderTestingLocalScope();
             const c = new WglShaderTestingLocalScope();
             p.makeParentOf(c);
-            expect(p.child).toBe(c);
+            expect(p.children).toEqual([c]);
             expect(c.parent).toBe(p);
-        });
-
-        it('should throw and have no side effect if we already have a child', () => {
-            const p = new WglShaderTestingLocalScope();
-            const c = new WglShaderTestingLocalScope();
-            const otherC = new WglShaderTestingLocalScope();
-
-            p.makeParentOf(otherC);
-            const cInit = p.child;
-            const pInit = c.parent;
-
-            expect(() => p.makeParentOf(c)).toThrow();
-            expect(p.child).toBe(cInit);
-            expect(c.parent).toBe(pInit);
         });
 
         it('should throw and have no side effect if the child already has a parent', () => {
@@ -95,11 +81,11 @@ describe(WglShaderLocalScope.name, () => {
             const c = new WglShaderTestingLocalScope();
 
             otherP.makeParentOf(c);
-            const cInit = p.child;
+            const cInit = p.children;
             const pInit = c.parent;
 
             expect(() => p.makeParentOf(c)).toThrow();
-            expect(p.child).toBe(cInit);
+            expect(p.children).toBe(cInit);
             expect(c.parent).toBe(pInit);
         });
 

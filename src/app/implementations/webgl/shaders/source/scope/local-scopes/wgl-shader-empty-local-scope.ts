@@ -6,7 +6,7 @@ import { ShaderWhile } from '../../../../../../api/shaders/source/scope/local-sc
 
 export class WglShaderEmptyLocalScope implements ShaderLocalScope {
 
-    public readonly child: ShaderLocalScope;
+    public readonly children: ShaderLocalScope[] = [];
 
     private hasParent = false;
     private parentInternal: ShaderLocalScope;
@@ -21,7 +21,7 @@ export class WglShaderEmptyLocalScope implements ShaderLocalScope {
 
     constructor() {
         this.parentInternal = this;
-        this.child = this;
+        this.children.push(this);
     }
 
     public end(): void {

@@ -15,7 +15,9 @@ export class WglShaderElseIf extends WglShaderIf {
     }
 
     public parse(): string {
-        return TOKEN + '(' + this.condition.parse() + ') ' + this.child.parse();
+        let parsedStatement = TOKEN + '(' + this.condition.parse() + ') ';
+        this.children.forEach(child => parsedStatement = parsedStatement + child.parse());
+        return parsedStatement;
     }
 
 }
