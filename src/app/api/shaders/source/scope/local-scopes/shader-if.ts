@@ -6,7 +6,7 @@ import { ShaderScope } from '../shader-scope';
 
 export interface ShaderIf extends ShaderLocalScope {
 
-    elseIf(): ShaderElseIf;
+    elseIf(condition: ShaderExpression): ShaderElseIf;
     else(): ShaderElse;
 
 }

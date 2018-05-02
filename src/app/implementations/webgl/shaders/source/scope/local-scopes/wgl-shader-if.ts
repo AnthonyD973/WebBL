@@ -5,19 +5,19 @@ import { WglShaderBlock } from '../../statement/wgl-shader-block';
 
 export class WglShaderIf extends WglShaderLocalScope implements ShaderIf {
 
-    public readonly condExpression: ShaderExpression;
+    public readonly condition: ShaderExpression;
 
     public get scopeName(): string {
         return 'if';
     }
 
-    constructor(condExpression: ShaderExpression) {
+    constructor(condition: ShaderExpression) {
         super();
-        this.condExpression = condExpression;
+        this.condition = condition;
         this.makeParentOf(new WglShaderBlock());
     }
 
-    public elseIf(): any {
+    public elseIf(condition: ShaderExpression): any {
 
     }
 
