@@ -1,11 +1,17 @@
 import { ShaderBlock } from '../../../../../api/shaders/source/statement/shader-block';
 import { ShaderAbstractStatement } from '../../../../../api/shaders/source/statement/shader-abstract-statement';
+import { WglShaderLocalScope } from '../scope/wgl-shader-local-scope';
 
-export class WglShaderBlock implements ShaderBlock {
+export class WglShaderBlock extends WglShaderLocalScope implements ShaderBlock {
 
     public statements: ShaderAbstractStatement[];
 
-    constructor(expressions: ShaderAbstractStatement[]) {
+    public get scopeName(): string {
+        return 'block';
+    }
+
+    constructor(parent: WglShaderLocalScope, expressions: ShaderAbstractStatement[]) {
+        super(parent);
         this.statements = expressions;
     }
 

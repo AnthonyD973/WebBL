@@ -8,11 +8,13 @@ import { WglShaderIntegerType } from '../expression/types/wgl-shader-integer-typ
 import { WglShaderIntegerLiteral } from '../expression/rvalues/wgl-shader-integer-literal';
 import { WglShaderTestingUtil } from '../../testing/wgl-shader-testing-util';
 import { WglShaderStatement } from './wgl-shader-statement';
+import { WglShaderTestingLocalScope } from '../../testing/scopes/wgl-shader-testing-local-scope';
 
 describe(WglShaderBlock.name, () => {
 
     let statements: ShaderAbstractStatement[];
     let block: WglShaderBlock;
+    let parent: WglShaderTestingLocalScope;
 
     beforeEach(() => {
         statements = [
@@ -22,11 +24,15 @@ describe(WglShaderBlock.name, () => {
             )),
             new WglShaderStatement(new WglShaderMatrixLiteral(2, 2)),
         ];
-        block = new WglShaderBlock(statements);
+        parent = new WglShaderTestingLocalScope(null);
+        block = new WglShaderBlock(parent, statements);
     });
 
     it('should be created', () => {
         expect(block).toBeTruthy();
+        expect(block.parent).toBe(parent);
+        expect(block.scopeName).toBeTruthy();
+        expect(block.statements).toEqual(statements);
     });
 
     describe('parse', () => {
