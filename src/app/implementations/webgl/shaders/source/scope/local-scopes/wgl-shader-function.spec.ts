@@ -7,6 +7,7 @@ import { WglShaderTestingUtil } from '../../../testing/wgl-shader-testing-util';
 import { WglShaderVariable } from '../../expression/lvalues/wgl-shader-variable';
 import { WglShaderArgumentListParser } from '../util/wgl-shader-argument-list-parser';
 import { ShaderExpressionType } from '../../../../../../api/shaders/source/expression/shader-expression-type';
+import { WglShaderBlock } from '../../statement/wgl-shader-block';
 
 describe(WglShaderFunction.name, () => {
 
@@ -66,6 +67,17 @@ describe(WglShaderFunction.name, () => {
                     '^' + func.signature.return.parse() + '\\s+' + func.name + '\\s*' + parsedArgList + '\\s+\\{\\n+\\}$'
                 ));
             });
+        });
+
+    });
+
+    describe('addChild', () => {
+
+        it('should throw an error', () => {
+            expect(() => {
+                new WglShaderFunction('foo', [], new WglShaderIntegerType())
+                    .addChild(new WglShaderBlock());
+            }).toThrow();
         });
 
     });

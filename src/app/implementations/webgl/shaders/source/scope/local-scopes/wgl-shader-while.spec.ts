@@ -7,6 +7,7 @@ import { WglShaderIntegerLiteral } from '../../expression/rvalues/wgl-shader-int
 import { WglShaderTestingUtil } from '../../../testing/wgl-shader-testing-util';
 import { WglShaderTestingLocalScope } from '../../../testing/scopes/wgl-shader-testing-local-scope';
 import { ShaderLocalScope } from '../../../../../../api/shaders/source/scope/shader-local-scope';
+import { WglShaderBlock } from '../../statement/wgl-shader-block';
 
 describe(WglShaderWhile.name, () => {
 
@@ -34,6 +35,14 @@ describe(WglShaderWhile.name, () => {
             const regex = new RegExp('^\\s*while\\s*\\(' + parsedCondition + '\\)\\s+{\\n+'
                 + '\\s*}$');
             expect(statement.parse()).toMatch(regex);
+        });
+
+    });
+
+    describe('addChild', () => {
+
+        it('should throw an error', () => {
+            expect(() => statement.addChild(new WglShaderBlock())).toThrow();
         });
 
     });

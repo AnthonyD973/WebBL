@@ -8,6 +8,7 @@ import { WglShaderTestingUtil } from '../../../testing/wgl-shader-testing-util';
 import { WglShaderTestingLocalScope } from '../../../testing/scopes/wgl-shader-testing-local-scope';
 import { WglShaderIf } from './wgl-shader-if';
 import { ShaderIf } from '../../../../../../api/shaders/source/scope/local-scopes/shader-if';
+import { WglShaderBlock } from '../../statement/wgl-shader-block';
 
 describe(WglShaderElse.name, () => {
 
@@ -31,6 +32,14 @@ describe(WglShaderElse.name, () => {
         it('should parse the condition and a statement', () => {
             const regex = new RegExp('^\\s*else\\s*\\s+{\\n+\\s*}$');
             expect(statement.parse()).toMatch(regex);
+        });
+
+    });
+
+    describe('addChild', () => {
+
+        it('should throw an error', () => {
+            expect(() => statement.addChild(new WglShaderBlock())).toThrow();
         });
 
     });
