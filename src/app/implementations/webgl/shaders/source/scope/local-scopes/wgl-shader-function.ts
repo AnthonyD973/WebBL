@@ -3,8 +3,9 @@ import { WglShaderFunctionSignature } from '../../expression/types/wgl-shader-fu
 import { ShaderLocalScope } from '../../../../../../api/shaders/source/scope/shader-local-scope';
 import { WglShaderConfig } from '../../../util/wgl-shader-config';
 import { WglShaderVariable } from '../../expression/lvalues/wgl-shader-variable';
+import { ShaderFunction } from '../../../../../../api/shaders/source/scope/local-scopes/shader-function';
 
-export class WglShaderFunction extends WglShaderLocalScope {
+export class WglShaderFunction extends WglShaderLocalScope implements ShaderFunction {
 
     public readonly name: string;
     public readonly params: WglShaderVariable[];

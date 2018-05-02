@@ -4,23 +4,17 @@ import { WglShaderTestingLocalScope } from '../../testing/scopes/wgl-shader-test
 
 describe(WglShaderLocalScope.name, () => {
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            providers: [
-                {provide: WglShaderLocalScope, useClass: WglShaderTestingLocalScope}
-            ]
-        });
-    });
-
     let scope: WglShaderLocalScope;
+    let parent: WglShaderLocalScope;
 
-    beforeEach(inject([WglShaderLocalScope], (injScope: WglShaderLocalScope) => {
-        scope = injScope;
-    }));
+    beforeEach(() => {
+        parent = new WglShaderTestingLocalScope(null);
+        scope = new WglShaderTestingLocalScope(parent);
+    });
 
     it('should be created', () => {
         expect(scope).toBeTruthy();
-        expect(scope.parent).toBeTruthy();
+        expect(scope.parent).toBe(parent);
         expect(scope.scopeName).toBeTruthy();
     });
 
