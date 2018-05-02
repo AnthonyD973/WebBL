@@ -4,8 +4,8 @@ import { ShaderScope } from '../shader-scope';
 
 export interface ShaderFor extends ShaderLocalScope {
 
-    readonly initExpr: ShaderExpression;
-    readonly condExpr: ShaderExpression;
-    readonly loopExpr: ShaderExpression;
+    readonly init: ShaderExpression;
+    readonly condition: ShaderExpression;
+    readonly loop: ShaderExpression;
 
 }
