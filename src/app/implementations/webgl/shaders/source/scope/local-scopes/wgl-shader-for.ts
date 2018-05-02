@@ -1,6 +1,7 @@
 import { WglShaderLocalScope } from '../wgl-shader-local-scope';
 import { ShaderFor } from '../../../../../../api/shaders/source/scope/local-scopes/shader-for';
 import { ShaderExpression } from '../../../../../../api/shaders/source/expression/shader-expression';
+import { WglShaderBlock } from '../../statement/wgl-shader-block';
 
 const TOKEN = 'for';
 
@@ -16,10 +17,16 @@ export class WglShaderFor extends WglShaderLocalScope implements ShaderFor {
 
     constructor(init: ShaderExpression, condition: ShaderExpression, loop: ShaderExpression) {
         super();
+        this.init = init;
+        this.condition = condition;
+        this.loop = loop;
+        this.children.push(new WglShaderBlock());
     }
 
     public parse(): string {
-        return null;
+        let parsedStatement = TOKEN + '(' + this.init.parse() + '; ' + this.condition.parse() + '; ' + this.loop.parse() + ') ';
+        this.children.forEach(child => parsedStatement = parsedStatement + child.parse());
+        return parsedStatement;
     }
 
 }
