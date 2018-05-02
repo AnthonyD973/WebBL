@@ -5,15 +5,20 @@ import { ShaderExpressionType } from '../../../../../../api/shaders/source/expre
 import { ShaderExpression } from '../../../../../../api/shaders/source/expression/shader-expression';
 import { WglShaderIntegerLiteral } from '../../expression/rvalues/wgl-shader-integer-literal';
 import { WglShaderTestingUtil } from '../../../testing/wgl-shader-testing-util';
+import { WglShaderTestingLocalScope } from '../../../testing/scopes/wgl-shader-testing-local-scope';
+import { ShaderLocalScope } from '../../../../../../api/shaders/source/scope/shader-local-scope';
 
 describe(WglShaderIf.name, () => {
 
     let condition: ShaderExpression;
     let statement: WglShaderIf;
+    let parent: ShaderLocalScope;
 
     beforeEach(() => {
         condition = new WglShaderIntegerLiteral(-3);
         statement = new WglShaderIf(condition);
+        parent = new WglShaderTestingLocalScope();
+        parent.makeParentOf(statement);
     });
 
     it('should be created', () => {
@@ -46,7 +51,7 @@ describe(WglShaderIf.name, () => {
             expect(elseStatement.parent).toBe(statement.parent);
         });
 
-        it('should not throw an error when executed more than once', () => {
+        it('should throw an error when executed more than once', () => {
             statement.else();
             for (let i = 0; i < 3; ++i) {
                 expect(() => statement.else()).toThrow();
