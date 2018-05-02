@@ -12,7 +12,7 @@ describe('WglShaderVariable', () => {
     let var1: WglShaderVariable;
 
     beforeEach(() => {
-        type1 = new WglShaderTestingExpressionType(true, 'TestType');
+        type1 = new WglShaderTestingExpressionType('TestType');
         var1 = new WglShaderVariable('myVar', type1);
     });
 

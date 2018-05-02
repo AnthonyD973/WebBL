@@ -3,28 +3,10 @@ import { ShaderExpressionTypeVisitor } from '../../../../api/shaders/source/expr
 
 export class WglShaderTestingExpressionType implements ShaderExpressionType {
 
-    private shouldMatch: boolean;
     private parsedString: string;
 
-    constructor(shouldMatch: boolean, parsedString: string) {
-        this.shouldMatch = shouldMatch;
+    constructor(parsedString: string) {
         this.parsedString = parsedString;
-    }
-
-    public matches(that: ShaderExpressionType): boolean {
-
-        if (that instanceof WglShaderTestingExpressionType) {
-            if ((that as WglShaderTestingExpressionType).shouldMatch) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-        else {
-            throw new Error(`'that' is not an instance of WglShaderTestingExpressionType.`);
-        }
-
     }
 
     public parse(): string {
