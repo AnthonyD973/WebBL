@@ -25,7 +25,8 @@ describe(WglShaderBlock.name, () => {
             new WglShaderStatement(new WglShaderMatrixLiteral(2, 2)),
         ];
         parent = new WglShaderTestingLocalScope();
-        block = new WglShaderBlock(statements);
+        block = new WglShaderBlock();
+        statements.forEach(statement => block.statements.push(statement));
         parent.makeParentOf(block);
     });
 
