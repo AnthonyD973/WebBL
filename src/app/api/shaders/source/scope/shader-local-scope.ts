@@ -15,7 +15,6 @@ export interface ShaderLocalScope extends ShaderScope {
     for(initExpr: ShaderExpression, condExpr: ShaderExpression, loopExpr: ShaderExpression): ShaderFor;
     while(condExpr: ShaderExpression): ShaderWhile;
 
-    makeParentOf(c: ShaderLocalScope): void;
     setParent(p: ShaderLocalScope): void;
 
 }

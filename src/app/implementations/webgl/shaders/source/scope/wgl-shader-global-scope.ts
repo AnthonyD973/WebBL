@@ -4,6 +4,7 @@ import { ShaderOutput } from '../../../../../api/shaders/source/expression/lvalu
 import { ShaderFunction } from '../../../../../api/shaders/source/scope/local-scopes/shader-function';
 import { WglShaderFunctionSignature } from '../expression/types/wgl-shader-function-signature';
 import { ShaderExpressionType } from '../../../../../api/shaders/source/expression/shader-expression-type';
+import { ShaderLocalScope } from '../../../../../api/shaders/source/scope/shader-local-scope';
 
 export class WglShaderGlobalScope implements ShaderGlobalScope {
 
@@ -24,6 +25,10 @@ export class WglShaderGlobalScope implements ShaderGlobalScope {
     }
 
     public createOutput(name: string, type: ShaderExpressionType): any {
+
+    }
+
+    public makeParentOf(c: ShaderLocalScope): void {
 
     }
 
