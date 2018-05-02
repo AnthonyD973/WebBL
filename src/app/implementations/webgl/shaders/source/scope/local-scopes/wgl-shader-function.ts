@@ -40,4 +40,13 @@ export class WglShaderFunction extends WglShaderLocalScope implements ShaderFunc
         return parsedStatement;
     }
 
+    public addChild(c: ShaderLocalScope): void {
+        if (this.children.length === 0) {
+            super.addChild(c);
+        }
+        else {
+            throw new Error(`Cannot add a child to a "${this.scopeName}" scope`);
+        }
+    }
+
 }

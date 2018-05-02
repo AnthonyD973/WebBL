@@ -6,6 +6,7 @@ import { ShaderElseIf } from '../../../../../../api/shaders/source/scope/local-s
 import { ShaderElse } from '../../../../../../api/shaders/source/scope/local-scopes/shader-else';
 import { WglShaderElseIf } from './wgl-shader-else-if';
 import { WglShaderElse } from './wgl-shader-else';
+import { ShaderLocalScope } from '../../../../../../api/shaders/source/scope/shader-local-scope';
 
 const TOKEN = 'if';
 
@@ -42,9 +43,18 @@ export class WglShaderIf extends WglShaderLocalScope implements ShaderIf {
     }
 
     public parse(): string {
-        let parsedStatement = TOKEN + '(' + this.condition.parse() + ') ';
+        let parsedStatement = TOKEN + ' (' + this.condition.parse() + ') ';
         this.children.forEach(child => parsedStatement = parsedStatement + child.parse());
         return parsedStatement;
+    }
+
+    public addChild(c: ShaderLocalScope): void {
+        if (this.children.length === 0) {
+            super.addChild(c);
+        }
+        else {
+            throw new Error(`Cannot add a child to a "${this.scopeName}" scope`);
+        }
     }
 
     protected assertHasNoAlternateCase(): void {
