@@ -47,6 +47,7 @@ export class WglShaderEmptyLocalScope implements ShaderLocalScope {
     public setParent(p: ShaderLocalScope): void {
         if (!this.hasParent) {
             this.parentInternal = p;
+            this.hasParent = true;
         }
         else {
             throw new Error(`Cannot set parent of "${this.scopeName}": Already have a parent`);
