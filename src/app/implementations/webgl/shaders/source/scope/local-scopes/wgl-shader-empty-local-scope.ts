@@ -58,7 +58,7 @@ export class WglShaderEmptyLocalScope implements ShaderLocalScope {
     }
 
     private errorNoChildAllowed(): Error {
-        throw new Error(`Cannot add children to the empty scope`);
+        throw new Error(`Cannot add a child to the empty scope`);
     }
 
 }
