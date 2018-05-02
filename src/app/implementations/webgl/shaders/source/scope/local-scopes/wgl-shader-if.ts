@@ -7,6 +7,8 @@ import { ShaderElse } from '../../../../../../api/shaders/source/scope/local-sco
 import { WglShaderElseIf } from './wgl-shader-else-if';
 import { WglShaderElse } from './wgl-shader-else';
 
+const TOKEN = 'if';
+
 export class WglShaderIf extends WglShaderLocalScope implements ShaderIf {
 
     public readonly condition: ShaderExpression;
@@ -26,7 +28,7 @@ export class WglShaderIf extends WglShaderLocalScope implements ShaderIf {
     public elseIf(condition: ShaderExpression): ShaderElseIf {
         this.assertHasNoAlternateCase();
         this.hasAlternateCase = true;
-        return new WglShaderElseIf(condition);
+        return null; // new WglShaderElseIf(condition);
     }
 
     public else(): ShaderElse {
@@ -39,7 +41,7 @@ export class WglShaderIf extends WglShaderLocalScope implements ShaderIf {
     }
 
     public parse(): string {
-        return null;
+        return TOKEN + ' (' + this.condition.parse() + ') ' + this.child.parse();
     }
 
     protected assertHasNoAlternateCase(): void {
