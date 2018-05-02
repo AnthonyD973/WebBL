@@ -4,29 +4,22 @@ import { WglShaderEmptyLocalScope } from './local-scopes/wgl-shader-empty-local-
 
 export abstract class WglShaderLocalScope implements ShaderLocalScope {
 
-    public readonly parent: WglShaderLocalScope;
+    public get parent(): WglShaderLocalScope {
+        return this.parentInternal;
+    }
+
+    private childInternal: ShaderLocalScope;
+    private parentInternal: WglShaderLocalScope;
+    private hasChild = false;
+    private hasEnded = false;
+
     public get child(): ShaderLocalScope {
         return this.childInternal;
     }
 
-    private childInternal: ShaderLocalScope;
-    private hasChild = false;
-    private hasEnded = false;
-
     public abstract get scopeName(): string;
 
     constructor(parent: WglShaderLocalScope) {
-        this.parent = parent;
-        this.childInternal = new WglShaderEmptyLocalScope(this);
-        if (parent != null) {
-            if (!parent.hasChild) {
-                parent.childInternal = this;
-                parent.hasChild = true;
-            }
-            else {
-                throw new Error(`Cannot set parent of local scope: Parent "${parent.scopeName}" already has a child`);
-            }
-        }
     }
 
     public abstract parse(): string;
@@ -55,6 +48,19 @@ export abstract class WglShaderLocalScope implements ShaderLocalScope {
         if (this.hasEnded) {
             throw new WglError(`Scope already ended`);
         }
+    }
+
+    public makeParentOf(c: WglShaderLocalScope): void {
+        if (!this.hasChild) {
+            this.childInternal = c;
+            this.hasChild = true;
+            c.parentInternal = this;
+        }
+        else {
+            throw new Error(`Cannot set parent of "${c.scopeName}": Parent "${this.scopeName}" already has a child`);
+        }
+
+        this.childInternal = new WglShaderEmptyLocalScope(this);
     }
 
 }
