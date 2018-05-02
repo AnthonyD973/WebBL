@@ -30,7 +30,7 @@ export class WglShaderIf extends WglShaderLocalScope implements ShaderIf {
         this.hasAlternateCase = true;
 
         const elseIfStatement = new WglShaderElseIf(condition);
-        this.parent.setParent(elseIfStatement);
+        this.parent.makeParentOf(elseIfStatement);
         return elseIfStatement;
     }
 
