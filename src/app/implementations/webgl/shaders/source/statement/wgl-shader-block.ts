@@ -10,14 +10,14 @@ export class WglShaderBlock extends WglShaderLocalScope implements ShaderBlock {
         return 'block';
     }
 
-    constructor(parent: WglShaderLocalScope, expressions: ShaderAbstractStatement[]) {
+    constructor(parent: WglShaderLocalScope, statements: ShaderAbstractStatement[]) {
         super(parent);
-        this.statements = expressions;
+        this.statements = statements;
     }
 
     public parse(): string {
-        const parsedStatements = this.statements.reduce((acc, expr) => {
-            return acc + expr.parse() + '\n';
+        const parsedStatements = this.statements.reduce((acc, statement) => {
+            return acc + statement.parse() + '\n';
         }, '');
         return '{\n' + parsedStatements + '}';
     }
