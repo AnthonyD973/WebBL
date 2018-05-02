@@ -3,6 +3,6 @@ import { ShaderLocalScope } from './shader-local-scope';
 
 export interface ShaderScope extends ShaderParsable {
 
-    makeParentOf(c: ShaderLocalScope): void;
+    addChild(c: ShaderLocalScope): void;
 
 }

@@ -13,7 +13,7 @@ describe(WglShaderEmptyLocalScope.name, () => {
     beforeEach(() => {
         parent = new WglShaderTestingLocalScope();
         scope = new WglShaderEmptyLocalScope();
-        parent.makeParentOf(scope);
+        parent.addChild(scope);
         expr = new WglShaderTestingExpression(new WglShaderTestingExpressionType('test_t'), '');
     });
 
@@ -63,10 +63,10 @@ describe(WglShaderEmptyLocalScope.name, () => {
 
     });
 
-    describe('makeParentOf', () => {
+    describe('addChild', () => {
 
         it('should throw an error', () => {
-            expect(() => scope.makeParentOf(new WglShaderTestingLocalScope())).toThrow();
+            expect(() => scope.addChild(new WglShaderTestingLocalScope())).toThrow();
         });
 
     });

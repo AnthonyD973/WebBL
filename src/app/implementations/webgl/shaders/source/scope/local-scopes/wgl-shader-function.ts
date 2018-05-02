@@ -31,7 +31,7 @@ export class WglShaderFunction extends WglShaderLocalScope implements ShaderFunc
         this.name = name;
         this.params = params;
         this.ret = ret;
-        this.makeParentOf(new WglShaderBlock());
+        this.addChild(new WglShaderBlock());
     }
 
     public parse(): string {

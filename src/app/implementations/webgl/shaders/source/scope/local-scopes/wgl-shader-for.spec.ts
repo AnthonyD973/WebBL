@@ -22,7 +22,7 @@ describe(WglShaderFor.name, () => {
         loop = new WglShaderIntegerLiteral(-4);
         statement = new WglShaderFor(init, condition, loop);
         parent = new WglShaderTestingLocalScope();
-        parent.makeParentOf(statement);
+        parent.addChild(statement);
     });
 
     it('should be created', () => {

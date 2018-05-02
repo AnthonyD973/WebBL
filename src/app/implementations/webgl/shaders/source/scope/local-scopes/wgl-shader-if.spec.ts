@@ -18,7 +18,7 @@ describe(WglShaderIf.name, () => {
         condition = new WglShaderIntegerLiteral(-3);
         statement = new WglShaderIf(condition);
         parent = new WglShaderTestingLocalScope();
-        parent.makeParentOf(statement);
+        parent.addChild(statement);
     });
 
     it('should be created', () => {

@@ -12,8 +12,8 @@ describe(WglShaderLocalScope.name, () => {
         parent = new WglShaderTestingLocalScope();
         scope = new WglShaderTestingLocalScope();
         children = [new WglShaderTestingLocalScope()];
-        parent.makeParentOf(scope);
-        scope.makeParentOf(children[0]);
+        parent.addChild(scope);
+        scope.addChild(children[0]);
     });
 
     it('should be created', () => {
@@ -65,12 +65,12 @@ describe(WglShaderLocalScope.name, () => {
 
     });
 
-    describe('makeParentOf', () => {
+    describe('addChild', () => {
 
         it('should set both the parent and the child if possible', () => {
             const p = new WglShaderTestingLocalScope();
             const c = new WglShaderTestingLocalScope();
-            p.makeParentOf(c);
+            p.addChild(c);
             expect(p.children).toEqual([c]);
             expect(c.parent).toBe(p);
         });
@@ -80,11 +80,11 @@ describe(WglShaderLocalScope.name, () => {
             const otherP = new WglShaderTestingLocalScope();
             const c = new WglShaderTestingLocalScope();
 
-            otherP.makeParentOf(c);
+            otherP.addChild(c);
             const cInit = p.children;
             const pInit = c.parent;
 
-            expect(() => p.makeParentOf(c)).toThrow();
+            expect(() => p.addChild(c)).toThrow();
             expect(p.children).toBe(cInit);
             expect(c.parent).toBe(pInit);
         });

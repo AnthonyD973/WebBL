@@ -17,7 +17,7 @@ describe(WglShaderElse.name, () => {
     beforeEach(() => {
         const grandparent = new WglShaderTestingLocalScope();
         parent = new WglShaderIf(new WglShaderIntegerLiteral(-1));
-        grandparent.makeParentOf(parent);
+        grandparent.addChild(parent);
         statement = new WglShaderElse(parent);
     });
 

@@ -40,7 +40,7 @@ export class WglShaderEmptyLocalScope implements ShaderLocalScope {
         throw this.errorNoChildAllowed();
     }
 
-    public makeParentOf(c: ShaderLocalScope): void {
+    public addChild(c: ShaderLocalScope): void {
         throw this.errorNoChildAllowed();
     }
 

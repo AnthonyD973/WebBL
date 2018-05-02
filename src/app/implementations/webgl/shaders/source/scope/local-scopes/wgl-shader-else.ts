@@ -13,7 +13,7 @@ export class WglShaderElse extends WglShaderLocalScope {
     constructor(parentIf: ShaderIf) {
         super();
         this.children.push(new WglShaderBlock());
-        parentIf.parent.makeParentOf(this);
+        parentIf.parent.addChild(this);
     }
 
     public parse(): any {

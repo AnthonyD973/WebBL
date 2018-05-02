@@ -16,7 +16,7 @@ export class WglShaderWhile extends WglShaderLocalScope implements ShaderWhile {
     constructor(condition: ShaderExpression) {
         super();
         this.condition = condition;
-        this.makeParentOf(new WglShaderBlock());
+        this.addChild(new WglShaderBlock());
     }
 
     public parse(): string {

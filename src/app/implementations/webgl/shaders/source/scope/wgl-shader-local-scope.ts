@@ -41,7 +41,7 @@ export abstract class WglShaderLocalScope implements ShaderLocalScope {
 
     }
 
-    public makeParentOf(c: ShaderLocalScope): void {
+    public addChild(c: ShaderLocalScope): void {
         try {
             c.setParent(this);
         }

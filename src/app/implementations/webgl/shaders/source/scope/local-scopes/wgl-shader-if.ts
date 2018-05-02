@@ -22,7 +22,7 @@ export class WglShaderIf extends WglShaderLocalScope implements ShaderIf {
     constructor(condition: ShaderExpression) {
         super();
         this.condition = condition;
-        this.makeParentOf(new WglShaderBlock());
+        this.addChild(new WglShaderBlock());
     }
 
     public elseIf(condition: ShaderExpression): ShaderElseIf {

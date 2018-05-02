@@ -28,7 +28,7 @@ export class WglShaderGlobalScope implements ShaderGlobalScope {
 
     }
 
-    public makeParentOf(c: ShaderLocalScope): void {
+    public addChild(c: ShaderLocalScope): void {
 
     }
 

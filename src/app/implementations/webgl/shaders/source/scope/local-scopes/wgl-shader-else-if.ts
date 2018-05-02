@@ -13,7 +13,7 @@ export class WglShaderElseIf extends WglShaderIf {
 
     constructor(parentIf: ShaderIf, condition: ShaderExpression) {
         super(condition);
-        parentIf.parent.makeParentOf(this);
+        parentIf.parent.addChild(this);
     }
 
     public parse(): string {
