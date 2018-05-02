@@ -5,6 +5,7 @@ import { WglShaderConfig } from '../../../util/wgl-shader-config';
 import { WglShaderVariable } from '../../expression/lvalues/wgl-shader-variable';
 import { ShaderFunction } from '../../../../../../api/shaders/source/scope/local-scopes/shader-function';
 import { ShaderExpressionType } from '../../../../../../api/shaders/source/expression/shader-expression-type';
+import { WglShaderArgumentListParser } from '../util/wgl-shader-argument-list-parser';
 
 export class WglShaderFunction extends WglShaderLocalScope implements ShaderFunction {
 
@@ -13,7 +14,8 @@ export class WglShaderFunction extends WglShaderLocalScope implements ShaderFunc
     public readonly ret: ShaderExpressionType;
 
     public get signature(): WglShaderFunctionSignature {
-        return null;
+        const returnTypes = this.params.map(variable => variable.type);
+        return new WglShaderFunctionSignature(returnTypes, this.ret);
     }
 
     public get scopeName(): string {
@@ -31,7 +33,9 @@ export class WglShaderFunction extends WglShaderLocalScope implements ShaderFunc
     }
 
     public parse(): string {
-        return null;
+        return this.ret.parse() + ' ' + this.name + new WglShaderArgumentListParser().parseDeclaration(this.params) + ' {\n' +
+            /* TODO */
+            '}';
     }
 
 }
