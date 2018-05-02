@@ -8,15 +8,13 @@ import { WglShaderVariable } from '../../expression/lvalues/wgl-shader-variable'
 import { WglShaderArgumentListParser } from '../util/wgl-shader-argument-list-parser';
 
 describe(WglShaderFunction.name, () => {
-    let func: WglShaderFunction;
+
     let signature: WglShaderFunctionSignature;
+    let variables: WglShaderVariable[];
 
     beforeEach(() => {
         signature = new WglShaderFunctionSignature([new WglShaderIntegerType(), new WglShaderIntegerType()], new WglShaderIntegerType());
-        func = new WglShaderFunction(
-            'testFunc',
-            signature
-        );
+        variables = [new WglShaderVariable('v0', new WglShaderIntegerType()), new WglShaderVariable('v1', new WglShaderIntegerType())];
     });
 
     it('should be created with a valid identifier', () => {
@@ -24,11 +22,10 @@ describe(WglShaderFunction.name, () => {
             'testFunc', 'testFunc8', '_', 'main', '_8'
         ];
         testCases.forEach((tc, index) => {
-            const tcFunc = new WglShaderFunction(tc, signature);
+            const tcFunc = new WglShaderFunction(tc, variables);
             expect(tcFunc).toBeTruthy();
             expect(tcFunc.name).toEqual(tc);
             expect(tcFunc.scopeName).toBeTruthy();
-            expect(tcFunc.signature).toBe(signature);
         });
     });
 
@@ -37,8 +34,17 @@ describe(WglShaderFunction.name, () => {
             '_*', '*a', '8_', 'asdf*asdf'
         ];
         testCases.forEach((tc, index) => {
-            expect(() => new WglShaderFunction(tc, signature)).toThrow();
+            expect(() => new WglShaderFunction(tc, variables)).toThrow();
         });
+    });
+
+    describe('signature', () => {
+
+        it('should reflect the function\'s parameters', () => {
+            const func = new WglShaderFunction('func', variables);
+            expect(func.signature).toEqual(signature);
+        });
+
     });
 
     describe('parse', () => {
@@ -46,12 +52,13 @@ describe(WglShaderFunction.name, () => {
         it('should parse an empty function', () => {
             const testCases: WglShaderVariable[][] = [
                 [],
-                [new WglShaderVariable('v10', new WglShaderIntegerType())],
-                [new WglShaderVariable('v20', new WglShaderIntegerType()), new WglShaderVariable('v21', new WglShaderIntegerType())]
+                variables.slice(0, 1),
+                variables.slice(0, 2)
             ];
             testCases.forEach((tc) => {
                 const parser = new WglShaderArgumentListParser();
                 const parsedArgList = WglShaderTestingUtil.escapeRegexCharacters(parser.parseDeclaration(tc));
+                const func = new WglShaderFunction('func', tc);
                 expect(func.parse()).toMatch(new RegExp(
                     '^' + func.signature.return.parse() + '\\s+' + func.name + '\\s*' + parsedArgList + '\\s+\\{\\n+\\}$'
                 ));
