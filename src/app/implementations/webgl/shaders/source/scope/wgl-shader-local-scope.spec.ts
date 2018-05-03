@@ -1,66 +1,84 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { WglShaderLocalScope } from './wgl-shader-local-scope';
 import { WglShaderTestingLocalScope } from '../../testing/scopes/wgl-shader-testing-local-scope';
+import { ShaderExpression } from '../../../../../api/shaders/source/expression/shader-expression';
+import { WglShaderIntegerLiteral } from '../expression/rvalues/wgl-shader-integer-literal';
 
 describe(WglShaderLocalScope.name, () => {
 
     let scope: WglShaderLocalScope;
     let parent: WglShaderLocalScope;
-    let children: WglShaderLocalScope[];
+    let child: WglShaderLocalScope;
+    let init: ShaderExpression;
+    let condition: ShaderExpression;
+    let loop: ShaderExpression;
 
     beforeEach(() => {
         parent = new WglShaderTestingLocalScope();
         scope = new WglShaderTestingLocalScope();
-        children = [new WglShaderTestingLocalScope()];
+        child = new WglShaderTestingLocalScope();
         parent.addChild(scope);
-        scope.addChild(children[0]);
+        scope.addChild(child);
+
+        init = new WglShaderIntegerLiteral(-1);
+        condition = new WglShaderIntegerLiteral(-2);
+        loop = new WglShaderIntegerLiteral(-3);
     });
 
     it('should be created', () => {
         expect(scope).toBeTruthy();
         expect(scope.parent).toBe(parent);
-        expect(scope.children).toEqual(children);
+        expect(scope.children).toEqual([child]);
         expect(scope.scopeName).toBeTruthy();
 
         expect(new WglShaderTestingLocalScope().children).toBeTruthy();
     });
 
-    describe('parse', () => {
-
-        xit('should parse the scope', () => {
-            // TODO
-        });
-
-    });
-
     describe('if', () => {
 
-        xit('should create a sub-scope', () => {
-            // TODO
+        it('should create a sub-scope', () => {
+            const statement = scope.if(condition);
+            expect(statement.parent).toBe(scope);
+            expect(scope.children).toContain(statement);
+            expect(statement.condition).toBe(condition);
         });
 
     });
 
     describe('for', () => {
 
-        xit('should create a sub-scope', () => {
-            // TODO
+        it('should create a sub-scope', () => {
+            const statement = scope.for(init, condition, loop);
+            expect(statement.parent).toBe(scope);
+            expect(scope.children).toContain(statement);
+            expect(statement.condition).toBe(condition);
         });
 
     });
 
     describe('while', () => {
 
-        xit('should create a sub-scope', () => {
-            // TODO
+        it('should create a sub-scope', () => {
+            const statement = scope.while(condition);
+            expect(statement.parent).toBe(scope);
+            expect(scope.children).toContain(statement);
+            expect(statement.condition).toBe(condition);
         });
 
     });
 
     describe('end', () => {
 
-        xit('should create a sub-scope', () => {
-            // TODO
+        it('should prevent adding statements to the scope', () => {
+            scope.end();
+            expect(() => scope.if(condition)).toThrow();
+            expect(() => scope.for(init, condition, loop)).toThrow();
+            expect(() => scope.while(condition)).toThrow();
+        });
+
+        it('should throw when called a second time', () => {
+            scope.end();
+            expect(() => scope.end()).toThrow();
         });
 
     });
