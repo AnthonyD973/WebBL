@@ -1,6 +1,10 @@
 import { ShaderLocalScope } from '../../../../../api/shaders/source/scope/shader-local-scope';
 import { WglError } from '../../../util/wgl-error';
 import { WglShaderEmptyLocalScope } from './local-scopes/wgl-shader-empty-local-scope';
+import { ShaderIf } from '../../../../../api/shaders/source/scope/local-scopes/shader-if';
+import { ShaderFor } from '../../../../../api/shaders/source/scope/local-scopes/shader-for';
+import { ShaderWhile } from '../../../../../api/shaders/source/scope/local-scopes/shader-while';
+import { ShaderExpression } from '../../../../../api/shaders/source/expression/shader-expression';
 
 export abstract class WglShaderLocalScope implements ShaderLocalScope {
 
@@ -26,19 +30,19 @@ export abstract class WglShaderLocalScope implements ShaderLocalScope {
         this.hasEnded = true;
     }
 
-    public if (): any {
+    public if (condition: ShaderExpression): ShaderIf {
         this.checkIfEnded();
-
+        return null;
     }
 
-    public for(): any {
+    public for(init: ShaderExpression, condition: ShaderExpression, loop: ShaderExpression): ShaderFor {
         this.checkIfEnded();
-
+        return null;
     }
 
-    public while(): any {
+    public while(condition: ShaderExpression): ShaderWhile {
         this.checkIfEnded();
-
+        return null;
     }
 
     public addChild(c: ShaderLocalScope): void {
