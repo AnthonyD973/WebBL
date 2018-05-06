@@ -36,7 +36,7 @@ describe(WglShaderLocalScope.name, () => {
 
     describe('if', () => {
 
-        it('should create a sub-scope', () => {
+        xit('should create a sub-scope', () => {
             const statement = scope.if(condition);
             expect(statement.parent).toBe(scope);
             expect(scope.children).toContain(statement);
@@ -47,7 +47,7 @@ describe(WglShaderLocalScope.name, () => {
 
     describe('for', () => {
 
-        it('should create a sub-scope', () => {
+        xit('should create a sub-scope', () => {
             const statement = scope.for(init, condition, loop);
             expect(statement.parent).toBe(scope);
             expect(scope.children).toContain(statement);
@@ -58,7 +58,7 @@ describe(WglShaderLocalScope.name, () => {
 
     describe('while', () => {
 
-        it('should create a sub-scope', () => {
+        xit('should create a sub-scope', () => {
             const statement = scope.while(condition);
             expect(statement.parent).toBe(scope);
             expect(scope.children).toContain(statement);
