@@ -5,6 +5,9 @@ import { ShaderFunction } from '../../../../../api/shaders/source/scope/local-sc
 import { WglShaderFunctionSignature } from '../expression/types/wgl-shader-function-signature';
 import { ShaderExpressionType } from '../../../../../api/shaders/source/expression/shader-expression-type';
 import { ShaderLocalScope } from '../../../../../api/shaders/source/scope/shader-local-scope';
+import { WglShaderFunction } from './local-scopes/wgl-shader-function';
+import { WglShaderInput } from '../expression/lvalues/wgl-shader-input';
+import { WglShaderOutput } from '../expression/lvalues/wgl-shader-output';
 
 export class WglShaderGlobalScope implements ShaderGlobalScope {
 
@@ -16,16 +19,16 @@ export class WglShaderGlobalScope implements ShaderGlobalScope {
         return null;
     }
 
-    public createFunction(name: string, signature: WglShaderFunctionSignature): any {
-
+    public createFunction(name: string, signature: WglShaderFunctionSignature): WglShaderFunction {
+        return null;
     }
 
-    public createInput(name: string, type: ShaderExpressionType): any {
-
+    public createInput(name: string, type: ShaderExpressionType): WglShaderInput {
+        return null;
     }
 
-    public createOutput(name: string, type: ShaderExpressionType): any {
-
+    public createOutput(name: string, type: ShaderExpressionType): WglShaderOutput {
+        return null;
     }
 
     public addChild(c: ShaderLocalScope): void {
