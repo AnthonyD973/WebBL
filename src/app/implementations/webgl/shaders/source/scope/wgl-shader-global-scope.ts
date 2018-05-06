@@ -20,19 +20,36 @@ export class WglShaderGlobalScope implements ShaderGlobalScope {
     }
 
     public createFunction(name: string, signature: WglShaderFunctionSignature): WglShaderFunction {
-        return null;
+        this.assertIdentifierIsValid(name);
+        const func = null; // TODO Create the function
+        this.functions.set(name, func);
+        return func;
     }
 
     public createInput(name: string, type: ShaderExpressionType): WglShaderInput {
-        return null;
+        this.assertIdentifierIsValid(name);
+        const input = new WglShaderInput(name, type);
+        this.inputs.set(name, input);
+        return input;
     }
 
     public createOutput(name: string, type: ShaderExpressionType): WglShaderOutput {
-        return null;
+        this.assertIdentifierIsValid(name);
+        const output = new WglShaderOutput(name, type);
+        this.outputs.set(name, output);
+        return output;
     }
 
+    // TODO Remove this method ; make it only required inside the local scope classes.
     public addChild(c: ShaderLocalScope): void {
+        throw new Error(`Cannot add a child to the global context. Call "createFunction" if you wish to create a shader function.`);
+    }
 
+    protected assertIdentifierIsValid(name: string): void {
+        const nameExists = this.inputs.has(name) || this.outputs.has(name) || this.functions.has(name);
+        if (nameExists) {
+            throw new Error(`Cannot create symbol "${name}" in global context: an existing symbol already has this name`);
+        }
     }
 
 }
