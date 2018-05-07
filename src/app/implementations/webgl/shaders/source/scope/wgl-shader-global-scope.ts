@@ -22,7 +22,7 @@ export class WglShaderGlobalScope implements ShaderGlobalScope {
 
     public createFunction(name: string, params: ShaderVariable[], ret: ShaderExpressionType): WglShaderFunction {
         this.assertIdentifierIsValid(name);
-        const func = null; // TODO Create the function
+        const func = new WglShaderFunction(name, params, ret);
         this.functions.set(name, func);
         return func;
     }
