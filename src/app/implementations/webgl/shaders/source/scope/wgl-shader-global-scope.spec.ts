@@ -36,31 +36,35 @@ describe(WglShaderGlobalScope.name, () => {
             const param1 = new WglShaderVariable('p0', new WglShaderIntegerType);
             const param2 = new WglShaderVariable('p1', new WglShaderIntegerType);
             const ret = new WglShaderIntegerType();
-            const sig0 = new WglShaderFunctionSignature([], ret);
-            const sig1 = new WglShaderFunctionSignature([], ret);
-            const sig2 = new WglShaderFunctionSignature([], ret);
+            const params0: WglShaderVariable[] = [];
+            const params1 = [param1];
+            const params2 = [param1, param2];
 
             const initialNumberOfFunctions = scope.functions.size;
 
-            scope.createFunction('testFunc0', sig0);
-            scope.createFunction('testFunc1', sig1);
-            scope.createFunction('testFunc2', sig2);
+            scope.createFunction('testFunc0', params0, ret);
+            scope.createFunction('testFunc1', params1, ret);
+            scope.createFunction('testFunc2', params2, ret);
 
             expect(scope.functions.size).toEqual(initialNumberOfFunctions + 3);
             const f0 = scope.functions.get('testFunc0');
             const f1 = scope.functions.get('testFunc1');
             const f2 = scope.functions.get('testFunc2');
             expect(f0).toBeTruthy();
-            expect(f0.signature).toEqual(sig0);
+            const expectedSignature0 = new WglShaderFunctionSignature(params0.map(param => param.type), ret);
+            expect(f0.signature).toEqual(expectedSignature0);
             expect(f1).toBeTruthy();
-            expect(f1.signature).toEqual(sig1);
+            const expectedSignature1 = new WglShaderFunctionSignature(params1.map(param => param.type), ret);
+            expect(f1.signature).toEqual(expectedSignature1, ret);
             expect(f2).toBeTruthy();
-            expect(f2.signature).toEqual(sig2);
+            const expectedSignature2 = new WglShaderFunctionSignature(params2.map(param => param.type), ret);
+            expect(f2.signature).toEqual(expectedSignature2, ret);
         });
 
         it('should throw an error if another global symbol of such name exists', () => {
-            const funcSignature = new WglShaderFunctionSignature([], new WglShaderIntegerType());
-            scope.createFunction('testFunc1', funcSignature);
+            const params = [];
+            const ret = new WglShaderIntegerType();
+            scope.createFunction('testFunc1', params, ret);
             scope.createInput('testInput1', new WglShaderIntegerType());
             scope.createOutput('testOutput1', new WglShaderIntegerType());
 
@@ -70,9 +74,11 @@ describe(WglShaderGlobalScope.name, () => {
                 'testOutput1'
             ];
 
-            const funcSignatureNewMethod = new WglShaderFunctionSignature([], new WglShaderMatrixType(2, 3));
+
+            const paramsNewMethod = [];
+            const retNewMethod = new WglShaderIntegerType();
             namesToTest.forEach(name => {
-                expect(() => scope.createFunction(name, funcSignatureNewMethod)).toThrow();
+                expect(() => scope.createFunction(name, paramsNewMethod, retNewMethod)).toThrow();
             });
         });
 
@@ -92,8 +98,9 @@ describe(WglShaderGlobalScope.name, () => {
         });
 
         it('should throw an error if another global symbol of such name exists', () => {
-            const funcSignature = new WglShaderFunctionSignature([], new WglShaderIntegerType());
-            scope.createFunction('testFunc1', funcSignature);
+            const params = [];
+            const ret = new WglShaderIntegerType();
+            scope.createFunction('testFunc1', params, ret);
             scope.createInput('testInput1', new WglShaderIntegerType());
             scope.createOutput('testOutput1', new WglShaderIntegerType());
 
@@ -125,8 +132,9 @@ describe(WglShaderGlobalScope.name, () => {
         });
 
         it('should throw an error if another global symbol of such name exists', () => {
-            const funcSignature = new WglShaderFunctionSignature([], new WglShaderIntegerType());
-            scope.createFunction('testFunc1', funcSignature);
+            const params = [];
+            const ret = new WglShaderIntegerType();
+            scope.createFunction('testFunc1', params, ret);
             scope.createInput('testInput1', new WglShaderIntegerType());
             scope.createOutput('testOutput1', new WglShaderIntegerType());
 

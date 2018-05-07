@@ -8,6 +8,7 @@ import { ShaderLocalScope } from '../../../../../api/shaders/source/scope/shader
 import { WglShaderFunction } from './local-scopes/wgl-shader-function';
 import { WglShaderInput } from '../expression/lvalues/wgl-shader-input';
 import { WglShaderOutput } from '../expression/lvalues/wgl-shader-output';
+import { ShaderVariable } from '../../../../../api/shaders/source/expression/lvalues/shader-variable';
 
 export class WglShaderGlobalScope implements ShaderGlobalScope {
 
@@ -19,7 +20,7 @@ export class WglShaderGlobalScope implements ShaderGlobalScope {
         return null;
     }
 
-    public createFunction(name: string, signature: WglShaderFunctionSignature): WglShaderFunction {
+    public createFunction(name: string, params: ShaderVariable[], ret: ShaderExpressionType): WglShaderFunction {
         this.assertIdentifierIsValid(name);
         const func = null; // TODO Create the function
         this.functions.set(name, func);
