@@ -17,7 +17,14 @@ export class WglShaderGlobalScope implements ShaderGlobalScope {
     public readonly functions = new Map<string, ShaderFunction>();
 
     public parse(): string {
-        return null;
+        this.assertMainExists();
+        let parsedInputs = '';
+        this.inputs.forEach(input => parsedInputs = parsedInputs + input.parse() + '\n');
+        let parsedOutputs = '';
+        this.outputs.forEach(output => parsedOutputs = parsedOutputs + output.parse() + '\n');
+        let parsedFunctions = '';
+        this.functions.forEach(func => parsedFunctions = parsedFunctions + func.parse() + '\n\n');
+        return parsedInputs + parsedOutputs + parsedFunctions;
     }
 
     public createFunction(name: string, params: ShaderVariable[], ret: ShaderExpressionType): WglShaderFunction {
@@ -50,6 +57,13 @@ export class WglShaderGlobalScope implements ShaderGlobalScope {
         const nameExists = this.inputs.has(name) || this.outputs.has(name) || this.functions.has(name);
         if (nameExists) {
             throw new Error(`Cannot create symbol "${name}" in global context: an existing symbol already has this name`);
+        }
+    }
+
+    protected assertMainExists(): void {
+        const hasMain = this.functions.has('main');
+        if (!hasMain) {
+            throw new Error(`Cannot parse the global scope: No "main" function defined`);
         }
     }
 
