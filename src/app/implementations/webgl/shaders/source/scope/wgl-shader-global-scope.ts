@@ -18,13 +18,16 @@ export class WglShaderGlobalScope implements ShaderGlobalScope {
 
     public parse(): string {
         this.assertMainExists();
+
         let parsedInputs = '';
         this.inputs.forEach(input => parsedInputs = parsedInputs + input.parse() + '\n');
         let parsedOutputs = '';
         this.outputs.forEach(output => parsedOutputs = parsedOutputs + output.parse() + '\n');
         let parsedFunctions = '';
         this.functions.forEach(func => parsedFunctions = parsedFunctions + func.parse() + '\n\n');
-        return parsedInputs + parsedOutputs + parsedFunctions;
+
+        const parsedShader = parsedInputs + '\n' + parsedOutputs + '\n' + parsedFunctions;
+        return parsedShader;
     }
 
     public createFunction(name: string, params: ShaderVariable[], ret: ShaderExpressionType): WglShaderFunction {
