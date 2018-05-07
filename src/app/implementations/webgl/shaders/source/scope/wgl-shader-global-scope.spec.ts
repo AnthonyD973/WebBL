@@ -6,6 +6,8 @@ import { WglShaderIntegerType } from '../expression/types/wgl-shader-integer-typ
 import { WglShaderFunctionSignature } from '../expression/types/wgl-shader-function-signature';
 import { WglShaderInput } from '../expression/lvalues/wgl-shader-input';
 import { WglShaderMatrixType } from '../expression/types/wgl-shader-matrix-type';
+import { WglShaderOutput } from '../expression/lvalues/wgl-shader-output';
+import { WglShaderTestingUtil } from '../../testing/wgl-shader-testing-util';
 
 describe(WglShaderGlobalScope.name, () => {
 
@@ -28,6 +30,37 @@ describe(WglShaderGlobalScope.name, () => {
         expect(scope.functions).toBeTruthy();
         expect(scope.inputs).toBeTruthy();
         expect(scope.outputs).toBeTruthy();
+    });
+
+    describe('parse', () => {
+
+        it('should parse all global symbols', () => {
+            const inp1 = scope.createInput('inp1', new WglShaderIntegerType());
+            const outp1 = scope.createOutput('outp1', new WglShaderIntegerType());
+            const func1 = scope.createFunction(
+                'foo',
+                [
+                    new WglShaderVariable('p1', new WglShaderIntegerType()),
+                    new WglShaderVariable('p2', new WglShaderIntegerType())
+                ],
+                new WglShaderIntegerType()
+            );
+            const main = scope.createFunction(
+                'main', [], {acceptVisitor: (v => 0), parse: () => 'void'} // TODO Create and use a real void type
+            );
+            const inp1Regex  = WglShaderTestingUtil.escapeRegexCharacters(inp1 .parse());
+            const outp1Regex = WglShaderTestingUtil.escapeRegexCharacters(outp1.parse());
+            const func1Regex = WglShaderTestingUtil.escapeRegexCharacters(func1.parse());
+            const mainRegex  = WglShaderTestingUtil.escapeRegexCharacters(main .parse());
+
+            const regex = new RegExp(`\\s*${inp1Regex}\\n\\s*${outp1Regex}\\n\\s*${func1Regex}\\n\\s${mainRegex}`);
+            expect(scope.parse()).toMatch(regex);
+        });
+
+        it('should throw an error when there is no defined main', () => {
+            expect(() => scope.parse()).toThrowError(/main/);
+        });
+
     });
 
     describe('createFunction', () => {
