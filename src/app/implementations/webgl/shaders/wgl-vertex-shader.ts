@@ -1,6 +1,13 @@
 import { VertexShader } from '../../../api/shaders/vertex-shader';
+import { WglShaderGlobalScope } from './source/scope/wgl-shader-global-scope';
 
 export class WglVertexShader implements VertexShader {
+
+    public readonly globalScope: WglShaderGlobalScope;
+
+    constructor() {
+        this.globalScope = new WglShaderGlobalScope();
+    }
 
     public parse(): string {
         return null;
