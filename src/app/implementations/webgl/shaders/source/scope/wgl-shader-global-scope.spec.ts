@@ -8,13 +8,14 @@ import { WglShaderInput } from '../expression/lvalues/wgl-shader-input';
 import { WglShaderMatrixType } from '../expression/types/wgl-shader-matrix-type';
 import { WglShaderOutput } from '../expression/lvalues/wgl-shader-output';
 import { WglShaderTestingUtil } from '../../testing/wgl-shader-testing-util';
+import { WglShaderTestingGlobalScope } from '../../testing/wgl-shader-testing-global-scope';
 
 describe(WglShaderGlobalScope.name, () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                WglShaderGlobalScope
+                {provide: WglShaderGlobalScope, useFactory: () => new WglShaderTestingGlobalScope()}
             ]
         });
     });
