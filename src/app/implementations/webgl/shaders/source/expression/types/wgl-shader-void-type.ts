@@ -4,11 +4,11 @@ import { ShaderExpressionTypeVisitor } from '../../../../../../api/shaders/sourc
 export class WglShaderVoidType implements ShaderVoidType {
 
     public parse(): string {
-        return null;
+        return 'void';
     }
 
     public acceptVisitor(v: ShaderExpressionTypeVisitor): number {
-        return null;
+        return v.visitVoid(this);
     }
 
 }
