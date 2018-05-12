@@ -17,14 +17,15 @@ export class WglShaderDivideVisitorDispatcher extends WglShaderVisitorDispatcher
     }
 
     protected makeOperations(operations: Operation<void>[][]): void {
-        //                 BOOL,  FLOAT,    INT,    MAT,    VEC
-        const boolean = [this.y, this.y, this.y, this.n, this.n]; // BOOLEAN
-        const float   = [this.y, this.y, this.y, this.n, this.n]; // FLOAT
-        const int     = [this.y, this.y, this.y, this.n, this.n]; // INTEGER
-        const matrix  = [this.y, this.y, this.y, this.n, this.n]; // MATRIX
-        const vector  = [this.y, this.y, this.y, this.n, this.v]; // VECTOR
+        //                 BOOL,  FLOAT,    INT,    MAT,    VEC,   VOID
+        const boolean = [this.y, this.y, this.y, this.n, this.n, this.n]; // BOOLEAN
+        const float   = [this.y, this.y, this.y, this.n, this.n, this.n]; // FLOAT
+        const int     = [this.y, this.y, this.y, this.n, this.n, this.n]; // INTEGER
+        const matrix  = [this.y, this.y, this.y, this.n, this.n, this.n]; // MATRIX
+        const vector  = [this.y, this.y, this.y, this.n, this.v, this.n]; // VECTOR
+        const void_   = [this.n, this.n, this.n, this.n, this.n, this.n]; // VOID
 
-        operations.push(boolean, float, int, matrix, vector);
+        operations.push(boolean, float, int, matrix, vector, void_);
     }
 
 }

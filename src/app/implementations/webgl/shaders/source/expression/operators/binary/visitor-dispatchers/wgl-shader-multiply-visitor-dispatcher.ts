@@ -25,14 +25,15 @@ export class WglShaderMultiplyVisitorDispatcher extends WglShaderVisitorDispatch
             }
         };
 
-        //                 BOOL,  FLOAT,    INT,    MAT,    VEC
-        const boolean = [this.y, this.y, this.y, this.y , this.y ]; // BOOLEAN
-        const float   = [this.y, this.y, this.y, this.y , this.y ]; // FLOAT
-        const int     = [this.y, this.y, this.y, this.y , this.y ]; // INTEGER
-        const matrix  = [this.y, this.y, this.y, this.mm, this.mm]; // MATRIX
-        const vector  = [this.y, this.y, this.y, vecMat , this.m ]; // VECTOR
+        //                 BOOL,  FLOAT,    INT,     MAT,     VEC,   VOID
+        const boolean = [this.y, this.y, this.y, this.y , this.y , this.n]; // BOOLEAN
+        const float   = [this.y, this.y, this.y, this.y , this.y , this.n]; // FLOAT
+        const int     = [this.y, this.y, this.y, this.y , this.y , this.n]; // INTEGER
+        const matrix  = [this.y, this.y, this.y, this.mm, this.mm, this.n]; // MATRIX
+        const vector  = [this.y, this.y, this.y, vecMat , this.m , this.n]; // VECTOR
+        const void_   = [this.n, this.n, this.n, this.n , this.n , this.n]; // VOID
 
-        operations.push(boolean, float, int, matrix, vector);
+        operations.push(boolean, float, int, matrix, vector, void_);
     }
 
 }
