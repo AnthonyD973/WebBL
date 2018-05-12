@@ -6,6 +6,7 @@ const FLOAT     = 1;
 const INTEGER   = 2;
 const MATRIX    = 3;
 const VECTOR    = 4;
+const VOID      = 5;
 
 export class WglShaderExpressionTypeVisitor implements ShaderExpressionTypeVisitor {
 
@@ -27,6 +28,10 @@ export class WglShaderExpressionTypeVisitor implements ShaderExpressionTypeVisit
 
     public visitVector(v: ShaderExpressionType): number {
         return VECTOR;
+    }
+
+    public visitVoid(v: ShaderExpressionType): number {
+        return VOID;
     }
 
 }
