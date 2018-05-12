@@ -14,4 +14,8 @@ export class WglTestingShaderNoParse implements Shader {
         throw new Error(`This testing class is built so that the parse method throws an error`);
     }
 
+    public compile(): void {
+        this.parse();
+    }
+
 }

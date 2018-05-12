@@ -14,4 +14,8 @@ export class WglTestingShader implements Shader {
         return this.globalScope.parse();
     }
 
+    public compile(): void {
+        this.parse();
+    }
+
 }

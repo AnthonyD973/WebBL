@@ -9,6 +9,9 @@ export class WglFragmentShader implements FragmentShader {
         this.globalScope = new WglShaderGlobalScope();
     }
 
+    public compile(): void {
+    }
+
     public parse(): string {
         const parsedShader = this.globalScope.parse();
         return parsedShader;
