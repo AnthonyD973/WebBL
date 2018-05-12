@@ -5,4 +5,6 @@ export interface Shader extends ShaderParsable {
 
     readonly globalScope: ShaderGlobalScope;
 
+    compile(): void;
+
 }
