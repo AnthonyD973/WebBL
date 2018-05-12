@@ -11,6 +11,7 @@ import { WglShaderIntegerLiteral } from '../../../rvalues/wgl-shader-integer-lit
 import { WglShaderMatrixLiteral } from '../../../rvalues/wgl-shader-matrix-literal';
 import { WglShaderVectorLiteral } from '../../../rvalues/wgl-shader-vector-literal';
 import { WglShaderLiteralSamples } from '../../../../../testing/wgl-shader-literal-samples';
+import { WglShaderVoidType } from '../../../types/wgl-shader-void-type';
 
 describe(WglShaderMultiplyVisitorDispatcher.name, () => {
 
@@ -22,10 +23,12 @@ describe(WglShaderMultiplyVisitorDispatcher.name, () => {
 
     let vd: WglShaderMultiplyVisitorDispatcher;
     let s: WglShaderLiteralSamples;
+    let voidT: WglShaderVoidType;
 
     beforeEach(inject([WglShaderMultiplyVisitorDispatcher], (injVd) => {
         vd = injVd;
         s = new WglShaderLiteralSamples();
+        voidT = new WglShaderVoidType();
     }));
 
     it('should be created', () => {
@@ -86,11 +89,20 @@ describe(WglShaderMultiplyVisitorDispatcher.name, () => {
         expect(() => vd.visit(s.m3.type, s.m23.type)).toThrow();
         expect(() => vd.visit(s.m3.type, s.v2.type)).toThrow();
         expect(() => vd.visit(s.m32.type, s.v3.type)).toThrow();
+        expect(() => vd.visit(s.m3.type, voidT)).toThrow();
 
         expect(() => vd.visit(s.v2.type, s.v3.type)).toThrow();
         expect(() => vd.visit(s.v2.type, s.m32.type)).toThrow();
         expect(() => vd.visit(s.v3.type, s.v2.type)).toThrow();
         expect(() => vd.visit(s.v3.type, s.m23.type)).toThrow();
+        expect(() => vd.visit(s.v3.type, voidT)).toThrow();
+
+        expect(() => vd.visit(voidT, s.bTrue.type)).toThrow();
+        expect(() => vd.visit(voidT, s.fPi.type)).toThrow();
+        expect(() => vd.visit(voidT, s.iNeg.type)).toThrow();
+        expect(() => vd.visit(voidT, s.m3.type)).toThrow();
+        expect(() => vd.visit(voidT, s.v4.type)).toThrow();
+        expect(() => vd.visit(voidT, voidT)).toThrow();
     });
 
 });
