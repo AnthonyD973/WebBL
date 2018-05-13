@@ -27,12 +27,33 @@ describe(WglShaderProgram.name, () => {
         expect(program.fragmentShader).toBe(fragmentShader);
     });
 
-    it('should not be created when one of its shaders does not parse', () => {
-        const vShaderNoParse = new WglTestingVertexShaderNoParse();
-        const fShaderNoParse = new WglTestingFragmentShaderNoParse();
-        expect(() => new WglShaderProgram(gl, vShaderNoParse, fragmentShader)).toThrow();
-        expect(() => new WglShaderProgram(gl, vertexShader  , fShaderNoParse)).toThrow();
-        expect(() => new WglShaderProgram(gl, vShaderNoParse, fShaderNoParse)).toThrow();
+    describe('end', () => {
+
+        it('should not throw an error when its shaders compile', () => {
+            program.end();
+        });
+
+        it('should throw an error when it is called more than once', () => {
+            program.end();
+            for (let i = 0; i < 3; ++i) {
+                expect(() => program.end()).toThrow();
+            }
+        });
+
+        it('should throw an error when one of its shaders does not compile', () => {
+            const vShaderNoParse = new WglTestingVertexShaderNoParse();
+            const fShaderNoParse = new WglTestingFragmentShaderNoParse();
+            const programs = [
+                new WglShaderProgram(gl, vShaderNoParse, fragmentShader),
+                new WglShaderProgram(gl, vertexShader  , fShaderNoParse),
+                new WglShaderProgram(gl, vShaderNoParse, fShaderNoParse)
+            ];
+
+            programs.forEach(prgm => {
+                expect(prgm.end()).toThrow();
+            });
+        });
+
     });
 
 });
