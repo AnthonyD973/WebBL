@@ -9,14 +9,16 @@ import { WglTestingFragmentShaderValid } from './testing/shaders/wgl-testing-fra
 
 describe(WglShaderProgram.name, () => {
 
+    let gl: WebGLRenderingContext;
     let vertexShader: VertexShader;
     let fragmentShader: FragmentShader;
     let program: WglShaderProgram;
 
     beforeEach(() => {
+        gl = document.createElement('canvas').getContext('webgl');
         vertexShader = new WglTestingVertexShaderValid();
         fragmentShader = new WglTestingFragmentShaderValid();
-        program = new WglShaderProgram(vertexShader, fragmentShader);
+        program = new WglShaderProgram(gl, vertexShader, fragmentShader);
     });
 
     it('should be created', () => {
@@ -28,9 +30,9 @@ describe(WglShaderProgram.name, () => {
     it('should not be created when one of its shaders does not parse', () => {
         const vShaderNoParse = new WglTestingVertexShaderNoParse();
         const fShaderNoParse = new WglTestingFragmentShaderNoParse();
-        expect(() => new WglShaderProgram(vShaderNoParse, fragmentShader)).toThrow();
-        expect(() => new WglShaderProgram(vertexShader  , fShaderNoParse)).toThrow();
-        expect(() => new WglShaderProgram(vShaderNoParse, fShaderNoParse)).toThrow();
+        expect(() => new WglShaderProgram(gl, vShaderNoParse, fragmentShader)).toThrow();
+        expect(() => new WglShaderProgram(gl, vertexShader  , fShaderNoParse)).toThrow();
+        expect(() => new WglShaderProgram(gl, vShaderNoParse, fShaderNoParse)).toThrow();
     });
 
 });

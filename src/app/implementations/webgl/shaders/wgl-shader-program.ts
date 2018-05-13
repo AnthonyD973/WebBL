@@ -10,7 +10,11 @@ export class WglShaderProgram implements ShaderProgram {
     protected vertexWebGlSource: string;
     protected fragmentWebGlSource: string;
 
-    constructor(vertexShader: VertexShader, fragmentShader: FragmentShader) {
+    protected gl: WebGLRenderingContext;
+    protected glProgram: WebGLProgram;
+
+    constructor(gl: WebGLRenderingContext, vertexShader: VertexShader, fragmentShader: FragmentShader) {
+        this.gl = gl;
         this.vertexShader = vertexShader;
         this.fragmentShader = fragmentShader;
         this.vertexWebGlSource = this.vertexShader.parse();
