@@ -1,24 +1,11 @@
 import { VertexShader } from '../../../api/shaders/vertex-shader';
 import { WglShaderGlobalScope } from './source/scope/wgl-shader-global-scope';
+import { WglShader } from './wgl-shader';
 
-export class WglVertexShader implements VertexShader {
-
-    public readonly globalScope: WglShaderGlobalScope;
-
-    protected gl: WebGLRenderingContext;
-    protected glShader: WebGLShader;
+export class WglVertexShader extends WglShader implements VertexShader {
 
     constructor(gl: WebGLRenderingContext) {
-        this.gl = gl;
-        this.globalScope = new WglShaderGlobalScope();
-        this.glShader = this.gl.createShader(this.gl.VERTEX_SHADER);
-    }
-
-    public compile(): void {
-        this.gl.shaderSource(this.glShader, this.parse());
-        if (!this.gl.getShaderParameter(this.glShader, this.gl.COMPILE_STATUS)) {
-            throw new Error(`WebGL shader could not compile: ${this.gl.getShaderInfoLog(this.glShader)}`);
-        }
+        super(gl, gl.VERTEX_SHADER);
     }
 
     public parse(): string {
