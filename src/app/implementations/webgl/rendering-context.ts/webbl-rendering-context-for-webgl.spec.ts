@@ -1,4 +1,6 @@
 import { WebBLRenderingContextForWebGL } from './webbl-rendering-context-for-webgl';
+import { WglVertexShader } from '../shaders/wgl-vertex-shader';
+import { WglFragmentShader } from '../shaders/wgl-fragment-shader';
 
 describe(WebBLRenderingContextForWebGL.name, () => {
 
@@ -17,6 +19,36 @@ describe(WebBLRenderingContextForWebGL.name, () => {
 
     it('should not be created when the canvas is null', () => {
         expect(() => new WebBLRenderingContextForWebGL(null)).toThrow();
+    });
+
+    describe('createShaderProgram', () => {
+
+        it('should return an object', () => {
+            expect(bl.createShaderProgram(new WglVertexShader(), new WglFragmentShader())).toBeTruthy();
+        });
+
+        it('should throw an error when one of the shaders is null', () => {
+            expect(() => bl.createShaderProgram(new WglVertexShader(), undefined)).toThrow();
+            expect(() => bl.createShaderProgram(undefined, new WglFragmentShader())).toThrow();
+            expect(() => bl.createShaderProgram(undefined, null)).toThrow();
+        });
+
+    });
+
+    describe('createVertexShader', () => {
+
+        it('should return an object', () => {
+            expect(bl.createVertexShader()).toBeTruthy();
+        });
+
+    });
+
+    describe('createFragmentShader', () => {
+
+        it('should return an object', () => {
+            expect(bl.createFragmentShader()).toBeTruthy();
+        });
+
     });
 
 });
