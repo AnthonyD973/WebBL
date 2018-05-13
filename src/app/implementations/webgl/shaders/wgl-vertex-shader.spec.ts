@@ -1,5 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { WglVertexShader } from './wgl-vertex-shader';
+import { WglShaderVoidType } from './source/expression/types/wgl-shader-void-type';
 
 describe(WglVertexShader.name, () => {
 
@@ -19,7 +20,7 @@ describe(WglVertexShader.name, () => {
     describe('parse', () => {
 
         it('should parse an empty shader with a main', () => {
-            shader.globalScope.createFunction('main', [], {acceptVisitor: (v) => 0, parse: () => 'void'});
+            shader.globalScope.createFunction('main', [], new WglShaderVoidType());
             const regex = /^\s*void\s+main\s*\((void)?\s*\)\s+{\n\s*}\s*$/;
             expect(shader.parse()).toMatch(regex);
         });

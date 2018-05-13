@@ -9,6 +9,7 @@ import { WglShaderMatrixType } from '../expression/types/wgl-shader-matrix-type'
 import { WglShaderOutput } from '../expression/lvalues/wgl-shader-output';
 import { WglShaderTestingUtil } from '../../testing/wgl-shader-testing-util';
 import { WglShaderTestingGlobalScope } from '../../testing/wgl-shader-testing-global-scope';
+import { WglShaderVoidType } from '../expression/types/wgl-shader-void-type';
 
 describe(WglShaderGlobalScope.name, () => {
 
@@ -47,7 +48,7 @@ describe(WglShaderGlobalScope.name, () => {
                 new WglShaderIntegerType()
             );
             const main = scope.createFunction(
-                'main', [], {acceptVisitor: (v => 0), parse: () => 'void'} // TODO Create and use a real void type
+                'main', [], new WglShaderVoidType()
             );
             const inp1Regex  = WglShaderTestingUtil.escapeRegexCharacters(inp1 .parse());
             const outp1Regex = WglShaderTestingUtil.escapeRegexCharacters(outp1.parse());
