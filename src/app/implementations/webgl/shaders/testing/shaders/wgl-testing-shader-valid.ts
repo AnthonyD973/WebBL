@@ -17,8 +17,6 @@ export abstract class WglTestingShaderValid extends WglVertexShader {
     public compile(): void {
     }
 
-    public parse(): string {
-        return 'testParse';
-    }
+    public abstract parse(): string;
 
 }
