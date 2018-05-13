@@ -1,6 +1,6 @@
 import { WebBLRenderingContextForWebGL } from './webbl-rendering-context-for-webgl';
-import { WglVertexShader } from '../shaders/wgl-vertex-shader';
-import { WglFragmentShader } from '../shaders/wgl-fragment-shader';
+import { WglTestingVertexShaderValid } from '../shaders/testing/shaders/wgl-testing-vertex-shader-valid';
+import { WglTestingFragmentShaderValid } from '../shaders/testing/shaders/wgl-testing-fragment-shader-valid';
 
 describe(WebBLRenderingContextForWebGL.name, () => {
 
@@ -24,12 +24,12 @@ describe(WebBLRenderingContextForWebGL.name, () => {
     describe('createShaderProgram', () => {
 
         it('should return an object', () => {
-            expect(bl.createShaderProgram(new WglVertexShader(), new WglFragmentShader())).toBeTruthy();
+            expect(bl.createShaderProgram(new WglTestingVertexShaderValid(), new WglTestingFragmentShaderValid())).toBeTruthy();
         });
 
         it('should throw an error when one of the shaders is null', () => {
-            expect(() => bl.createShaderProgram(new WglVertexShader(), undefined)).toThrow();
-            expect(() => bl.createShaderProgram(undefined, new WglFragmentShader())).toThrow();
+            expect(() => bl.createShaderProgram(new WglTestingVertexShaderValid(), undefined)).toThrow();
+            expect(() => bl.createShaderProgram(undefined, new WglTestingFragmentShaderValid())).toThrow();
             expect(() => bl.createShaderProgram(undefined, null)).toThrow();
         });
 
