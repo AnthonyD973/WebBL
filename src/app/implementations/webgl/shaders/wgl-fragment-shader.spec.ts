@@ -3,19 +3,13 @@ import { WglFragmentShader } from './wgl-fragment-shader';
 
 describe(WglFragmentShader.name, () => {
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            providers: [
-                WglFragmentShader
-            ]
-        });
-    });
-
+    let gl: WebGLRenderingContext;
     let shader: WglFragmentShader;
 
-    beforeEach(inject([WglFragmentShader], (injScope: WglFragmentShader) => {
-        shader = injScope;
-    }));
+    beforeEach(() => {
+        gl = document.createElement('canvas').getContext('webgl');
+        shader = new WglFragmentShader(gl);
+    });
 
     it('should be created', () => {
         expect(shader).toBeTruthy();

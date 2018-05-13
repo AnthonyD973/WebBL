@@ -32,11 +32,11 @@ export class WebBLRenderingContextForWebGL implements WebBLRenderingContext {
     }
 
     public createVertexShader(): VertexShader {
-        return new WglVertexShader();
+        return new WglVertexShader(this.gl);
     }
 
     public createFragmentShader(): FragmentShader {
-        return new WglFragmentShader();
+        return new WglFragmentShader(this.gl);
     }
 
 }

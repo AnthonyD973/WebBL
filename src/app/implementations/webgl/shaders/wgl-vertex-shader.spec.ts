@@ -3,19 +3,13 @@ import { WglVertexShader } from './wgl-vertex-shader';
 
 describe(WglVertexShader.name, () => {
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            providers: [
-                WglVertexShader
-            ]
-        });
-    });
-
+    let gl: WebGLRenderingContext;
     let shader: WglVertexShader;
 
-    beforeEach(inject([WglVertexShader], (injScope: WglVertexShader) => {
-        shader = injScope;
-    }));
+    beforeEach(() => {
+        gl = document.createElement('canvas').getContext('webgl');
+        shader = new WglVertexShader(gl);
+    });
 
     it('should be created', () => {
         expect(shader).toBeTruthy();

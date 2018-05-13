@@ -5,11 +5,20 @@ export class WglFragmentShader implements FragmentShader {
 
     public readonly globalScope: WglShaderGlobalScope;
 
-    constructor() {
+    protected gl: WebGLRenderingContext;
+    protected glShader: WebGLShader;
+
+    constructor(gl: WebGLRenderingContext) {
+        this.gl = gl;
         this.globalScope = new WglShaderGlobalScope();
+        this.glShader = this.gl.createShader(this.gl.VERTEX_SHADER);
     }
 
     public compile(): void {
+        this.gl.shaderSource(this.glShader, this.parse());
+        if (!this.gl.getShaderParameter(this.glShader, this.gl.COMPILE_STATUS)) {
+            throw new Error(`WebGL shader could not compile: ${this.gl.getShaderInfoLog(this.glShader)}`);
+        }
     }
 
     public parse(): string {
