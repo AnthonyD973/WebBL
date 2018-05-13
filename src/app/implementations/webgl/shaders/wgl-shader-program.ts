@@ -26,6 +26,9 @@ export class WglShaderProgram implements ShaderProgram {
         this.vertexShader.compile();
         this.fragmentShader.compile();
 
+        this.gl.attachShader(this.glProgram, this.vertexShader.glShader);
+        this.gl.attachShader(this.glProgram, this.fragmentShader.glShader);
+
         this.gl.linkProgram(this.glProgram);
         if (this.gl.getProgramParameter(this.glProgram, this.gl.LINK_STATUS)) {
             this.hasEnded = true;
