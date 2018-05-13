@@ -17,6 +17,10 @@ export class WebBLRenderingContextForWebGL implements WebBLRenderingContext {
     constructor(canvas: HTMLCanvasElement) {
         if (canvas != null) {
             this.gl = canvas.getContext('webgl');
+            if (this.gl == null) {
+                throw new Error(`WebBL could not access the canvas' webgl rendering context. `
+                    + `Did you already call "getContext" on this canvas?`);
+            }
         }
         else {
             throw new Error(`Cannot create WebBL rendering context on a null canvas`);
