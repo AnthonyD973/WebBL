@@ -21,4 +21,8 @@ export class WglShaderProgram implements ShaderProgram {
         this.fragmentWebGlSource = this.fragmentShader.parse();
     }
 
+    public end(): void {
+
+    }
+
 }

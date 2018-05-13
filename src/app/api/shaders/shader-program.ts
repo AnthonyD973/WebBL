@@ -6,4 +6,6 @@ export interface ShaderProgram {
     readonly vertexShader: VertexShader;
     readonly fragmentShader: FragmentShader;
 
+    end(): void;
+
 }
