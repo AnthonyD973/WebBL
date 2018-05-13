@@ -9,5 +9,6 @@ export interface WebBLRenderingContext {
     createShaderProgram(vs: VertexShader, fs: FragmentShader): ShaderProgram;
     createVertexShader(): VertexShader;
     createFragmentShader(): FragmentShader;
+    useProgram(program: ShaderProgram): void;
 
 }

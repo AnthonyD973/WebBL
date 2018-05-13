@@ -4,9 +4,9 @@ import { WglShaderGlobalScope } from './source/scope/wgl-shader-global-scope';
 export abstract class WglShader implements Shader {
 
     public readonly globalScope: WglShaderGlobalScope;
+    public readonly glShader: WebGLShader;
 
     protected gl: WebGLRenderingContext;
-    protected glShader: WebGLShader;
 
     constructor(gl: WebGLRenderingContext, shaderType: number) {
         this.gl = gl;
