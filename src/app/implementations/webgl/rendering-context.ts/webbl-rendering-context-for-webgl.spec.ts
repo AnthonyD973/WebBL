@@ -27,12 +27,6 @@ describe(WebBLRenderingContextForWebGL.name, () => {
             expect(bl.createShaderProgram(new WglTestingVertexShaderValid(), new WglTestingFragmentShaderValid())).toBeTruthy();
         });
 
-        it('should throw an error when one of the shaders is null', () => {
-            expect(() => bl.createShaderProgram(new WglTestingVertexShaderValid(), undefined)).toThrow();
-            expect(() => bl.createShaderProgram(undefined, new WglTestingFragmentShaderValid())).toThrow();
-            expect(() => bl.createShaderProgram(undefined, null)).toThrow();
-        });
-
     });
 
     describe('createVertexShader', () => {
