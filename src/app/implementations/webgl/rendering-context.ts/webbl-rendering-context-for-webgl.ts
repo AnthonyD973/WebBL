@@ -2,6 +2,9 @@ import { WebBLRenderingContext } from '../../../api/rendering-context/webbl-rend
 import { VertexShader } from '../../../api/shaders/vertex-shader';
 import { FragmentShader } from '../../../api/shaders/fragment-shader';
 import { ShaderProgram } from '../../../api/shaders/shader-program';
+import { WglShaderProgram } from '../shaders/wgl-shader-program';
+import { WglVertexShader } from '../shaders/wgl-vertex-shader';
+import { WglFragmentShader } from '../shaders/wgl-fragment-shader';
 
 export class WebBLRenderingContextForWebGL implements WebBLRenderingContext {
 
@@ -21,15 +24,15 @@ export class WebBLRenderingContextForWebGL implements WebBLRenderingContext {
     }
 
     public createShaderProgram(vs: VertexShader, fs: FragmentShader): ShaderProgram {
-        return null;
+        return new WglShaderProgram(vs, fs);
     }
 
     public createVertexShader(): VertexShader {
-        return null;
+        return new WglVertexShader();
     }
 
     public createFragmentShader(): FragmentShader {
-        return null;
+        return new WglFragmentShader();
     }
 
 }
