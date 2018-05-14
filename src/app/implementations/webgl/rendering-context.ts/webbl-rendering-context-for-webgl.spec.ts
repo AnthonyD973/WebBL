@@ -1,6 +1,7 @@
 import { WebBLRenderingContextForWebGL } from './webbl-rendering-context-for-webgl';
 import { WglTestingVertexShaderValid } from '../shaders/testing/shaders/wgl-testing-vertex-shader-valid';
 import { WglTestingFragmentShaderValid } from '../shaders/testing/shaders/wgl-testing-fragment-shader-valid';
+import { WglShaderVoidType } from '../shaders/source/expression/types/wgl-shader-void-type';
 
 describe(WebBLRenderingContextForWebGL.name, () => {
 
@@ -41,6 +42,30 @@ describe(WebBLRenderingContextForWebGL.name, () => {
 
         it('should return an object', () => {
             expect(bl.createFragmentShader()).toBeTruthy();
+        });
+
+    });
+
+    describe('useProgram', () => {
+
+        it('should not throw an error when the program already ended', () => {
+            const vs = bl.createVertexShader();
+            vs.globalScope.createFunction('main', [], new WglShaderVoidType());
+            const fs = bl.createFragmentShader();
+            fs.globalScope.createFunction('main', [], new WglShaderVoidType());
+            const program = bl.createShaderProgram(vs, fs);
+            program.end();
+            bl.useProgram(program);
+        });
+
+        it('should end the program when is not yet ended', () => {
+            const vs = bl.createVertexShader();
+            vs.globalScope.createFunction('main', [], new WglShaderVoidType());
+            const fs = bl.createFragmentShader();
+            fs.globalScope.createFunction('main', [], new WglShaderVoidType());
+            const program = bl.createShaderProgram(vs, fs);
+            bl.useProgram(program);
+            expect(() => program.end()).toThrow();
         });
 
     });
