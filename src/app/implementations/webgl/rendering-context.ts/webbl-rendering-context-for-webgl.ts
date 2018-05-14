@@ -27,7 +27,7 @@ export class WebBLRenderingContextForWebGL implements WebBLRenderingContext {
         }
     }
 
-    public createShaderProgram(vs: WglVertexShader, fs: WglFragmentShader): ShaderProgram {
+    public createShaderProgram(vs: WglVertexShader, fs: WglFragmentShader): WglShaderProgram {
         return new WglShaderProgram(this.gl, vs, fs);
     }
 
@@ -37,6 +37,9 @@ export class WebBLRenderingContextForWebGL implements WebBLRenderingContext {
 
     public createFragmentShader(): WglFragmentShader {
         return new WglFragmentShader(this.gl);
+    }
+
+    public useProgram(program: WglShaderProgram): void {
     }
 
 }
