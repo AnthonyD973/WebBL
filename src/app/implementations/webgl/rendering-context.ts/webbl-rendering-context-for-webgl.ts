@@ -40,6 +40,11 @@ export class WebBLRenderingContextForWebGL implements WebBLRenderingContext {
     }
 
     public useProgram(program: WglShaderProgram): void {
+        try {
+            program.end();
+        } catch (e) { }
+
+        this.gl.useProgram(program.glProgram);
     }
 
 }

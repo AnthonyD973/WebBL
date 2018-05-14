@@ -6,9 +6,9 @@ export class WglShaderProgram implements ShaderProgram {
 
     public readonly vertexShader: WglVertexShader;
     public readonly fragmentShader: WglFragmentShader;
+    public readonly glProgram: WebGLProgram;
 
     protected gl: WebGLRenderingContext;
-    protected glProgram: WebGLProgram;
 
     protected hasEnded = false;
 
