@@ -7,6 +7,7 @@ import { ShaderElse } from '../../../../../../api/shaders/source/scope/local-sco
 import { WglShaderElseIf } from './wgl-shader-else-if';
 import { WglShaderElse } from './wgl-shader-else';
 import { ShaderLocalScope } from '../../../../../../api/shaders/source/scope/shader-local-scope';
+import { ShaderScopeNames } from '../../../../../../api/shaders/source/scope/shader-scope-names';
 
 const TOKEN = 'if';
 
@@ -29,9 +30,14 @@ export class WglShaderIf extends WglShaderLocalScope implements ShaderIf {
     }
 
     public elseIf(condition: ShaderExpression): ShaderElseIf {
-        const elseIfStatement = new WglShaderElseIf(this, condition);
-        this.elseIfs.push(elseIfStatement);
-        return elseIfStatement;
+        if (!this.hasElse) {
+            const elseIfStatement = new WglShaderElseIf(this, condition);
+            this.elseIfs.push(elseIfStatement);
+            return elseIfStatement;
+        }
+        else {
+            throw new Error(`Cannot add a second "${ShaderScopeNames.elseIf}" clause to a "${this.scopeName}" scope`);
+        }
     }
 
     public else(): ShaderElse {
@@ -41,7 +47,7 @@ export class WglShaderIf extends WglShaderLocalScope implements ShaderIf {
             return elseStatement;
         }
         else {
-            throw new Error(`Cannot add a second "${this.elseInternal.scopeName}" clause to a "${this.scopeName}" scope`);
+            throw new Error(`Cannot add a second "${ShaderScopeNames.else}" clause to a "${this.scopeName}" scope`);
         }
     }
 
