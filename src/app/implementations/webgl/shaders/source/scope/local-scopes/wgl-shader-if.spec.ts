@@ -26,21 +26,17 @@ describe(WglShaderIf.name, () => {
         expect(statement).toBeTruthy();
         expect(statement.scopeName).toBeTruthy();
         expect(statement.condition).toBe(condition);
+        expect(statement.elseIfs).toEqual([]);
     });
 
     describe('elseIf', () => {
 
-        it('should return an elseIf statement with the same parent and the correct condition', () => {
+        it('should create an else-if clause, save it and return it', () => {
             const elseIfStatement = statement.elseIf(condition);
             expect(elseIfStatement.parent).toBe(statement.parent);
             expect(elseIfStatement.condition).toBe(condition);
-        });
-
-        it('should throw an error when executed more than once', () => {
-            statement.elseIf(condition);
-            for (let i = 0; i < 3; ++i) {
-                expect(() => statement.elseIf(condition)).toThrow();
-            }
+            expect(statement.elseIfs.length).toEqual(1);
+            expect(statement.elseIfs[0]).toBe(elseIfStatement);
         });
 
     });
@@ -59,13 +55,6 @@ describe(WglShaderIf.name, () => {
             }
         });
 
-    });
-
-    it('should not be able to have both an elseIf and an else statements', () => {
-        expect(() => {
-            statement.elseIf(condition);
-            statement.else();
-        }).toThrow();
     });
 
     describe('parse', () => {
