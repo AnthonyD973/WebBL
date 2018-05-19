@@ -39,6 +39,22 @@ describe(WglShaderIf.name, () => {
             expect(statement.elseIfs[0]).toBe(elseIfStatement);
         });
 
+        it('should be able to create multiple else-if clauses', () => {
+            for (let i = 0; i < 10; ++i) {
+                const elseIfStatement = statement.elseIf(condition);
+                expect(elseIfStatement.parent).toBe(statement.parent);
+                expect(elseIfStatement.condition).toBe(condition);
+                expect(statement.elseIfs.length).toEqual(i + 1);
+                expect(statement.elseIfs[i]).toBe(elseIfStatement);
+            }
+        });
+
+        it('should not create an else-if clause when there already is an else clause', () => {
+            statement.elseIf(condition);
+            statement.else();
+            expect(() => statement.elseIf(condition)).toThrow();
+        });
+
     });
 
     describe('else', () => {
