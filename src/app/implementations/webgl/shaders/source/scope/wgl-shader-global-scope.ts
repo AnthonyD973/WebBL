@@ -19,7 +19,7 @@ export class WglShaderGlobalScope implements ShaderGlobalScope {
     public readonly parent: Shader;
 
     constructor(parent: Shader) {
-
+        this.parent = parent;
     }
 
     public parse(): string {
