@@ -13,7 +13,7 @@ const TOKEN = 'if';
 export class WglShaderIf extends WglShaderLocalScope implements ShaderIf {
 
     public readonly condition: ShaderExpression;
-    public readonly elseIfs: ShaderElseIf[];
+    public readonly elseIfs: ShaderElseIf[] = [];
 
     private hasAlternateCase = false;
 
@@ -32,6 +32,7 @@ export class WglShaderIf extends WglShaderLocalScope implements ShaderIf {
         this.hasAlternateCase = true;
 
         const elseIfStatement = new WglShaderElseIf(this, condition);
+        this.elseIfs.push(elseIfStatement);
         return elseIfStatement;
     }
 
