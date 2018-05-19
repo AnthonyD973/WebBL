@@ -10,28 +10,25 @@ import { WglShaderOutput } from '../expression/lvalues/wgl-shader-output';
 import { WglShaderTestingUtil } from '../../testing/wgl-shader-testing-util';
 import { WglShaderTestingGlobalScope } from '../../testing/wgl-shader-testing-global-scope';
 import { WglShaderVoidType } from '../expression/types/wgl-shader-void-type';
+import { Shader } from '../../../../../api/shaders/shader';
+import { WglTestingFragmentShaderValid } from '../../testing/shaders/wgl-testing-fragment-shader-valid';
 
 describe(WglShaderGlobalScope.name, () => {
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            providers: [
-                {provide: WglShaderGlobalScope, useFactory: () => new WglShaderTestingGlobalScope()}
-            ]
-        });
-    });
-
+    let parentShader: Shader;
     let scope: WglShaderGlobalScope;
 
-    beforeEach(inject([WglShaderGlobalScope], (injScope: WglShaderGlobalScope) => {
-        scope = injScope;
-    }));
+    beforeEach(() => {
+        parentShader = new WglTestingFragmentShaderValid();
+        scope = new WglShaderTestingGlobalScope(parentShader);
+    });
 
     it('should be created', () => {
         expect(scope).toBeTruthy();
         expect(scope.functions).toBeTruthy();
         expect(scope.inputs).toBeTruthy();
         expect(scope.outputs).toBeTruthy();
+        expect(scope.parent).toBe(parentShader);
     });
 
     describe('parse', () => {
