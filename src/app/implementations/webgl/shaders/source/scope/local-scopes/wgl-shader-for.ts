@@ -3,6 +3,7 @@ import { ShaderFor } from '../../../../../../api/shaders/source/scope/local-scop
 import { ShaderExpression } from '../../../../../../api/shaders/source/expression/shader-expression';
 import { WglShaderBlock } from '../../statement/wgl-shader-block';
 import { ShaderLocalScope } from '../../../../../../api/shaders/source/scope/shader-local-scope';
+import { ShaderScopeNames } from '../../../../../../api/shaders/source/scope/shader-scope-names';
 
 const TOKEN = 'for';
 
@@ -13,7 +14,7 @@ export class WglShaderFor extends WglShaderLocalScope implements ShaderFor {
     public readonly loop: ShaderExpression;
 
     public get scopeName(): string {
-        return 'for';
+        return ShaderScopeNames.for;
     }
 
     constructor(init: ShaderExpression, condition: ShaderExpression, loop: ShaderExpression) {

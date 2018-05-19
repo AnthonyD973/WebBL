@@ -7,6 +7,7 @@ import { ShaderFunction } from '../../../../../../api/shaders/source/scope/local
 import { ShaderExpressionType } from '../../../../../../api/shaders/source/expression/shader-expression-type';
 import { WglShaderArgumentListParser } from '../util/wgl-shader-argument-list-parser';
 import { WglShaderBlock } from '../../statement/wgl-shader-block';
+import { ShaderScopeNames } from '../../../../../../api/shaders/source/scope/shader-scope-names';
 
 export class WglShaderFunction extends WglShaderLocalScope implements ShaderFunction {
 
@@ -20,7 +21,7 @@ export class WglShaderFunction extends WglShaderLocalScope implements ShaderFunc
     }
 
     public get scopeName(): string {
-        return 'function';
+        return ShaderScopeNames.function;
     }
 
     constructor(name: string, params: WglShaderVariable[], ret: ShaderExpressionType) {

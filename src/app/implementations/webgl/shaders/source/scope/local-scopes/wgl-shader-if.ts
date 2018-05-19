@@ -20,7 +20,7 @@ export class WglShaderIf extends WglShaderLocalScope implements ShaderIf {
     private hasElse = false;
 
     public get scopeName(): string {
-        return 'if';
+        return ShaderScopeNames.if;
     }
 
     constructor(condition: ShaderExpression) {

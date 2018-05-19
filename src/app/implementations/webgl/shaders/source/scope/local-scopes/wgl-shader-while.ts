@@ -3,6 +3,7 @@ import { ShaderWhile } from '../../../../../../api/shaders/source/scope/local-sc
 import { ShaderExpression } from '../../../../../../api/shaders/source/expression/shader-expression';
 import { WglShaderBlock } from '../../statement/wgl-shader-block';
 import { ShaderLocalScope } from '../../../../../../api/shaders/source/scope/shader-local-scope';
+import { ShaderScopeNames } from '../../../../../../api/shaders/source/scope/shader-scope-names';
 
 const TOKEN = 'while';
 
@@ -11,7 +12,7 @@ export class WglShaderWhile extends WglShaderLocalScope implements ShaderWhile {
     public readonly condition: ShaderExpression;
 
     public get scopeName(): string {
-        return 'while';
+        return ShaderScopeNames.while;
     }
 
     constructor(condition: ShaderExpression) {

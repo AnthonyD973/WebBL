@@ -2,13 +2,14 @@ import { WglShaderLocalScope } from '../wgl-shader-local-scope';
 import { WglShaderBlock } from '../../statement/wgl-shader-block';
 import { ShaderIf } from '../../../../../../api/shaders/source/scope/local-scopes/shader-if';
 import { ShaderLocalScope } from '../../../../../../api/shaders/source/scope/shader-local-scope';
+import { ShaderScopeNames } from '../../../../../../api/shaders/source/scope/shader-scope-names';
 
 const TOKEN = 'else';
 
 export class WglShaderElse extends WglShaderLocalScope {
 
     public get scopeName(): string {
-        return 'else';
+        return ShaderScopeNames.else;
     }
 
     constructor(parentIf: ShaderIf) {

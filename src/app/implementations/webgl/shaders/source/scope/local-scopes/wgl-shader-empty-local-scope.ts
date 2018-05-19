@@ -3,6 +3,7 @@ import { WglShaderLocalScope } from '../wgl-shader-local-scope';
 import { ShaderExpression } from '../../../../../../api/shaders/source/expression/shader-expression';
 import { ShaderFor } from '../../../../../../api/shaders/source/scope/local-scopes/shader-for';
 import { ShaderWhile } from '../../../../../../api/shaders/source/scope/local-scopes/shader-while';
+import { ShaderScopeNames } from '../../../../../../api/shaders/source/scope/shader-scope-names';
 
 export class WglShaderEmptyLocalScope implements ShaderLocalScope {
 
@@ -16,7 +17,7 @@ export class WglShaderEmptyLocalScope implements ShaderLocalScope {
     }
 
     public get scopeName(): string {
-        return 'empty-scope';
+        return ShaderScopeNames.emptyScope;
     }
 
     constructor() {
