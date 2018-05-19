@@ -13,6 +13,7 @@ const TOKEN = 'if';
 export class WglShaderIf extends WglShaderLocalScope implements ShaderIf {
 
     public readonly condition: ShaderExpression;
+    public readonly elseIfs: ShaderElseIf[];
 
     private hasAlternateCase = false;
 
