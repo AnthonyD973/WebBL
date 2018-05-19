@@ -15,7 +15,8 @@ export class WglShaderIf extends WglShaderLocalScope implements ShaderIf {
     public readonly condition: ShaderExpression;
     public readonly elseIfs: ShaderElseIf[] = [];
 
-    private hasAlternateCase = false;
+    private elseInternal: ShaderElse;
+    private hasElse = false;
 
     public get scopeName(): string {
         return 'if';
@@ -28,20 +29,20 @@ export class WglShaderIf extends WglShaderLocalScope implements ShaderIf {
     }
 
     public elseIf(condition: ShaderExpression): ShaderElseIf {
-        this.assertHasNoAlternateCase();
-        this.hasAlternateCase = true;
-
         const elseIfStatement = new WglShaderElseIf(this, condition);
         this.elseIfs.push(elseIfStatement);
         return elseIfStatement;
     }
 
     public else(): ShaderElse {
-        this.assertHasNoAlternateCase();
-        this.hasAlternateCase = true;
-
-        const elseStatement = new WglShaderElse(this);
-        return elseStatement;
+        if (!this.hasElse) {
+            const elseStatement = new WglShaderElse(this);
+            this.hasElse = true;
+            return elseStatement;
+        }
+        else {
+            throw new Error(`Cannot add a second "${this.elseInternal.scopeName}" clause to a "${this.scopeName}" scope`);
+        }
     }
 
     public parse(): string {
@@ -56,12 +57,6 @@ export class WglShaderIf extends WglShaderLocalScope implements ShaderIf {
         }
         else {
             throw new Error(`Cannot add a child to a "${this.scopeName}" scope`);
-        }
-    }
-
-    protected assertHasNoAlternateCase(): void {
-        if (this.hasAlternateCase) {
-            throw new Error(`Cannot add an alternate case to an "${this.scopeName}" statement when it already has one`);
         }
     }
 
