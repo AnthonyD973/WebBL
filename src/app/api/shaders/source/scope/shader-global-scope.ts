@@ -5,12 +5,14 @@ import { ShaderFunction } from './local-scopes/shader-function';
 import { ShaderFunctionSignature } from '../expression/types/shader-function-signature';
 import { ShaderExpressionType } from '../expression/shader-expression-type';
 import { ShaderVariable } from '../expression/lvalues/shader-variable';
+import { Shader } from '../../shader';
 
 export interface ShaderGlobalScope extends ShaderScope {
 
     readonly inputs: Map<string, ShaderInput>;
     readonly outputs: Map<string, ShaderOutput>;
     readonly functions: Map<string, ShaderFunction>;
+    readonly parent: Shader;
 
     createFunction(name: string, params: ShaderVariable[], ret: ShaderExpressionType): ShaderFunction;
     createInput(name: string, type: ShaderExpressionType): ShaderInput;

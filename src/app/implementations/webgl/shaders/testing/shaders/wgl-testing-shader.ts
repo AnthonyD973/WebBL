@@ -7,7 +7,7 @@ export class WglTestingShader implements Shader {
     public readonly globalScope: ShaderGlobalScope;
 
     constructor() {
-        this.globalScope = new WglShaderGlobalScope();
+        this.globalScope = new WglShaderGlobalScope(this);
     }
 
     public parse(): void {

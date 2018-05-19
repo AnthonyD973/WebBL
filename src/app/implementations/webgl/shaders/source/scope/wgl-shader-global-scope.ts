@@ -9,12 +9,18 @@ import { WglShaderFunction } from './local-scopes/wgl-shader-function';
 import { WglShaderInput } from '../expression/lvalues/wgl-shader-input';
 import { WglShaderOutput } from '../expression/lvalues/wgl-shader-output';
 import { ShaderVariable } from '../../../../../api/shaders/source/expression/lvalues/shader-variable';
+import { Shader } from '../../../../../api/shaders/shader';
 
 export class WglShaderGlobalScope implements ShaderGlobalScope {
 
     public readonly inputs = new Map<string, ShaderInput>();
     public readonly outputs = new Map<string, ShaderOutput>();
     public readonly functions = new Map<string, ShaderFunction>();
+    public readonly parent: Shader;
+
+    constructor(parent: Shader) {
+
+    }
 
     public parse(): string {
         this.assertMainExists();

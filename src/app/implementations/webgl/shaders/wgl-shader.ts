@@ -11,7 +11,7 @@ export abstract class WglShader implements Shader {
     constructor(gl: WebGLRenderingContext, shaderType: number) {
         this.gl = gl;
         this.glShader = this.gl.createShader(shaderType);
-        this.globalScope = new WglShaderGlobalScope();
+        this.globalScope = new WglShaderGlobalScope(this);
     }
 
     public compile(): void {
