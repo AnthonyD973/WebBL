@@ -39,10 +39,12 @@ describe(WglShaderFragmentShaderGlobalScope.name, () => {
             const params = [];
             const ret = new WglShaderIntegerType();
             scope.createFunction('testFunc1', params, ret);
+            scope.createUniform('testUniform1', new WglShaderIntegerType());
             scope.createInput('testInput1', new WglShaderIntegerType());
 
             const namesToTest = [
                 'testFunc1',
+                'testUniform1',
                 'testInput1'
             ];
 

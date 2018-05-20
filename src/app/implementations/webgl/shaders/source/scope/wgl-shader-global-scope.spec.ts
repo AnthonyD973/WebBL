@@ -26,6 +26,7 @@ describe(WglShaderGlobalScope.name, () => {
     it('should be created', () => {
         expect(scope).toBeTruthy();
         expect(scope.functions).toBeTruthy();
+        expect(scope.uniforms).toBeTruthy();
         expect(scope.inputs).toBeTruthy();
         expect(scope.outputs).toBeTruthy();
         expect(scope.parent).toBe(parentShader);
@@ -34,6 +35,7 @@ describe(WglShaderGlobalScope.name, () => {
     describe('parse', () => {
 
         it('should parse all global symbols', () => {
+            const uni1 = scope.createUniform('uni1', new WglShaderIntegerType());
             const inp1 = scope.createInput('inp1', new WglShaderIntegerType());
             const outp1 = scope.createOutput('outp1', new WglShaderIntegerType());
             const func1 = scope.createFunction(
@@ -47,12 +49,13 @@ describe(WglShaderGlobalScope.name, () => {
             const main = scope.createFunction(
                 'main', [], new WglShaderVoidType()
             );
+            const uni1Regex  = WglShaderTestingUtil.escapeRegexCharacters(uni1 .parse());
             const inp1Regex  = WglShaderTestingUtil.escapeRegexCharacters(inp1 .parse());
             const outp1Regex = WglShaderTestingUtil.escapeRegexCharacters(outp1.parse());
             const func1Regex = WglShaderTestingUtil.escapeRegexCharacters(func1.parse());
             const mainRegex  = WglShaderTestingUtil.escapeRegexCharacters(main .parse());
 
-            const regex = new RegExp(`\\s*${inp1Regex}\\n\\s*${outp1Regex}\\n\\s*${func1Regex}\\n\\s${mainRegex}`);
+            const regex = new RegExp(`\\s*${uni1Regex}\\s*\\n\\s*${inp1Regex}\\n\\s*${outp1Regex}\\n\\s*${func1Regex}\\n\\s${mainRegex}`);
             expect(scope.parse()).toMatch(regex);
         });
 
@@ -97,11 +100,13 @@ describe(WglShaderGlobalScope.name, () => {
             const params = [];
             const ret = new WglShaderIntegerType();
             scope.createFunction('testFunc1', params, ret);
+            scope.createUniform('testUniform1', new WglShaderIntegerType());
             scope.createInput('testInput1', new WglShaderIntegerType());
             scope.createOutput('testOutput1', new WglShaderIntegerType());
 
             const namesToTest = [
                 'testFunc1',
+                'testUniform1',
                 'testInput1',
                 'testOutput1'
             ];
@@ -127,11 +132,13 @@ describe(WglShaderGlobalScope.name, () => {
             const params = [];
             const ret = new WglShaderIntegerType();
             scope.createFunction('testFunc1', params, ret);
+            scope.createUniform('testUniform1', new WglShaderIntegerType());
             scope.createInput('testInput1', new WglShaderIntegerType());
             scope.createOutput('testOutput1', new WglShaderIntegerType());
 
             const namesToTest = [
                 'testFunc1',
+                'testUniform1',
                 'testInput1',
                 'testOutput1'
             ];
