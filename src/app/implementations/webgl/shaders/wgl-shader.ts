@@ -1,5 +1,6 @@
 import { Shader } from '../../../api/shaders/shader';
 import { WglShaderGlobalScope } from './source/scope/wgl-shader-global-scope';
+import { ShaderScope } from '../../../api/shaders/source/scope/shader-scope';
 
 export abstract class WglShader implements Shader {
 
@@ -23,5 +24,8 @@ export abstract class WglShader implements Shader {
     }
 
     public abstract parse(): string;
+
+    public addChild(c: ShaderScope): void {
+    }
 
 }
