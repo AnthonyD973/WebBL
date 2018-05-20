@@ -15,7 +15,9 @@ export class WglShaderElseIf extends WglShaderIf {
 
     constructor(parentIf: ShaderIf, condition: ShaderExpression) {
         super(condition);
-        parentIf.parent.addChild(this);
+
+        // Safe cast ; an if's parent is always a local scope
+        (parentIf.parent as ShaderLocalScope).addChild(this);
     }
 
     public parse(): string {

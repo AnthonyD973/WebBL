@@ -15,7 +15,9 @@ export class WglShaderElse extends WglShaderLocalScope {
     constructor(parentIf: ShaderIf) {
         super();
         this.children.push(new WglShaderBlock());
-        parentIf.parent.addChild(this);
+
+        // Safe cast ; an if's parent is always a local scope
+        (parentIf.parent as ShaderLocalScope).addChild(this);
     }
 
     public parse(): any {
