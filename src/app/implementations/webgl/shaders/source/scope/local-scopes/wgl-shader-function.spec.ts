@@ -30,6 +30,7 @@ describe(WglShaderFunction.name, () => {
             expect(tcFunc).toBeTruthy();
             expect(tcFunc.name).toEqual(tc);
             expect(tcFunc.scopeName).toBeTruthy();
+            expect(tcFunc.codeBlock).toBeTruthy();
         });
     });
 
