@@ -1,4 +1,5 @@
 import { WglShader } from './wgl-shader';
+import { WglShaderTestingGlobalScope } from './testing/wgl-shader-testing-global-scope';
 
 class TestingShaderValid extends WglShader {
     constructor(gl: WebGLRenderingContext) {
@@ -43,6 +44,14 @@ describe(WglShader.name, () => {
 
         it('should throw an error with a shader that parses but does not compile', () => {
             expect(() => invalidShader.compile()).toThrow();
+        });
+
+    });
+
+    describe('addChild', () => {
+
+        it('should throw an error', () => {
+            expect(() => validShader.addChild(new WglShaderTestingGlobalScope())).toThrow();
         });
 
     });
