@@ -9,7 +9,7 @@ export class WglShaderVectorLiteral implements ShaderVectorLiteral {
     public readonly values: number[];
     public readonly type: WglShaderVectorType;
 
-    constructor(values: number[]) {
+    constructor(...values: number[]) {
         this.values = values.slice();
         this.type = new WglShaderVectorType(values.length);
     }

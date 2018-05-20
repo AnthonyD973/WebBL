@@ -13,8 +13,8 @@ export class WglShaderLiteralSamples {
     public readonly m32   = new WglShaderMatrixLiteral(3, 2);
     public readonly m23   = new WglShaderMatrixLiteral(2, 3);
     public readonly m3    = new WglShaderMatrixLiteral(3, 3);
-    public readonly v2    = new WglShaderVectorLiteral([1, 2]);
-    public readonly v3    = new WglShaderVectorLiteral([1, 2, 3]);
-    public readonly v4    = new WglShaderVectorLiteral([1, 2, 3, 4]);
+    public readonly v2    = new WglShaderVectorLiteral(1, 2);
+    public readonly v3    = new WglShaderVectorLiteral(1, 2, 3);
+    public readonly v4    = new WglShaderVectorLiteral(1, 2, 3, 4);
 
 }

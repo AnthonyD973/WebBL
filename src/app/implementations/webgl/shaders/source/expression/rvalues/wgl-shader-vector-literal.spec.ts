@@ -9,8 +9,8 @@ describe('WglShaderVectorLiteral', () => {
     let vector4: WglShaderVectorLiteral;
 
     beforeEach(() => {
-        vector2 = new WglShaderVectorLiteral([Math.PI, -Math.PI]);
-        vector4 = new WglShaderVectorLiteral([1.2, 2.1, -5.28, 2.78]);
+        vector2 = new WglShaderVectorLiteral(Math.PI, -Math.PI);
+        vector4 = new WglShaderVectorLiteral(1.2, 2.1, -5.28, 2.78);
     });
 
     it('should be created', () => {
@@ -31,7 +31,7 @@ describe('WglShaderVectorLiteral', () => {
         });
 
         it('should make use of the simple GLSL vector literal syntax when all values are identical', () => {
-            const v = new WglShaderVectorLiteral([1.0, 1.0, 1.0]);
+            const v = new WglShaderVectorLiteral(1.0, 1.0, 1.0);
             expect(v.parse()).toMatch(/^vec3\(1\.0?\)$/);
         });
 
