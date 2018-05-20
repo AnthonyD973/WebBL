@@ -25,11 +25,11 @@ export class WglShaderVariable implements ShaderVariable {
     }
 
     public isWritable(): boolean {
-        return null;
+        return true;
     }
 
     public isReadable(): boolean {
-        return null;
+        return true;
     }
 
     public parse(): string {
