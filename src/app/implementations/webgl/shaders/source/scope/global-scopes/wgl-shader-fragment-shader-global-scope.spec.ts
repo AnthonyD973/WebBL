@@ -40,12 +40,10 @@ describe(WglShaderFragmentShaderGlobalScope.name, () => {
             const ret = new WglShaderIntegerType();
             scope.createFunction('testFunc1', params, ret);
             scope.createInput('testInput1', new WglShaderIntegerType());
-            scope.createOutput('testOutput1', new WglShaderIntegerType());
 
             const namesToTest = [
                 'testFunc1',
-                'testInput1',
-                'testOutput1'
+                'testInput1'
             ];
 
             const funcSignatureNewMethod = new WglShaderFunctionSignature([], new WglShaderIntegerType());
