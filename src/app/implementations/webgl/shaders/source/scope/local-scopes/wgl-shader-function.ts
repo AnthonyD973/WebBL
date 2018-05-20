@@ -8,12 +8,14 @@ import { ShaderExpressionType } from '../../../../../../api/shaders/source/expre
 import { WglShaderArgumentListParser } from '../util/wgl-shader-argument-list-parser';
 import { WglShaderBlock } from '../../statement/wgl-shader-block';
 import { ShaderScopeNames } from '../../../../../../api/shaders/source/scope/shader-scope-names';
+import { ShaderBlock } from '../../../../../../api/shaders/source/statement/shader-block';
 
 export class WglShaderFunction extends WglShaderLocalScope implements ShaderFunction {
 
     public readonly name: string;
     public readonly params: WglShaderVariable[];
     public readonly ret: ShaderExpressionType;
+    public readonly codeBlock: ShaderBlock;
 
     public get signature(): WglShaderFunctionSignature {
         const returnTypes = this.params.map(variable => variable.type);
@@ -32,7 +34,8 @@ export class WglShaderFunction extends WglShaderLocalScope implements ShaderFunc
         this.name = name;
         this.params = params;
         this.ret = ret;
-        this.addChild(new WglShaderBlock());
+        this.codeBlock = new WglShaderBlock();
+        this.addChild(this.codeBlock);
     }
 
     public parse(): string {
