@@ -33,7 +33,7 @@ describe(WglShaderGlobalScope.name, () => {
 
     describe('parse', () => {
 
-        xit('should parse all global symbols', () => {
+        it('should parse all global symbols', () => {
             const inp1 = scope.createInput('inp1', new WglShaderIntegerType());
             const outp1 = scope.createOutput('outp1', new WglShaderIntegerType());
             const func1 = scope.createFunction(
@@ -111,74 +111,6 @@ describe(WglShaderGlobalScope.name, () => {
             const retNewMethod = new WglShaderIntegerType();
             namesToTest.forEach(name => {
                 expect(() => scope.createFunction(name, paramsNewMethod, retNewMethod)).toThrow();
-            });
-        });
-
-    });
-
-    xdescribe('createInput', () => {
-
-        it('should be able to create inputs', () => {
-            const type = new WglShaderIntegerType();
-
-            const initialNumberOfInputs = scope.inputs.size;
-            const inp1 = scope.createInput('inp1', type);
-            expect(inp1).toBeTruthy();
-            expect(inp1.name).toEqual('inp1');
-            expect(inp1.type).toBe(type);
-            expect(scope.inputs.size).toEqual(initialNumberOfInputs + 1);
-        });
-
-        it('should throw an error if another global symbol of such name exists', () => {
-            const params = [];
-            const ret = new WglShaderIntegerType();
-            scope.createFunction('testFunc1', params, ret);
-            scope.createInput('testInput1', new WglShaderIntegerType());
-            scope.createOutput('testOutput1', new WglShaderIntegerType());
-
-            const namesToTest = [
-                'testFunc1',
-                'testInput1',
-                'testOutput1'
-            ];
-
-            const funcSignatureNewMethod = new WglShaderFunctionSignature([], new WglShaderMatrixType(2, 3));
-            namesToTest.forEach(name => {
-                expect(() => scope.createInput(name, funcSignatureNewMethod)).toThrow();
-            });
-        });
-
-    });
-
-    xdescribe('createOutput', () => {
-
-        it('should be able to create outputs', () => {
-            const type = new WglShaderIntegerType();
-
-            const initialNumberOfOutputs = scope.outputs.size;
-            const out1 = scope.createOutput('out1', type);
-            expect(out1).toBeTruthy();
-            expect(out1.name).toEqual('out1');
-            expect(out1.type).toBe(type);
-            expect(scope.outputs.size).toEqual(initialNumberOfOutputs + 1);
-        });
-
-        it('should throw an error if another global symbol of such name exists', () => {
-            const params = [];
-            const ret = new WglShaderIntegerType();
-            scope.createFunction('testFunc1', params, ret);
-            scope.createInput('testInput1', new WglShaderIntegerType());
-            scope.createOutput('testOutput1', new WglShaderIntegerType());
-
-            const namesToTest = [
-                'testFunc1',
-                'testInput1',
-                'testOutput1'
-            ];
-
-            const funcSignatureNewMethod = new WglShaderFunctionSignature([], new WglShaderMatrixType(2, 3));
-            namesToTest.forEach(name => {
-                expect(() => scope.createOutput(name, funcSignatureNewMethod)).toThrow();
             });
         });
 
