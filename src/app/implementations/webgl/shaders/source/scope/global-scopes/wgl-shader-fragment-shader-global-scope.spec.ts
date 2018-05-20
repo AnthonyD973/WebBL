@@ -4,6 +4,7 @@ import { WglTestingFragmentShaderValid } from '../../../testing/shaders/wgl-test
 import { WglShaderAttribute } from '../../expression/lvalues/wgl-shader-attribute';
 import { WglShaderIntegerType } from '../../expression/types/wgl-shader-integer-type';
 import { WglShaderVaryingOutputSide } from '../../expression/lvalues/wgl-shader-varying-output-side';
+import { WglShaderVaryingInputSide } from '../../expression/lvalues/wgl-shader-varying-input-side';
 
 describe(WglShaderFragmentShaderGlobalScope.name, () => {
 
@@ -23,7 +24,7 @@ describe(WglShaderFragmentShaderGlobalScope.name, () => {
     describe('createInput', () => {
 
         it('should return something that behaves like an varying', () => {
-            const refVarying = new WglShaderAttribute('rColor', new WglShaderIntegerType());
+            const refVarying = new WglShaderVaryingInputSide('rColor', new WglShaderIntegerType());
             const varying = scope.createInput('rColor', new WglShaderIntegerType());
 
             expect(varying.name).toEqual(refVarying.name);
