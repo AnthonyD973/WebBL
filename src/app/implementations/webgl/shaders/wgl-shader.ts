@@ -26,6 +26,7 @@ export abstract class WglShader implements Shader {
     public abstract parse(): string;
 
     public addChild(c: ShaderScope): void {
+        throw new Error(`Cannot add children to a shader`);
     }
 
 }
