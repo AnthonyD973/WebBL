@@ -6,6 +6,7 @@ import { ShaderFunctionSignature } from '../expression/types/shader-function-sig
 import { ShaderExpressionType } from '../expression/shader-expression-type';
 import { ShaderVariable } from '../expression/lvalues/shader-variable';
 import { Shader } from '../../shader';
+import { ShaderUniform } from '../expression/lvalues/shader-uniform';
 
 export interface ShaderGlobalScope extends ShaderScope {
 
@@ -15,6 +16,7 @@ export interface ShaderGlobalScope extends ShaderScope {
     readonly parent: Shader;
 
     createFunction(name: string, params: ShaderVariable[], ret: ShaderExpressionType): ShaderFunction;
+    createUniform(name: string, type: ShaderExpressionType): ShaderUniform;
     createInput(name: string, type: ShaderExpressionType): ShaderInput;
     createOutput(name: string, type: ShaderExpressionType): ShaderOutput;
 

@@ -10,6 +10,7 @@ import { WglShaderInput } from '../expression/lvalues/wgl-shader-input';
 import { WglShaderOutput } from '../expression/lvalues/wgl-shader-output';
 import { ShaderVariable } from '../../../../../api/shaders/source/expression/lvalues/shader-variable';
 import { Shader } from '../../../../../api/shaders/shader';
+import { ShaderUniform } from '../../../../../api/shaders/source/expression/lvalues/shader-uniform';
 
 export abstract class WglShaderGlobalScope implements ShaderGlobalScope {
 
@@ -41,6 +42,10 @@ export abstract class WglShaderGlobalScope implements ShaderGlobalScope {
         const func = new WglShaderFunction(name, params, ret);
         this.functions.set(name, func);
         return func;
+    }
+
+    public createUniform(name: string, type: ShaderExpressionType): ShaderUniform {
+        return null;
     }
 
     public abstract createInput(name: string, type: ShaderExpressionType): ShaderInput;
