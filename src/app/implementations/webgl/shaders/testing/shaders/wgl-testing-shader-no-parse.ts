@@ -1,6 +1,5 @@
 import { Shader } from '../../../../../api/shaders/shader';
 import { ShaderGlobalScope } from '../../../../../api/shaders/source/scope/shader-global-scope';
-import { WglShaderTestingGlobalScope } from '../wgl-shader-testing-global-scope';
 import { WglShader } from '../../wgl-shader';
 
 export class WglTestingShaderNoParse extends WglShader {

@@ -1,5 +1,4 @@
 import { WglShader } from './wgl-shader';
-import { WglShaderTestingGlobalScope } from './testing/wgl-shader-testing-global-scope';
 
 class TestingShaderValid extends WglShader {
     constructor(gl: WebGLRenderingContext) {

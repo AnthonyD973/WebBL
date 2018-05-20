@@ -8,10 +8,10 @@ import { WglShaderInput } from '../expression/lvalues/wgl-shader-input';
 import { WglShaderMatrixType } from '../expression/types/wgl-shader-matrix-type';
 import { WglShaderOutput } from '../expression/lvalues/wgl-shader-output';
 import { WglShaderTestingUtil } from '../../testing/wgl-shader-testing-util';
-import { WglShaderTestingGlobalScope } from '../../testing/wgl-shader-testing-global-scope';
 import { WglShaderVoidType } from '../expression/types/wgl-shader-void-type';
 import { Shader } from '../../../../../api/shaders/shader';
-import { WglTestingFragmentShaderValid } from '../../testing/shaders/wgl-testing-fragment-shader-valid';
+import { WglTestingVertexShaderValid } from '../../testing/shaders/wgl-testing-vertex-shader-valid';
+import { WglShaderVertexShaderGlobalScope } from './global-scopes/wgl-shader-vertex-shader-global-scope';
 
 describe(WglShaderGlobalScope.name, () => {
 
@@ -19,8 +19,8 @@ describe(WglShaderGlobalScope.name, () => {
     let scope: WglShaderGlobalScope;
 
     beforeEach(() => {
-        parentShader = new WglTestingFragmentShaderValid();
-        scope = new WglShaderTestingGlobalScope(parentShader);
+        parentShader = new WglTestingVertexShaderValid();
+        scope = new WglShaderVertexShaderGlobalScope(parentShader);
     });
 
     it('should be created', () => {
