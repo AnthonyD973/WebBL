@@ -1,9 +1,9 @@
 import { WglShaderOutput } from './wgl-shader-output';
-import { ShaderUniform } from '../../../../../../api/shaders/source/expression/lvalues/shader-uniform';
+import { ShaderVaryingOutputSide } from '../../../../../../api/shaders/source/expression/lvalues/shader-varying-output-side';
 
 const TOKEN = 'varying';
 
-export class WglShaderVaryingOutputSide extends WglShaderOutput implements ShaderUniform {
+export class WglShaderVaryingOutputSide extends WglShaderOutput implements ShaderVaryingOutputSide {
 
     public parse(): string {
         return TOKEN + ' ' + super.parse();
