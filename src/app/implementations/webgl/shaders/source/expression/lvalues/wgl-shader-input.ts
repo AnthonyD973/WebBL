@@ -8,10 +8,6 @@ export abstract class WglShaderInput extends WglShaderVariable {
         super(name, type);
     }
 
-    public assign(value: ShaderExpression): ShaderExpression {
-        throw new Error(`Cannot assign value to shader input value ${this.name}`);
-    }
-
     public isWritable(): boolean {
         return false;
     }
