@@ -4,6 +4,7 @@ import { WglTestingVertexShaderValid } from '../../../testing/shaders/wgl-testin
 import { WglShaderAttribute } from '../../expression/lvalues/wgl-shader-attribute';
 import { WglShaderIntegerType } from '../../expression/types/wgl-shader-integer-type';
 import { WglShaderVaryingOutputSide } from '../../expression/lvalues/wgl-shader-varying-output-side';
+import { WglShaderFunctionSignature } from '../../expression/types/wgl-shader-function-signature';
 
 describe(WglShaderVertexShaderGlobalScope.name, () => {
 
@@ -33,6 +34,25 @@ describe(WglShaderVertexShaderGlobalScope.name, () => {
             expect(attrib.isWritable()).toEqual(refAttrib.isWritable());
         });
 
+        it('should throw an error if another global symbol of such name exists', () => {
+            const params = [];
+            const ret = new WglShaderIntegerType();
+            scope.createFunction('testFunc1', params, ret);
+            scope.createInput('testInput1', new WglShaderIntegerType());
+            scope.createOutput('testOutput1', new WglShaderIntegerType());
+
+            const namesToTest = [
+                'testFunc1',
+                'testInput1',
+                'testOutput1'
+            ];
+
+            const funcSignatureNewMethod = new WglShaderFunctionSignature([], new WglShaderIntegerType());
+            namesToTest.forEach(name => {
+                expect(() => scope.createInput(name, funcSignatureNewMethod)).toThrow();
+            });
+        });
+
     });
 
     describe('createOutput', () => {
@@ -46,6 +66,25 @@ describe(WglShaderVertexShaderGlobalScope.name, () => {
             expect(varying.parse()).toEqual(refVarying.parse());
             expect(varying.isReadable()).toEqual(refVarying.isReadable());
             expect(varying.isWritable()).toEqual(refVarying.isWritable());
+        });
+
+        it('should throw an error if another global symbol of such name exists', () => {
+            const params = [];
+            const ret = new WglShaderIntegerType();
+            scope.createFunction('testFunc1', params, ret);
+            scope.createInput('testInput1', new WglShaderIntegerType());
+            scope.createOutput('testOutput1', new WglShaderIntegerType());
+
+            const namesToTest = [
+                'testFunc1',
+                'testInput1',
+                'testOutput1'
+            ];
+
+            const funcSignatureNewMethod = new WglShaderFunctionSignature([], new WglShaderIntegerType());
+            namesToTest.forEach(name => {
+                expect(() => scope.createInput(name, funcSignatureNewMethod)).toThrow();
+            });
         });
 
     });
