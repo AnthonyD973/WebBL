@@ -48,12 +48,4 @@ describe(WglShader.name, () => {
 
     });
 
-    describe('addChild', () => {
-
-        it('should throw an error', () => {
-            expect(() => validShader.addChild(new WglShaderTestingGlobalScope())).toThrow();
-        });
-
-    });
-
 });

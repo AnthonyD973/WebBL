@@ -57,11 +57,6 @@ export class WglShaderGlobalScope implements ShaderGlobalScope {
         return output;
     }
 
-    // TODO Remove this method ; make it only required inside the local scope classes.
-    public addChild(c: ShaderLocalScope): void {
-        throw new Error(`Cannot add a child to the global context. Call "createFunction" if you wish to create a shader function.`);
-    }
-
     protected assertIdentifierIsValid(name: string): void {
         const nameExists = this.inputs.has(name) || this.outputs.has(name) || this.functions.has(name);
         if (nameExists) {
