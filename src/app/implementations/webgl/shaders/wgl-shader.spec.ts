@@ -1,8 +1,12 @@
 import { WglShader } from './wgl-shader';
+import { ShaderGlobalScope } from '../../../api/shaders/source/scope/shader-global-scope';
+import { WglShaderVertexShaderGlobalScope } from './source/scope/global-scopes/wgl-shader-vertex-shader-global-scope';
 
 class TestingShaderValid extends WglShader {
+    public readonly globalScope: ShaderGlobalScope;
     constructor(gl: WebGLRenderingContext) {
         super(gl, gl.VERTEX_SHADER);
+        this.globalScope = new WglShaderVertexShaderGlobalScope(this);
     }
     public parse(): string {
         return 'void main() { gl_Position = vec4(0.0, 0.0, 0.0, 0.0); }';
@@ -10,8 +14,10 @@ class TestingShaderValid extends WglShader {
 }
 
 class TestingShaderNoCompile extends WglShader {
+    public readonly globalScope: ShaderGlobalScope;
     constructor(gl: WebGLRenderingContext) {
         super(gl, gl.VERTEX_SHADER);
+        this.globalScope = new WglShaderVertexShaderGlobalScope(this);
     }
     public parse(): string {
         return 'THIS STRING IS NOT A VALID GLSL VERTEX SHADER, UNLESS CHUCK N.RRIS DECIDES OTHERWISE';
@@ -32,7 +38,6 @@ describe(WglShader.name, () => {
 
     it('should be created', () => {
         expect(validShader).toBeTruthy();
-        expect(validShader.globalScope).toBeTruthy();
     });
 
     describe('compile', () => {
