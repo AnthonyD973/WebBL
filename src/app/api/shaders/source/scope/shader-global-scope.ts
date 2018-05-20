@@ -10,6 +10,7 @@ import { ShaderUniform } from '../expression/lvalues/shader-uniform';
 
 export interface ShaderGlobalScope extends ShaderScope {
 
+    readonly uniforms: Map<string, ShaderUniform>;
     readonly inputs: Map<string, ShaderInput>;
     readonly outputs: Map<string, ShaderOutput>;
     readonly functions: Map<string, ShaderFunction>;

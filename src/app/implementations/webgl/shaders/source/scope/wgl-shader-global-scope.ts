@@ -14,6 +14,7 @@ import { ShaderUniform } from '../../../../../api/shaders/source/expression/lval
 
 export abstract class WglShaderGlobalScope implements ShaderGlobalScope {
 
+    public readonly uniforms = new Map<string, ShaderUniform>();
     public readonly inputs = new Map<string, ShaderInput>();
     public readonly outputs = new Map<string, ShaderOutput>();
     public readonly functions = new Map<string, ShaderFunction>();
