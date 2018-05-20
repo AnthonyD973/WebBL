@@ -2,6 +2,14 @@ import { WglShaderInput } from './wgl-shader-input';
 import { ShaderExpressionType } from '../../../../../../api/shaders/source/expression/shader-expression-type';
 import { WglShaderIntegerType } from '../types/wgl-shader-integer-type';
 
+class TestingInput extends WglShaderInput {
+
+    public parse(): string {
+        return '';
+    }
+
+}
+
 describe(WglShaderInput.name, () => {
 
     let name: string;
@@ -11,7 +19,7 @@ describe(WglShaderInput.name, () => {
     beforeEach(() => {
         name = 'foo';
         type = new WglShaderIntegerType();
-        input = new WglShaderInput(name, type);
+        input = new TestingInput(name, type);
     });
 
     it('should be created', () => {

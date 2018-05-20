@@ -33,7 +33,7 @@ describe(WglShaderGlobalScope.name, () => {
 
     describe('parse', () => {
 
-        it('should parse all global symbols', () => {
+        xit('should parse all global symbols', () => {
             const inp1 = scope.createInput('inp1', new WglShaderIntegerType());
             const outp1 = scope.createOutput('outp1', new WglShaderIntegerType());
             const func1 = scope.createFunction(
@@ -116,7 +116,7 @@ describe(WglShaderGlobalScope.name, () => {
 
     });
 
-    describe('createInput', () => {
+    xdescribe('createInput', () => {
 
         it('should be able to create inputs', () => {
             const type = new WglShaderIntegerType();
@@ -150,7 +150,7 @@ describe(WglShaderGlobalScope.name, () => {
 
     });
 
-    describe('createOutput', () => {
+    xdescribe('createOutput', () => {
 
         it('should be able to create outputs', () => {
             const type = new WglShaderIntegerType();
