@@ -7,4 +7,8 @@ export class WglShaderOutput extends WglShaderVariable {
         super(name, type);
     }
 
+    public isReadable(): boolean {
+        return false;
+    }
+
 }

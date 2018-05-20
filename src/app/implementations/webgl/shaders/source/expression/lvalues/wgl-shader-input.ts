@@ -12,4 +12,8 @@ export class WglShaderInput extends WglShaderVariable {
         throw new Error(`Cannot assign value to shader input value ${this.name}`);
     }
 
+    public isWritable(): boolean {
+        return false;
+    }
+
 }
