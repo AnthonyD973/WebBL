@@ -24,6 +24,14 @@ export class WglShaderVariable implements ShaderVariable {
         }
     }
 
+    public isWritable(): boolean {
+        return null;
+    }
+
+    public isReadable(): boolean {
+        return null;
+    }
+
     public parse(): string {
         return (this.type.parse() as String) + ' ' + this.name + ';';
     }
