@@ -16,5 +16,6 @@ export interface ShaderLocalScope extends ShaderScope {
     while(condExpr: ShaderExpression): ShaderWhile;
 
     setParent(p: ShaderLocalScope): void;
+    addChild(c: ShaderLocalScope): void;
 
 }
