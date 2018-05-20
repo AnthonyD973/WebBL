@@ -11,6 +11,7 @@ import { WglShaderOutput } from '../expression/lvalues/wgl-shader-output';
 import { ShaderVariable } from '../../../../../api/shaders/source/expression/lvalues/shader-variable';
 import { Shader } from '../../../../../api/shaders/shader';
 import { ShaderUniform } from '../../../../../api/shaders/source/expression/lvalues/shader-uniform';
+import { WglShaderUniform } from '../expression/lvalues/wgl-shader-uniform';
 
 export abstract class WglShaderGlobalScope implements ShaderGlobalScope {
 
@@ -27,6 +28,8 @@ export abstract class WglShaderGlobalScope implements ShaderGlobalScope {
     public parse(): string {
         this.assertMainExists();
 
+        let parsedUniforms = '';
+        this.uniforms.forEach(uniform => parsedUniforms = parsedUniforms + uniform.parse() + '\n');
         let parsedInputs = '';
         this.inputs.forEach(input => parsedInputs = parsedInputs + input.parse() + '\n');
         let parsedOutputs = '';
@@ -34,7 +37,7 @@ export abstract class WglShaderGlobalScope implements ShaderGlobalScope {
         let parsedFunctions = '';
         this.functions.forEach(func => parsedFunctions = parsedFunctions + func.parse() + '\n\n');
 
-        const parsedShader = parsedInputs + '\n' + parsedOutputs + '\n' + parsedFunctions;
+        const parsedShader = parsedUniforms + '\n' + parsedInputs + '\n' + parsedOutputs + '\n' + parsedFunctions;
         return parsedShader;
     }
 
@@ -46,7 +49,10 @@ export abstract class WglShaderGlobalScope implements ShaderGlobalScope {
     }
 
     public createUniform(name: string, type: ShaderExpressionType): ShaderUniform {
-        return null;
+        this.assertIdentifierIsValid(name);
+        const uniform = new WglShaderUniform(name, type);
+        this.uniforms.set(name, uniform);
+        return uniform;
     }
 
     public abstract createInput(name: string, type: ShaderExpressionType): ShaderInput;
@@ -54,7 +60,7 @@ export abstract class WglShaderGlobalScope implements ShaderGlobalScope {
     public abstract createOutput(name: string, type: ShaderExpressionType): ShaderOutput;
 
     protected assertIdentifierIsValid(name: string): void {
-        const nameExists = this.inputs.has(name) || this.outputs.has(name) || this.functions.has(name);
+        const nameExists = this.uniforms.has(name) || this.inputs.has(name) || this.outputs.has(name) || this.functions.has(name);
         if (nameExists) {
             throw new Error(`Cannot create symbol "${name}" in global context: an existing symbol already has this name`);
         }
