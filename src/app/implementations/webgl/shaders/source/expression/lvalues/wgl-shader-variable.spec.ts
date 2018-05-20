@@ -32,6 +32,22 @@ describe('WglShaderVariable', () => {
         expect(() => new WglShaderVariable('my*var', type1)).toThrow();
     });
 
+    describe('isReadable', () => {
+
+        it('should return true', () => {
+            expect(var1.isReadable()).toBe(true);
+        });
+
+    });
+
+    describe('isWritable', () => {
+
+        it('should return true', () => {
+            expect(var1.isWritable()).toBe(true);
+        });
+
+    });
+
     describe('parse', () => {
         it('should parse a variable declaration', () => {
             expect(var1.parse()).toMatch(/\s*TestType\smyVar;/);
