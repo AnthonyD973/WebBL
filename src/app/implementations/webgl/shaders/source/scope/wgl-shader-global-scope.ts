@@ -43,14 +43,14 @@ export class WglShaderGlobalScope implements ShaderGlobalScope {
         return func;
     }
 
-    public createInput(name: string, type: ShaderExpressionType): WglShaderInput {
+    public createInput(name: string, type: ShaderExpressionType): ShaderInput {
         this.assertIdentifierIsValid(name);
         const input = null; // TODO new WglShaderInput(name, type);
         this.inputs.set(name, input);
         return input;
     }
 
-    public createOutput(name: string, type: ShaderExpressionType): WglShaderOutput {
+    public createOutput(name: string, type: ShaderExpressionType): ShaderOutput {
         this.assertIdentifierIsValid(name);
         const output = null; // TODO new WglShaderOutput(name, type);
         this.outputs.set(name, output);
