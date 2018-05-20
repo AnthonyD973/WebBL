@@ -116,4 +116,32 @@ describe(WglShaderGlobalScope.name, () => {
 
     });
 
+    describe('createUniform', () => {
+
+        it('should return a valid object', () => {
+            const uniform = scope.createUniform('foo', new WglShaderIntegerType());
+            expect(uniform).toBeTruthy();
+        });
+
+        it('should throw an error if another global symbol of such name exists', () => {
+            const params = [];
+            const ret = new WglShaderIntegerType();
+            scope.createFunction('testFunc1', params, ret);
+            scope.createInput('testInput1', new WglShaderIntegerType());
+            scope.createOutput('testOutput1', new WglShaderIntegerType());
+
+            const namesToTest = [
+                'testFunc1',
+                'testInput1',
+                'testOutput1'
+            ];
+
+            const type = new WglShaderIntegerType();
+            namesToTest.forEach(name => {
+                expect(() => scope.createUniform(name, type)).toThrow();
+            });
+        });
+
+    });
+
 });
