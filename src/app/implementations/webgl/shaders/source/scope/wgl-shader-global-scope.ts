@@ -11,7 +11,7 @@ import { WglShaderOutput } from '../expression/lvalues/wgl-shader-output';
 import { ShaderVariable } from '../../../../../api/shaders/source/expression/lvalues/shader-variable';
 import { Shader } from '../../../../../api/shaders/shader';
 
-export class WglShaderGlobalScope implements ShaderGlobalScope {
+export abstract class WglShaderGlobalScope implements ShaderGlobalScope {
 
     public readonly inputs = new Map<string, ShaderInput>();
     public readonly outputs = new Map<string, ShaderOutput>();
@@ -43,19 +43,9 @@ export class WglShaderGlobalScope implements ShaderGlobalScope {
         return func;
     }
 
-    public createInput(name: string, type: ShaderExpressionType): ShaderInput {
-        this.assertIdentifierIsValid(name);
-        const input = null; // TODO new WglShaderInput(name, type);
-        this.inputs.set(name, input);
-        return input;
-    }
+    public abstract createInput(name: string, type: ShaderExpressionType): ShaderInput;
 
-    public createOutput(name: string, type: ShaderExpressionType): ShaderOutput {
-        this.assertIdentifierIsValid(name);
-        const output = null; // TODO new WglShaderOutput(name, type);
-        this.outputs.set(name, output);
-        return output;
-    }
+    public abstract createOutput(name: string, type: ShaderExpressionType): ShaderOutput;
 
     protected assertIdentifierIsValid(name: string): void {
         const nameExists = this.inputs.has(name) || this.outputs.has(name) || this.functions.has(name);
