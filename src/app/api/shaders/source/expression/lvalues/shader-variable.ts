@@ -6,4 +6,7 @@ export interface ShaderVariable extends ShaderExpression {
     readonly name: string;
     readonly type: ShaderExpressionType;
 
+    isReadable(): boolean;
+    isWritable(): boolean;
+
 }
