@@ -7,7 +7,10 @@ import { ShaderOutput } from '../../../../../../api/shaders/source/expression/lv
 export class WglShaderFragmentShaderGlobalScope extends WglShaderGlobalScope {
 
     public createInput(name: string, type: ShaderExpressionType): ShaderVaryingInputSide {
-        return new WglShaderVaryingInputSide(name, type);
+        this.assertIdentifierIsValid(name);
+        const input = new WglShaderVaryingInputSide(name, type);
+        this.inputs.set(name, input);
+        return input;
     }
 
     public createOutput(name: string, type: ShaderExpressionType): ShaderOutput {

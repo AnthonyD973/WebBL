@@ -8,11 +8,17 @@ import { WglShaderVaryingOutputSide } from '../../expression/lvalues/wgl-shader-
 export class WglShaderVertexShaderGlobalScope extends WglShaderGlobalScope {
 
     public createInput(name: string, type: ShaderExpressionType): ShaderAttribute {
-        return new WglShaderAttribute(name, type);
+        this.assertIdentifierIsValid(name);
+        const input = new WglShaderAttribute(name, type);
+        this.inputs.set(name, input);
+        return input;
     }
 
     public createOutput(name: string, type: ShaderExpressionType): ShaderVaryingOutputSide {
-        return new WglShaderVaryingOutputSide(name, type);
+        this.assertIdentifierIsValid(name);
+        const output = new WglShaderVaryingOutputSide(name, type);
+        this.outputs.set(name, output);
+        return output;
     }
 
 }
