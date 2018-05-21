@@ -9,10 +9,12 @@ export class WglShaderLValueNameParser implements ShaderLValueNameParser {
     public readonly variable: ShaderVariable;
 
     constructor(variable: ShaderVariable) {
+        this.type = variable.type;
+        this.variable = variable;
     }
 
     public parse(): string {
-        return null;
+        return this.variable.name;
     }
 
 }
