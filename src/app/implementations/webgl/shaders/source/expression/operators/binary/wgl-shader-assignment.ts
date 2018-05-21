@@ -26,7 +26,7 @@ export class WglShaderAssignment implements ShaderBinaryOperator {
     }
 
     public parse(): string {
-        return this.type.parse() + ' ' + this.lhs.name + ' ' + OPERATOR + ' ' + this.rhs.parse();
+        return this.lhs.name + ' ' + OPERATOR + ' ' + this.rhs.parse();
     }
 
     protected assertValid(): void {
