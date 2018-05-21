@@ -3,6 +3,8 @@ import { ShaderExpressionType } from '../../../../../../api/shaders/source/expre
 import { ShaderExpression } from '../../../../../../api/shaders/source/expression/shader-expression';
 import { WglShaderAssignment } from '../operators/binary/wgl-shader-assignment';
 import { WglShaderConfig as Cfg } from '../../../util/wgl-shader-config';
+// tslint:disable-next-line:max-line-length
+import { ShaderGenericLValueParser } from '../../../../../../api/shaders/source/expression/lvalues/lvalue-parsers/shader-generic-l-value-parser';
 
 export class WglShaderVariable implements ShaderVariable {
 
@@ -34,6 +36,10 @@ export class WglShaderVariable implements ShaderVariable {
 
     public parse(): string {
         return (this.type.parse() as String) + ' ' + this.name + ';';
+    }
+
+    public acceptVisitor(v: ShaderGenericLValueParser): string {
+        return v.parseVariable(this);
     }
 
 }

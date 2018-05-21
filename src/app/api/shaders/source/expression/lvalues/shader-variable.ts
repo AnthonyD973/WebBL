@@ -1,7 +1,8 @@
 import { ShaderExpression } from '../shader-expression';
 import { ShaderExpressionType } from '../shader-expression-type';
+import { Visitee } from '../../../../../util/visitor-dispatcher/visitee';
 
-export interface ShaderVariable extends ShaderExpression {
+export interface ShaderVariable extends ShaderExpression, Visitee<string> {
 
     readonly name: string;
     readonly type: ShaderExpressionType;

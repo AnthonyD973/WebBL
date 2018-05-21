@@ -18,4 +18,20 @@ export class WglShaderLValueDeclarationParser implements ShaderLValueDeclaration
         return this.variable.type.parse() + ' ' + this.variable.name;
     }
 
+    public parseVariable(): string {
+        return this.variable.type.parse() + ' ' + this.variable.name;
+    }
+
+    public parseUniform(): string {
+        return null;
+    }
+
+    public parseAttribute(): string {
+        return null;
+    }
+
+    public parseVarying(): string {
+        return null;
+    }
+
 }
