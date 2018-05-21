@@ -4,6 +4,7 @@ import { WglShaderVariable } from '../wgl-shader-variable';
 import { WglShaderIntegerType } from '../../types/wgl-shader-integer-type';
 import { WglShaderTestingExpressionType } from '../../../../testing/wgl-shader-testing-expression-type';
 import { WglShaderVoidType } from '../../types/wgl-shader-void-type';
+import { WglShaderUniform } from '../wgl-shader-uniform';
 
 describe(WglShaderLValueDeclarationParser.name, () => {
 
@@ -23,8 +24,14 @@ describe(WglShaderLValueDeclarationParser.name, () => {
 
     describe('parse', () => {
 
-        it('should work', () => {
+        it('should parse a normal variable\'s declaration', () => {
             expect(parser.parse()).toMatch(/^\s*testType\s+variable\s*$/);
+        });
+
+        it('should parse a uniform\'s declaration', () => {
+            expect(new WglShaderLValueDeclarationParser(
+                    new WglShaderUniform('uni', new WglShaderIntegerType())
+            )).toMatch(/^\s*uniform\s+testType\s+uni\s*$/);
         });
 
     });
