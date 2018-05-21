@@ -92,7 +92,7 @@ describe(WglShaderAssignment.name, () => {
                 const operation = new WglShaderAssignment(assignee, testCase.expr);
                 const parseRegex = WglShaderTestingUtil.escapeRegexCharacters(testCase.expr.parse());
                 expect(
-                    operation.parse()).toMatch(new RegExp(testCase.typeVar.parse() + '\\s+var\\s*=\\s*' + parseRegex),
+                    operation.parse()).toMatch(new RegExp('\\s*var\\s*=\\s*' + parseRegex),
                     'Error at test case #' + index
                 );
             });
