@@ -1,18 +1,21 @@
 // tslint:disable-next-line:max-line-length
 import { ShaderLValueDeclarationParser } from '../../../../../../../api/shaders/source/expression/lvalues/lvalue-parsers/shader-l-value-declaration-parser';
-import { WglShaderVoidType } from '../../types/wgl-shader-void-type';
 import { ShaderVariable } from '../../../../../../../api/shaders/source/expression/lvalues/shader-variable';
+import { ShaderVoidType } from '../../../../../../../api/shaders/source/expression/types/shader-void-type';
+import { WglShaderVoidType } from '../../types/wgl-shader-void-type';
 
 export class WglShaderLValueDeclarationParser implements ShaderLValueDeclarationParser {
 
-    public readonly type: WglShaderVoidType;
+    public readonly type: ShaderVoidType;
     public readonly variable: ShaderVariable;
 
     constructor(variable: ShaderVariable) {
+        this.type = new WglShaderVoidType();
+        this.variable = variable;
     }
 
     public parse(): string {
-        return null;
+        return this.variable.type.parse() + ' ' + this.variable.name;
     }
 
 }
