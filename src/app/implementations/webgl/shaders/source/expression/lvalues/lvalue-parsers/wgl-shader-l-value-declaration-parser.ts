@@ -4,6 +4,10 @@ import { ShaderVariable } from '../../../../../../../api/shaders/source/expressi
 import { ShaderVoidType } from '../../../../../../../api/shaders/source/expression/types/shader-void-type';
 import { WglShaderVoidType } from '../../types/wgl-shader-void-type';
 
+const UNIFORM_TOKEN   = 'uniform';
+const ATTRIBUTE_TOKEN = 'attribute';
+const VARYING_TOKEN   = 'varying';
+
 export class WglShaderLValueDeclarationParser implements ShaderLValueDeclarationParser {
 
     public readonly type: ShaderVoidType;
@@ -15,7 +19,7 @@ export class WglShaderLValueDeclarationParser implements ShaderLValueDeclaration
     }
 
     public parse(): string {
-        return this.variable.type.parse() + ' ' + this.variable.name;
+        return this.variable.acceptVisitor(this);
     }
 
     public parseVariable(): string {
@@ -23,15 +27,19 @@ export class WglShaderLValueDeclarationParser implements ShaderLValueDeclaration
     }
 
     public parseUniform(): string {
-        return null;
+        return UNIFORM_TOKEN + ' ' + this.variable.type.parse() + ' ' + this.variable.name;
     }
 
     public parseAttribute(): string {
-        return null;
+        return ATTRIBUTE_TOKEN + ' ' + this.variable.type.parse() + ' ' + this.variable.name;
     }
 
-    public parseVarying(): string {
-        return null;
+    public parseVaryingInputSide(): string {
+        return VARYING_TOKEN + ' ' + this.variable.type.parse() + ' ' + this.variable.name;
+    }
+
+    public parseVaryingOutputSide(): string {
+        return VARYING_TOKEN + ' ' + this.variable.type.parse() + ' ' + this.variable.name;
     }
 
 }

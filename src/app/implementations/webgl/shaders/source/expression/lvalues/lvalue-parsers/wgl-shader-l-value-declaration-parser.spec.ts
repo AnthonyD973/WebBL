@@ -5,6 +5,8 @@ import { WglShaderIntegerType } from '../../types/wgl-shader-integer-type';
 import { WglShaderTestingExpressionType } from '../../../../testing/wgl-shader-testing-expression-type';
 import { WglShaderVoidType } from '../../types/wgl-shader-void-type';
 import { WglShaderUniform } from '../wgl-shader-uniform';
+import { WglShaderAttribute } from '../wgl-shader-attribute';
+import { WglShaderVaryingInputSide } from '../wgl-shader-varying-input-side';
 
 describe(WglShaderLValueDeclarationParser.name, () => {
 
@@ -29,9 +31,31 @@ describe(WglShaderLValueDeclarationParser.name, () => {
         });
 
         it('should parse a uniform\'s declaration', () => {
-            expect(new WglShaderLValueDeclarationParser(
-                    new WglShaderUniform('uni', new WglShaderIntegerType())
-            )).toMatch(/^\s*uniform\s+testType\s+uni\s*$/);
+            expect(
+                new WglShaderLValueDeclarationParser(new WglShaderUniform('uni', new WglShaderIntegerType()))
+                    .parse()
+            ).toMatch(/^\s*uniform\s+int\s+uni\s*$/);
+        });
+
+        it('should parse an attribute\'s declaration', () => {
+            expect(
+                new WglShaderLValueDeclarationParser(new WglShaderAttribute('attr', new WglShaderIntegerType()))
+                    .parse()
+            ).toMatch(/^\s*attribute\s+int\s+attr\s*$/);
+        });
+
+        it('should parse a varying\'s input-side declaration', () => {
+            expect(
+                new WglShaderLValueDeclarationParser(new WglShaderVaryingInputSide('vary', new WglShaderIntegerType()))
+                    .parse()
+            ).toMatch(/^\s*varying\s+int\s+vary\s*$/);
+        });
+
+        it('should parse a varying\'s output-side declaration', () => {
+            expect(
+                new WglShaderLValueDeclarationParser(new WglShaderVaryingInputSide('vary', new WglShaderIntegerType()))
+                    .parse()
+            ).toMatch(/^\s*varying\s+int\s+vary\s*$/);
         });
 
     });

@@ -17,4 +17,28 @@ export class WglShaderLValueNameParser implements ShaderLValueNameParser {
         return this.variable.name;
     }
 
+    public parseVariable(): string {
+        return this.parseInternal();
+    }
+
+    public parseUniform(): string {
+        return this.parseInternal();
+    }
+
+    public parseAttribute(): string {
+        return this.parseInternal();
+    }
+
+    public parseVaryingInputSide(): string {
+        return this.parseInternal();
+    }
+
+    public parseVaryingOutputSide(): string {
+        return this.parseInternal();
+    }
+
+    private parseInternal(): string {
+        return this.variable.name;
+    }
+
 }
