@@ -6,15 +6,45 @@ import { WglShaderVectorLiteral } from '../source/expression/rvalues/wgl-shader-
 
 export class WglShaderLiteralSamples {
 
-    public readonly bTrue = new WglShaderBooleanLiteral(true);
-    public readonly fPi   = new WglShaderFloatLiteral(3.14);
-    public readonly iPos  = new WglShaderIntegerLiteral(5);
-    public readonly iNeg  = new WglShaderIntegerLiteral(-5);
-    public readonly m32   = new WglShaderMatrixLiteral(3, 2);
-    public readonly m23   = new WglShaderMatrixLiteral(2, 3);
-    public readonly m3    = new WglShaderMatrixLiteral(3, 3);
-    public readonly v2    = new WglShaderVectorLiteral(1, 2);
-    public readonly v3    = new WglShaderVectorLiteral(1, 2, 3);
-    public readonly v4    = new WglShaderVectorLiteral(1, 2, 3, 4);
+    public get bTrue(): WglShaderBooleanLiteral {
+        return new WglShaderBooleanLiteral(true);
+    }
+
+    public get fPi(): WglShaderFloatLiteral {
+        return new WglShaderFloatLiteral(3.14);
+    }
+
+    public get iPos(): WglShaderIntegerLiteral {
+        return new WglShaderIntegerLiteral(5);
+    }
+
+    public get iNeg(): WglShaderIntegerLiteral {
+        return new WglShaderIntegerLiteral(-5);
+    }
+
+    public get m32(): WglShaderMatrixLiteral {
+        return new WglShaderMatrixLiteral(3, 2);
+    }
+
+    public get m23(): WglShaderMatrixLiteral {
+        return new WglShaderMatrixLiteral(2, 3);
+    }
+
+    public get m3(): WglShaderMatrixLiteral {
+        return new WglShaderMatrixLiteral(3, 3);
+    }
+
+    public get v2(): WglShaderVectorLiteral {
+        return new WglShaderVectorLiteral(1, 2);
+    }
+
+    public get v3(): WglShaderVectorLiteral {
+        return new WglShaderVectorLiteral(1, 2, 3);
+    }
+
+    public get v4(): WglShaderVectorLiteral {
+        return new WglShaderVectorLiteral(1, 2, 3, 4);
+    }
+
 
 }

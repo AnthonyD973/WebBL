@@ -15,10 +15,12 @@ describe(WglShaderSubtract.name, () => {
     });
 
     it('should be created', () => {
-        const operation = new WglShaderSubtract(s.bTrue, s.bTrue);
+        const bTrueLeft = s.bTrue;
+        const bTrueRight = s.bTrue;
+        const operation = new WglShaderSubtract(bTrueLeft, bTrueRight);
         expect(operation).toBeTruthy();
-        expect(operation.lhs).toBe(s.bTrue);
-        expect(operation.rhs).toBe(s.bTrue);
+        expect(operation.lhs).toBe(bTrueLeft);
+        expect(operation.rhs).toBe(bTrueRight);
         expect(operation.type).toEqual(new WglShaderBooleanType());
     });
 
