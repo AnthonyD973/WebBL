@@ -48,10 +48,4 @@ describe('WglShaderVariable', () => {
 
     });
 
-    describe('parse', () => {
-        it('should parse a variable declaration', () => {
-            expect(var1.parse()).toMatch(/\s*TestType\smyVar;/);
-        });
-    });
-
 });
