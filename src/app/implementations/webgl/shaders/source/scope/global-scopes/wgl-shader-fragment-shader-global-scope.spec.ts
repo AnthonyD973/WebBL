@@ -6,6 +6,7 @@ import { WglShaderIntegerType } from '../../expression/types/wgl-shader-integer-
 import { WglShaderVaryingOutputSide } from '../../expression/lvalues/wgl-shader-varying-output-side';
 import { WglShaderVaryingInputSide } from '../../expression/lvalues/wgl-shader-varying-input-side';
 import { WglShaderFunctionSignature } from '../../expression/types/wgl-shader-function-signature';
+import { WglShaderLValueDeclarationParser } from '../../expression/lvalues/lvalue-parsers/wgl-shader-l-value-declaration-parser';
 
 describe(WglShaderFragmentShaderGlobalScope.name, () => {
 
@@ -30,7 +31,7 @@ describe(WglShaderFragmentShaderGlobalScope.name, () => {
 
             expect(varying.name).toEqual(refVarying.name);
             expect(varying.type).toEqual(refVarying.type);
-            expect(varying.parse()).toEqual(refVarying.parse());
+            expect(new WglShaderLValueDeclarationParser(varying).parse()).toEqual(new WglShaderLValueDeclarationParser(refVarying).parse());
             expect(varying.isReadable()).toEqual(refVarying.isReadable());
             expect(varying.isWritable()).toEqual(refVarying.isWritable());
         });

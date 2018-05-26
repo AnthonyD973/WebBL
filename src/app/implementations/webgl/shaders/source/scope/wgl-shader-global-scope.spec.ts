@@ -12,6 +12,7 @@ import { WglShaderVoidType } from '../expression/types/wgl-shader-void-type';
 import { Shader } from '../../../../../api/shaders/shader';
 import { WglTestingVertexShaderValid } from '../../testing/shaders/wgl-testing-vertex-shader-valid';
 import { WglShaderVertexShaderGlobalScope } from './global-scopes/wgl-shader-vertex-shader-global-scope';
+import { WglShaderLValueDeclarationParser } from '../expression/lvalues/lvalue-parsers/wgl-shader-l-value-declaration-parser';
 
 describe(WglShaderGlobalScope.name, () => {
 
@@ -49,9 +50,9 @@ describe(WglShaderGlobalScope.name, () => {
             const main = scope.createFunction(
                 'main', [], new WglShaderVoidType()
             );
-            const uni1Regex  = WglShaderTestingUtil.escapeRegexCharacters(uni1 .parse());
-            const inp1Regex  = WglShaderTestingUtil.escapeRegexCharacters(inp1 .parse());
-            const outp1Regex = WglShaderTestingUtil.escapeRegexCharacters(outp1.parse());
+            const uni1Regex  = WglShaderTestingUtil.escapeRegexCharacters(new WglShaderLValueDeclarationParser(uni1).parse());
+            const inp1Regex  = WglShaderTestingUtil.escapeRegexCharacters(new WglShaderLValueDeclarationParser(inp1).parse());
+            const outp1Regex = WglShaderTestingUtil.escapeRegexCharacters(new WglShaderLValueDeclarationParser(outp1).parse());
             const func1Regex = WglShaderTestingUtil.escapeRegexCharacters(func1.parse());
             const mainRegex  = WglShaderTestingUtil.escapeRegexCharacters(main .parse());
 

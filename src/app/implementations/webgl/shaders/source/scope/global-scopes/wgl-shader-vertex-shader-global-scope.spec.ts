@@ -5,6 +5,7 @@ import { WglShaderAttribute } from '../../expression/lvalues/wgl-shader-attribut
 import { WglShaderIntegerType } from '../../expression/types/wgl-shader-integer-type';
 import { WglShaderVaryingOutputSide } from '../../expression/lvalues/wgl-shader-varying-output-side';
 import { WglShaderFunctionSignature } from '../../expression/types/wgl-shader-function-signature';
+import { WglShaderLValueDeclarationParser } from '../../expression/lvalues/lvalue-parsers/wgl-shader-l-value-declaration-parser';
 
 describe(WglShaderVertexShaderGlobalScope.name, () => {
 
@@ -29,7 +30,7 @@ describe(WglShaderVertexShaderGlobalScope.name, () => {
 
             expect(attrib.name).toEqual(refAttrib.name);
             expect(attrib.type).toEqual(refAttrib.type);
-            expect(attrib.parse()).toEqual(refAttrib.parse());
+            expect(new WglShaderLValueDeclarationParser(attrib).parse()).toEqual(new WglShaderLValueDeclarationParser(refAttrib).parse());
             expect(attrib.isReadable()).toEqual(refAttrib.isReadable());
             expect(attrib.isWritable()).toEqual(refAttrib.isWritable());
         });
@@ -65,7 +66,7 @@ describe(WglShaderVertexShaderGlobalScope.name, () => {
 
             expect(varying.name).toEqual(refVarying.name);
             expect(varying.type).toEqual(refVarying.type);
-            expect(varying.parse()).toEqual(refVarying.parse());
+            expect(new WglShaderLValueDeclarationParser(varying).parse()).toEqual(new WglShaderLValueDeclarationParser(refVarying).parse());
             expect(varying.isReadable()).toEqual(refVarying.isReadable());
             expect(varying.isWritable()).toEqual(refVarying.isWritable());
         });
