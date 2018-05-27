@@ -22,7 +22,6 @@ export class VisitorDispatcher
         this.operations = operations;
         this.v1Visitor = v1Visitor;
         this.v2Visitor = v2Visitor;
-        console.log(v1Visitor, v2Visitor);
     }
 
     public visit(v1: V1, v2: V2): Ret {
