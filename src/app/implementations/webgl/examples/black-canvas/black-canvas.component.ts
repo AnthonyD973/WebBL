@@ -7,6 +7,7 @@ import { WglShaderAssignment } from '../../shaders/source/expression/operators/b
 import { WglShaderVariable } from '../../shaders/source/expression/lvalues/wgl-shader-variable';
 import { WglShaderVectorType } from '../../shaders/source/expression/types/wgl-shader-vector-type';
 import { WglShaderVectorLiteral } from '../../shaders/source/expression/rvalues/wgl-shader-vector-literal';
+import { WglShaderLValueNameParser } from '../../shaders/source/expression/lvalues/lvalue-parsers/wgl-shader-l-value-name-parser';
 
 @Component({
     selector: 'app-black-canvas',
@@ -34,7 +35,7 @@ export class BlackCanvasComponent implements OnInit {
             new WglShaderStatement(
                 new WglShaderAssignment(
                     glPos,
-                    inp
+                    new WglShaderLValueNameParser(inp)
                 )
             )
         );
@@ -54,29 +55,31 @@ export class BlackCanvasComponent implements OnInit {
         console.log(prgm.vertexShader.parse(), '\n\n');
         console.log(prgm.fragmentShader.parse());
 
+        prgm.end();
+
         const positionBuffer = gl.createBuffer();
 
-  // Select the positionBuffer as the one to apply buffer
-  // operations to from here out.
+        // Select the positionBuffer as the one to apply buffer
+        // operations to from here out.
 
-  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+        gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
-  // Now create an array of positions for the square.
+        // Now create an array of positions for the square.
 
-  const positions = [
-     1.0,  1.0,
-    -1.0,  1.0,
-     1.0, -1.0,
-    -1.0, -1.0,
-  ];
+        const positions = [
+             1.0,  1.0,
+            -1.0,  1.0,
+             1.0, -1.0,
+            -1.0, -1.0,
+        ];
 
-  // Now pass the list of positions into WebGL to build the
-  // shape. We do this by creating a Float32Array from the
-  // JavaScript array, then use it to fill the current buffer.
+        // Now pass the list of positions into WebGL to build the
+        // shape. We do this by creating a Float32Array from the
+        // JavaScript array, then use it to fill the current buffer.
 
-  gl.bufferData(gl.ARRAY_BUFFER,
-                new Float32Array(positions),
-                gl.STATIC_DRAW);
+        gl.bufferData(gl.ARRAY_BUFFER,
+            new Float32Array(positions),
+            gl.STATIC_DRAW);
         gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
         const vertexPosition = gl.getAttribLocation(prgm['glProgram'], 'aVertexPosition');
         gl.vertexAttribPointer(
@@ -89,7 +92,7 @@ export class BlackCanvasComponent implements OnInit {
         );
         gl.enableVertexAttribArray(vertexPosition);
 
-        // bl.useProgram(prgm);
+        bl.useProgram(prgm);
 
         this.sceneRenderer = new SceneRenderer(gl);
         this.sceneRenderer.startRendering();
