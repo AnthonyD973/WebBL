@@ -14,6 +14,7 @@ import { ShaderUniform } from '../../../../../api/shaders/source/expression/lval
 import { WglShaderUniform } from '../expression/lvalues/wgl-shader-uniform';
 import { WglShaderLValueDeclarationParser } from '../expression/lvalues/lvalue-parsers/wgl-shader-l-value-declaration-parser';
 import { WglShaderVariable } from '../expression/lvalues/wgl-shader-variable';
+import { WglShaderStatement } from '../statement/wgl-shader-statement';
 
 export abstract class WglShaderGlobalScope implements ShaderGlobalScope {
 
@@ -31,13 +32,21 @@ export abstract class WglShaderGlobalScope implements ShaderGlobalScope {
         this.assertMainExists();
 
         let parsedUniforms = '';
-        this.uniforms.forEach(uniform => parsedUniforms = parsedUniforms + new WglShaderLValueDeclarationParser(uniform).parse() + '\n');
+        this.uniforms.forEach(uniform =>
+            parsedUniforms = parsedUniforms + new WglShaderStatement(new WglShaderLValueDeclarationParser(uniform)).parse() + '\n'
+        );
         let parsedInputs = '';
-        this.inputs.forEach(input => parsedInputs = parsedInputs + new WglShaderLValueDeclarationParser(input).parse() + '\n');
+        this.inputs.forEach(
+            input => parsedInputs = parsedInputs + new WglShaderStatement(new WglShaderLValueDeclarationParser(input)).parse() + '\n'
+        );
         let parsedOutputs = '';
-        this.outputs.forEach(output => parsedOutputs = parsedOutputs + new WglShaderLValueDeclarationParser(output).parse() + '\n');
+        this.outputs.forEach(
+            output => parsedOutputs = parsedOutputs + new WglShaderStatement(new WglShaderLValueDeclarationParser(output)).parse() + '\n'
+        );
         let parsedFunctions = '';
-        this.functions.forEach(func => parsedFunctions = parsedFunctions + func.parse() + '\n\n');
+        this.functions.forEach(
+            func => parsedFunctions = parsedFunctions + func.parse() + '\n\n'
+        );
 
         const parsedShader = parsedUniforms + '\n' + parsedInputs + '\n' + parsedOutputs + '\n' + parsedFunctions;
         return parsedShader;
