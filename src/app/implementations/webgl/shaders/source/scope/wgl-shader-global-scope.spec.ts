@@ -50,9 +50,9 @@ describe(WglShaderGlobalScope.name, () => {
             const main = scope.createFunction(
                 'main', [], new WglShaderVoidType()
             );
-            const uni1Regex  = WglShaderTestingUtil.escapeRegexCharacters(new WglShaderLValueDeclarationParser(uni1).parse());
-            const inp1Regex  = WglShaderTestingUtil.escapeRegexCharacters(new WglShaderLValueDeclarationParser(inp1).parse());
-            const outp1Regex = WglShaderTestingUtil.escapeRegexCharacters(new WglShaderLValueDeclarationParser(outp1).parse());
+            const uni1Regex  = WglShaderTestingUtil.escapeRegexCharacters(new WglShaderLValueDeclarationParser(uni1 ).parse()) + '\\s*;';
+            const inp1Regex  = WglShaderTestingUtil.escapeRegexCharacters(new WglShaderLValueDeclarationParser(inp1 ).parse()) + '\\s*;';
+            const outp1Regex = WglShaderTestingUtil.escapeRegexCharacters(new WglShaderLValueDeclarationParser(outp1).parse()) + '\\s*;';
             const func1Regex = WglShaderTestingUtil.escapeRegexCharacters(func1.parse());
             const mainRegex  = WglShaderTestingUtil.escapeRegexCharacters(main .parse());
 
