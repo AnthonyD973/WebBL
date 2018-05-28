@@ -61,15 +61,17 @@ export class BlackCanvasComponent implements OnInit {
             );
 
             const vsSource = vertexShader.parse();
-            console.log(vsSource);
 
             // Fragment shader program
-
-            const fsSource = `
-      void main() {
-        gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-      }
-    `;
+            const fragmentShader = bl.createFragmentShader();
+            const fsMain = fragmentShader.globalScope.createFunction('main', [], new WglShaderVoidType());
+            fsMain.codeBlock.statements.push(new WglShaderStatement(
+                new WglShaderAssignment(
+                    new WglShaderVariable('gl_FragColor', new WglShaderVectorType(4)),
+                    new WglShaderVectorLiteral(1.0, 1.0, 1.0, 1.0)
+                )
+            ));
+            const fsSource = fragmentShader.parse();
 
             // Initialize a shader program; this is where all the lighting
             // for the vertices and so forth is established.
