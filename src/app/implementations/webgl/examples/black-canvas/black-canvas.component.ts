@@ -25,7 +25,7 @@ export class BlackCanvasComponent implements OnInit {
     constructor() { }
 
     public ngOnInit() {
-        const bl = this.myCanvas.nativeElement.getContext('webbl-webgl');
+        const bL = this.myCanvas.nativeElement.getContext('webbl-webgl');
 
 
         //
@@ -63,7 +63,7 @@ export class BlackCanvasComponent implements OnInit {
 
             // Initialize a shader program; this is where all the lighting
             // for the vertices and so forth is established.
-            const shaderProgram = initShaderProgram(bl['gl'], vsSource, fsSource);
+            const shaderProgram = initShaderProgram(bl, vsSource, fsSource);
 
             // Collect all the info needed to use the shader program.
             // Look up which attribute our shader program is using
@@ -137,6 +137,7 @@ export class BlackCanvasComponent implements OnInit {
 
             // Clear the canvas before we start drawing on it.
 
+            // tslint:disable-next-line:no-bitwise
             gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
             // Create a perspective matrix, a special matrix that is
@@ -216,21 +217,21 @@ export class BlackCanvasComponent implements OnInit {
         //
         // Initialize a shader program, so WebGL knows how to draw our data
         //
-        function initShaderProgram(gl, vsSource, fsSource) {
-            const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
-            const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
+        function initShaderProgram(bl: WebBLRenderingContextForWebGL, vsSource: string, fsSource: string) {
+            const vertexShader = loadShader(bl['gl'], bl['gl'].VERTEX_SHADER, vsSource);
+            const fragmentShader = loadShader(bl['gl'], bl['gl'].FRAGMENT_SHADER, fsSource);
 
             // Create the shader program
 
-            const shaderProgram = gl.createProgram();
-            gl.attachShader(shaderProgram, vertexShader);
-            gl.attachShader(shaderProgram, fragmentShader);
-            gl.linkProgram(shaderProgram);
+            const shaderProgram = bl['gl'].createProgram();
+            bl['gl'].attachShader(shaderProgram, vertexShader);
+            bl['gl'].attachShader(shaderProgram, fragmentShader);
+            bl['gl'].linkProgram(shaderProgram);
 
             // If creating the shader program failed, alert
 
-            if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-                alert('Unable to initialize the shader program: ' + gl.getProgramInfoLog(shaderProgram));
+            if (!bl['gl'].getProgramParameter(shaderProgram, bl['gl'].LINK_STATUS)) {
+                alert('Unable to initialize the shader program: ' + bl['gl'].getProgramInfoLog(shaderProgram));
                 return null;
             }
 
@@ -264,7 +265,7 @@ export class BlackCanvasComponent implements OnInit {
         }
 
 
-        main(bl);
+        main(bL);
 
         // const vs = bl.createVertexShader();
         // vs.globalScope.createInput('aVertexPosition', new WglShaderVectorType(4));
