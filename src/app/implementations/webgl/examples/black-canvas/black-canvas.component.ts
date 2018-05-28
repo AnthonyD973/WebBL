@@ -10,6 +10,8 @@ import { WglShaderVectorLiteral } from '../../shaders/source/expression/rvalues/
 import { WglShaderLValueNameParser } from '../../shaders/source/expression/lvalues/lvalue-parsers/wgl-shader-l-value-name-parser';
 import { mat4 } from 'gl-matrix';
 import { WebBLRenderingContextForWebGL } from '../../rendering-context.ts/webbl-rendering-context-for-webgl';
+import { WglShaderMatrixType } from '../../shaders/source/expression/types/wgl-shader-matrix-type';
+import { WglShaderMultiply } from '../../shaders/source/expression/operators/binary/wgl-shader-multiply';
 
 @Component({
     selector: 'app-black-canvas',
@@ -41,17 +43,25 @@ export class BlackCanvasComponent implements OnInit {
             }
 
             // Vertex shader program
+            const vertexShader = bl.createVertexShader();
+            vertexShader.globalScope.createInput('aVertexPosition', new WglShaderVectorType(4));
+            vertexShader.globalScope.createUniform('uModelViewMatrix', new WglShaderMatrixType(4, 4));
+            vertexShader.globalScope.createUniform('uProjectionMatrix', new WglShaderMatrixType(4, 4));
+            const vsMain = vertexShader.globalScope.createFunction('main', [], new WglShaderVoidType());
+            vsMain.codeBlock.statements.push(
+                new WglShaderStatement(new WglShaderAssignment(new WglShaderVariable('gl_Position', new WglShaderMatrixType(4, 4)),
+                    new WglShaderMultiply(
+                        new WglShaderLValueNameParser(new WglShaderVariable('uProjectionMatrix', new WglShaderMatrixType(4, 4))),
+                        new WglShaderMultiply(
+                            new WglShaderLValueNameParser(new WglShaderVariable('uModelViewMatrix', new WglShaderMatrixType(4, 4))),
+                            new WglShaderLValueNameParser(new WglShaderVariable('aVertexPosition', new WglShaderVectorType(4)))
+                        )
+                    )
+                ))
+            );
 
-            const vsSource = `
-      attribute vec4 aVertexPosition;
-
-      uniform mat4 uModelViewMatrix;
-      uniform mat4 uProjectionMatrix;
-
-      void main() {
-        gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
-      }
-    `;
+            const vsSource = vertexShader.parse();
+            console.log(vsSource);
 
             // Fragment shader program
 
