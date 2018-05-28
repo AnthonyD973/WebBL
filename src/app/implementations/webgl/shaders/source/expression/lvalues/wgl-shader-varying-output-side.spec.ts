@@ -21,17 +21,6 @@ describe(WglShaderVaryingOutputSide.name, () => {
         expect(variable.type).toBe(type);
     });
 
-    describe('parse', () => {
-
-        it('should work', () => {
-            const escapedType = Util.escapeRegexCharacters(type.parse());
-            const escapedName = Util.escapeRegexCharacters(name);
-            const parseRegex = new RegExp(`^\\s*varying\\s+${escapedType}\\s+${escapedName}\\s*;$`);
-            expect(variable.parse()).toMatch(parseRegex);
-        });
-
-    });
-
     describe('isReadable', () => {
 
         it('should return false', () => {
