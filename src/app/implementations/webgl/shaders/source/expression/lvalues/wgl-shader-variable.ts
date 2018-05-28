@@ -34,10 +34,6 @@ export class WglShaderVariable implements ShaderVariable {
         return true;
     }
 
-    public parse(): string {
-        return (this.type.parse() as String) + ' ' + this.name + ';';
-    }
-
     public acceptVisitor(v: ShaderGenericLValueParser): string {
         return v.parseVariable(this);
     }

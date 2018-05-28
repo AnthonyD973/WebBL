@@ -7,10 +7,6 @@ const TOKEN = 'varying';
 
 export class WglShaderVaryingInputSide extends WglShaderInput implements ShaderVaryingInputSide {
 
-    public parse(): string {
-        return TOKEN + ' ' + super.parse();
-    }
-
     public acceptVisitor(v: ShaderGenericLValueParser): string {
         return v.parseVaryingInputSide(this);
     }

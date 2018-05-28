@@ -7,10 +7,6 @@ const TOKEN = 'attribute';
 
 export class WglShaderAttribute extends WglShaderInput implements ShaderAttribute {
 
-    public parse(): string {
-        return TOKEN + ' ' + super.parse();
-    }
-
     public acceptVisitor(v: ShaderGenericLValueParser): string {
         return v.parseAttribute(this);
     }

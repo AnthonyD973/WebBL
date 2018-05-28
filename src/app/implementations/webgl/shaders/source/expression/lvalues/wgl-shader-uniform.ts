@@ -7,10 +7,6 @@ const TOKEN = 'uniform';
 
 export class WglShaderUniform extends WglShaderInput implements ShaderUniform {
 
-    public parse(): string {
-        return TOKEN + ' ' + super.parse();
-    }
-
     public acceptVisitor(v: ShaderGenericLValueParser): string {
         return v.parseUniform(this);
     }
