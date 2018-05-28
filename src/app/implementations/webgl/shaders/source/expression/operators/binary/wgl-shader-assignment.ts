@@ -5,13 +5,14 @@ import { ShaderBinaryOperator } from '../../../../../../../api/shaders/source/ex
 import { VisitorDispatcher } from '../../../../../../../util/visitor-dispatcher/visitor-dispatcher';
 import { ShaderExpressionTypeVisitor } from '../../../../../../../api/shaders/source/expression/shader-expression-type-visitor';
 import { WglShaderAssignmentVisitorDispatcher } from './visitor-dispatchers/wgl-shader-assignment-visitor-dispatcher';
+import { WglShaderLValueNameParser } from '../../lvalues/lvalue-parsers/wgl-shader-l-value-name-parser';
 
 const OPERATOR = '=';
 
 export class WglShaderAssignment implements ShaderBinaryOperator {
 
     public readonly type: ShaderExpressionType;
-    public readonly lhs: WglShaderVariable;
+    public readonly lhs: WglShaderLValueNameParser;
     public readonly rhs: ShaderExpression;
 
     protected visitorDispatcher:
@@ -19,14 +20,14 @@ export class WglShaderAssignment implements ShaderBinaryOperator {
 
     constructor(lhs: WglShaderVariable, rhs: ShaderExpression) {
         this.type = lhs.type;
-        this.lhs = lhs;
+        this.lhs = new WglShaderLValueNameParser(lhs);
         this.rhs = rhs;
         this.visitorDispatcher = new WglShaderAssignmentVisitorDispatcher();
         this.assertValid();
     }
 
     public parse(): string {
-        return this.lhs.name + ' ' + OPERATOR + ' ' + this.rhs.parse();
+        return this.lhs.variable.name + ' ' + OPERATOR + ' ' + this.rhs.parse();
     }
 
     protected assertValid(): void {
