@@ -75,19 +75,20 @@ export class BlackCanvasComponent implements OnInit {
 
             // Initialize a shader program; this is where all the lighting
             // for the vertices and so forth is established.
-            const shaderProgram = initShaderProgram(bl, vsSource, fsSource);
+            const shaderProgram = bl.createShaderProgram(vertexShader, fragmentShader);
+            shaderProgram.end();
 
             // Collect all the info needed to use the shader program.
             // Look up which attribute our shader program is using
             // for aVertexPosition and look up uniform locations.
             const programInfo = {
-                program: shaderProgram,
+                program: shaderProgram['glProgram'],
                 attribLocations: {
-                    vertexPosition: bl['gl'].getAttribLocation(shaderProgram, 'aVertexPosition'),
+                    vertexPosition: bl['gl'].getAttribLocation(shaderProgram['glProgram'], 'aVertexPosition'),
                 },
                 uniformLocations: {
-                    projectionMatrix: bl['gl'].getUniformLocation(shaderProgram, 'uProjectionMatrix'),
-                    modelViewMatrix: bl['gl'].getUniformLocation(shaderProgram, 'uModelViewMatrix'),
+                    projectionMatrix: bl['gl'].getUniformLocation(shaderProgram['glProgram'], 'uProjectionMatrix'),
+                    modelViewMatrix: bl['gl'].getUniformLocation(shaderProgram['glProgram'], 'uModelViewMatrix'),
                 },
             };
 
@@ -224,30 +225,6 @@ export class BlackCanvasComponent implements OnInit {
                 const vertexCount = 4;
                 gl.drawArrays(gl.TRIANGLE_STRIP, offset, vertexCount);
             }
-        }
-
-        //
-        // Initialize a shader program, so WebGL knows how to draw our data
-        //
-        function initShaderProgram(bl: WebBLRenderingContextForWebGL, vsSource: string, fsSource: string) {
-            const vertexShader = loadShader(bl['gl'], bl['gl'].VERTEX_SHADER, vsSource);
-            const fragmentShader = loadShader(bl['gl'], bl['gl'].FRAGMENT_SHADER, fsSource);
-
-            // Create the shader program
-
-            const shaderProgram = bl['gl'].createProgram();
-            bl['gl'].attachShader(shaderProgram, vertexShader);
-            bl['gl'].attachShader(shaderProgram, fragmentShader);
-            bl['gl'].linkProgram(shaderProgram);
-
-            // If creating the shader program failed, alert
-
-            if (!bl['gl'].getProgramParameter(shaderProgram, bl['gl'].LINK_STATUS)) {
-                alert('Unable to initialize the shader program: ' + bl['gl'].getProgramInfoLog(shaderProgram));
-                return null;
-            }
-
-            return shaderProgram;
         }
 
         //
