@@ -65,11 +65,10 @@ export class GettingStartedComponent implements OnInit {
             fsMain.codeBlock.statements.push(new WglShaderStatement(
                 new WglShaderAssignment(
                     new WglShaderVariable('gl_FragColor', new WglShaderVectorType(4)),
-                    new WglShaderVectorLiteral(1.0, 0.5, 0.0, 0.5)
+                    new WglShaderVectorLiteral(1.0, 1.0, 1.0, 1.0)
                 )
             ));
             const fsSource = fragmentShader.parse();
-            console.log('fs src: \n', fsSource);
 
             // Initialize a shader program; this is where all the lighting
             // for the vertices and so forth is established.
