@@ -68,7 +68,7 @@ export class BlackCanvasComponent implements OnInit {
             fsMain.codeBlock.statements.push(new WglShaderStatement(
                 new WglShaderAssignment(
                     new WglShaderVariable('gl_FragColor', new WglShaderVectorType(4)),
-                    new WglShaderVectorLiteral(1.0, 0.5, 0.0, 1.0)
+                    new WglShaderVectorLiteral(1.0, 0.5, 0.0, 0.5)
                 )
             ));
             const fsSource = fragmentShader.parse();
@@ -148,6 +148,9 @@ export class BlackCanvasComponent implements OnInit {
             bl['gl'].clearDepth(1.0);                 // Clear everything
             bl['gl'].enable(bl['gl'].DEPTH_TEST);           // Enable depth testing
             bl['gl'].depthFunc(bl['gl'].LEQUAL);            // Near things obscure far things
+
+            bl['gl'].enable(bl['gl'].BLEND);
+            bl['gl'].blendFunc(bl['gl'].SRC_ALPHA, bl['gl'].ONE_MINUS_SRC_ALPHA);
 
             // Clear the canvas before we start drawing on it.
 
