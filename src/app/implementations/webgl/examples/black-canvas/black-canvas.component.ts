@@ -68,10 +68,11 @@ export class BlackCanvasComponent implements OnInit {
             fsMain.codeBlock.statements.push(new WglShaderStatement(
                 new WglShaderAssignment(
                     new WglShaderVariable('gl_FragColor', new WglShaderVectorType(4)),
-                    new WglShaderVectorLiteral(1.0, 1.0, 1.0, 1.0)
+                    new WglShaderVectorLiteral(1.0, 0.5, 0.0, 1.0)
                 )
             ));
             const fsSource = fragmentShader.parse();
+            console.log('fs src: \n', fsSource);
 
             // Initialize a shader program; this is where all the lighting
             // for the vertices and so forth is established.
@@ -94,7 +95,7 @@ export class BlackCanvasComponent implements OnInit {
 
             // Here's where we call the routine that builds all the
             // objects we'll be drawing.
-            const buffers = initBuffers(bl['gl']);
+            const buffers = initBuffers(bl);
 
             // Draw the scene
             drawScene(bl['gl'], programInfo, buffers);
@@ -106,16 +107,16 @@ export class BlackCanvasComponent implements OnInit {
         // Initialize the buffers we'll need. For this demo, we just
         // have one object -- a simple two-dimensional square.
         //
-        function initBuffers(gl) {
+        function initBuffers(bl: WebBLRenderingContextForWebGL) {
 
             // Create a buffer for the square's positions.
 
-            const positionBuffer = gl.createBuffer();
+            const positionBuffer = bl['gl'].createBuffer();
 
             // Select the positionBuffer as the one to apply buffer
             // operations to from here out.
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+            bl['gl'].bindBuffer(bl['gl'].ARRAY_BUFFER, positionBuffer);
 
             // Now create an array of positions for the square.
 
@@ -130,12 +131,12 @@ export class BlackCanvasComponent implements OnInit {
             // shape. We do this by creating a Float32Array from the
             // JavaScript array, then use it to fill the current buffer.
 
-            gl.bufferData(gl.ARRAY_BUFFER,
+            bl['gl'].bufferData(bl['gl'].ARRAY_BUFFER,
                 new Float32Array(positions),
-                gl.STATIC_DRAW);
+                bl['gl'].STATIC_DRAW);
 
             return {
-                position: positionBuffer,
+                position: positionBuffer
             };
         }
 
