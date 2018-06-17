@@ -98,7 +98,7 @@ export class BlackCanvasComponent implements OnInit {
             const buffers = initBuffers(bl);
 
             // Draw the scene
-            drawScene(bl['gl'], programInfo, buffers);
+            drawScene(bl, programInfo, buffers);
         }
 
         //
@@ -143,16 +143,16 @@ export class BlackCanvasComponent implements OnInit {
         //
         // Draw the scene.
         //
-        function drawScene(gl, programInfo, buffers) {
-            gl.clearColor(0.0, 0.0, 0.0, 1.0);  // Clear to black, fully opaque
-            gl.clearDepth(1.0);                 // Clear everything
-            gl.enable(gl.DEPTH_TEST);           // Enable depth testing
-            gl.depthFunc(gl.LEQUAL);            // Near things obscure far things
+        function drawScene(bl: WebBLRenderingContextForWebGL, programInfo, buffers) {
+            bl['gl'].clearColor(0.0, 0.0, 0.0, 1.0);  // Clear to black, fully opaque
+            bl['gl'].clearDepth(1.0);                 // Clear everything
+            bl['gl'].enable(bl['gl'].DEPTH_TEST);           // Enable depth testing
+            bl['gl'].depthFunc(bl['gl'].LEQUAL);            // Near things obscure far things
 
             // Clear the canvas before we start drawing on it.
 
             // tslint:disable-next-line:no-bitwise
-            gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+            bl['gl'].clear(bl['gl'].COLOR_BUFFER_BIT | bl['gl'].DEPTH_BUFFER_BIT);
 
             // Create a perspective matrix, a special matrix that is
             // used to simulate the distortion of perspective in a camera.
@@ -162,7 +162,7 @@ export class BlackCanvasComponent implements OnInit {
             // and 100 units away from the camera.
 
             const fieldOfView = 45 * Math.PI / 180;   // in radians
-            const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
+            const aspect = bl['gl'].canvas.clientWidth / bl['gl'].canvas.clientHeight;
             const zNear = 0.1;
             const zFar = 100.0;
             const projectionMatrix = mat4.create();
@@ -190,33 +190,33 @@ export class BlackCanvasComponent implements OnInit {
             // buffer into the vertexPosition attribute.
             {
                 const numComponents = 2;
-                const type = gl.FLOAT;
+                const type = bl['gl'].FLOAT;
                 const normalize = false;
                 const stride = 0;
                 const offset = 0;
-                gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position);
-                gl.vertexAttribPointer(
+                bl['gl'].bindBuffer(bl['gl'].ARRAY_BUFFER, buffers.position);
+                bl['gl'].vertexAttribPointer(
                     programInfo.attribLocations.vertexPosition,
                     numComponents,
                     type,
                     normalize,
                     stride,
                     offset);
-                gl.enableVertexAttribArray(
+                bl['gl'].enableVertexAttribArray(
                     programInfo.attribLocations.vertexPosition);
             }
 
             // Tell WebGL to use our program when drawing
 
-            gl.useProgram(programInfo.program);
+            bl['gl'].useProgram(programInfo.program);
 
             // Set the shader uniforms
 
-            gl.uniformMatrix4fv(
+            bl['gl'].uniformMatrix4fv(
                 programInfo.uniformLocations.projectionMatrix,
                 false,
                 projectionMatrix);
-            gl.uniformMatrix4fv(
+            bl['gl'].uniformMatrix4fv(
                 programInfo.uniformLocations.modelViewMatrix,
                 false,
                 modelViewMatrix);
@@ -224,7 +224,7 @@ export class BlackCanvasComponent implements OnInit {
             {
                 const offset = 0;
                 const vertexCount = 4;
-                gl.drawArrays(gl.TRIANGLE_STRIP, offset, vertexCount);
+                bl['gl'].drawArrays(bl['gl'].TRIANGLE_STRIP, offset, vertexCount);
             }
         }
 
