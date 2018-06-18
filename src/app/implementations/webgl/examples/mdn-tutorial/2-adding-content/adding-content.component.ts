@@ -13,17 +13,17 @@ import { WglShaderMultiply } from '../../../shaders/source/expression/operators/
 
 //////////////////////////////////////////////////////
 // This component is based off this MDN tutorial:
-// https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Getting_started_with_WebGL
+// https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Adding_2D_content_to_a_WebGL_context
 //
 // Tutorial by Mozilla Contributors and licensed under CC-BY-SA 2.5.
 /////////////////////////////////////////////////////
 
 @Component({
-    selector: 'app-getting-started',
-    templateUrl: './getting-started.component.html',
-    styleUrls: ['./getting-started.component.css']
+    selector: 'app-adding-content',
+    templateUrl: './adding-content.component.html',
+    styleUrls: ['./adding-content.component.css']
 })
-export class GettingStartedComponent implements OnInit {
+export class AddingContentComponent implements OnInit {
 
     @ViewChild('myCanvas') public myCanvas: ElementRef;
 
@@ -31,7 +31,6 @@ export class GettingStartedComponent implements OnInit {
 
     public ngOnInit() {
         const bL = this.myCanvas.nativeElement.getContext('webbl-webgl');
-
 
         //
         // Start here
@@ -232,4 +231,3 @@ export class GettingStartedComponent implements OnInit {
     }
 
 }
-
